@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 518330386}
   m_Layer: 0
   m_Name: WeakWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 1112168230}
   m_Layer: 0
   m_Name: HardWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -479,8 +479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348765018fd742848b7575f170879591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
   canDirect: 1
   direction: {x: 0, y: 0}
+  activeAngle: 80
+  forceStrength: 10
 --- !u!1 &1213594850
 GameObject:
   m_ObjectHideFlags: 0
