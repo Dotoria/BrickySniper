@@ -26,7 +26,14 @@ public class Arrow : MonoBehaviour
                 direction = (mousePosition - transform.position).normalized;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
 
-                angle = Mathf.Clamp(angle, -activeAngle, activeAngle);
+                if ((activeAngle < angle && angle <= 180) || (-(360 - activeAngle) < angle && angle <= -180))
+                {
+                    angle = activeAngle;
+                }
+                else if (-180 < angle && angle < -activeAngle)
+                {
+                    angle = -activeAngle;
+                }
                 
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             }

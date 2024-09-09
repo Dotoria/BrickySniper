@@ -3,7 +3,8 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float speed = 100000f;
+    //public float speed = 8388607;
+    public float speed = float.MaxValue;
     
     void Awake()
     {
@@ -16,6 +17,10 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
         if (other.gameObject.CompareTag("Wall"))
         {
             WallCollision();
