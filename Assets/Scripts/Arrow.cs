@@ -5,15 +5,19 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     private Player player;
+    private BoxCollider2D playerCollider;
+    
     public GameObject ball;
     public GameObject tracer;
+    private GameObject newBall;
     
     public bool canDirect = true;
     public Vector2 direction;
     public float activeAngle = 80f;
-    private bool shootOk = true;
 
     public int remainBall;
+    // private bool shootOk = true;
+
     private Rigidbody2D ballRB;
     private Rigidbody2D tracerRB;
     private float speed = 10f;
@@ -21,27 +25,31 @@ public class Arrow : MonoBehaviour
     void Awake()
     {
         player = GetComponentInParent<Player>();
+        playerCollider = player.GetComponent<BoxCollider2D>();
+        playerCollider.enabled = false;
+        
         // warning message 없앨 방법
-        GameObject newBall = Instantiate(ball, transform.position, transform.rotation);
+        newBall = Instantiate(ball, transform.position, transform.rotation);
         ballRB = newBall.GetComponent<Rigidbody2D>();
         tracerRB = tracer.GetComponent<Rigidbody2D>();
+        
+        // remainBall 수를 나중에 변경할 수 있도록
+        if (remainBall > 0)
+        {
+            Vector3 pos = new Vector3(transform.position.x - 0.3f, transform.position.y - 0.3f);
+            for (int i = 0; i < remainBall - 1; i++)
+            {
+                pos.x += 0.1f;
+                Instantiate(ball, pos, transform.rotation);
+                ball.GetComponent<CircleCollider2D>().enabled = false;
+            }
+        }
     }
 
     void Update()
     {
         if (canDirect)
         {
-            // remainBall 수를 나중에 변경할 수 있도록
-            // if (remainBall > 0)
-            // {
-            //     ball = Instantiate(ball, transform.position, transform.rotation);
-            //     ballRB.gravityScale = 0f;
-            //     ballRB.drag = 0f;
-            //     ballRB.angularDrag = 0f;
-            //
-            //     remainBall--;
-            // }
-            
             if (Input.GetMouseButton(0))
             {
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -60,7 +68,7 @@ public class Arrow : MonoBehaviour
                 }
                 
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-                ball.transform.rotation = transform.rotation;
+                newBall.transform.rotation = transform.rotation;
                 // tracer 작성 필요
             }
             
@@ -70,9 +78,16 @@ public class Arrow : MonoBehaviour
                 player.canDrag = !player.canDrag;
                 
                 ballRB.velocity = speed * transform.up;
-                gameObject.SetActive(false);
+                StartCoroutine(MakeCollider());
             }
             
         }
+    }
+
+    IEnumerator MakeCollider()
+    {
+        yield return new WaitForSeconds(0.2f);
+        playerCollider.enabled = true;
+        gameObject.SetActive(false);
     }
 }
