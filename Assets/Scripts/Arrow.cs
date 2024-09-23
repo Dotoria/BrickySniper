@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,40 +10,38 @@ public class Arrow : MonoBehaviour
     
     public GameObject ball;
     public GameObject tracer;
-    private GameObject newBall;
     
     public bool canDirect = true;
     public Vector2 direction;
     public float activeAngle = 80f;
 
     public int remainBall;
-    // private bool shootOk = true;
+    private List<GameObject> ballList = new();
 
     private Rigidbody2D ballRB;
     private Rigidbody2D tracerRB;
     private float speed = 10f;
+    private float xOffset = 0.1f;
     
-    void Awake()
+    void OnEnable()
     {
         player = GetComponentInParent<Player>();
         playerCollider = player.GetComponent<BoxCollider2D>();
         playerCollider.enabled = false;
         
-        // warning message 없앨 방법
-        newBall = Instantiate(ball, transform.position, transform.rotation);
-        ballRB = newBall.GetComponent<Rigidbody2D>();
-        tracerRB = tracer.GetComponent<Rigidbody2D>();
+        canDirect = true;
+        player.canDrag = false;
         
-        // remainBall 수를 나중에 변경할 수 있도록
-        if (remainBall > 0)
+        // List 생성
+        if (ballList.Count == 0)
         {
-            Vector3 pos = new Vector3(transform.position.x - 0.3f, transform.position.y - 0.3f);
-            for (int i = 0; i < remainBall - 1; i++)
-            {
-                pos.x += 0.1f;
-                Instantiate(ball, pos, transform.rotation);
-                ball.GetComponent<CircleCollider2D>().enabled = false;
-            }
+            InitializeBalls();
+        }
+
+        // 첫 번째 Ball 장착
+        if (ballList.Count > 0)
+        {
+            ShiftBalls();
         }
     }
 
@@ -50,13 +49,15 @@ public class Arrow : MonoBehaviour
     {
         if (canDirect)
         {
+            float angle = 0f;
+            
             if (Input.GetMouseButton(0))
             {
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = 0;
                 
                 direction = (mousePosition - transform.position).normalized;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+                angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
 
                 if ((activeAngle < angle && angle <= 180) || (-(360 - activeAngle) < angle && angle <= -180))
                 {
@@ -68,7 +69,6 @@ public class Arrow : MonoBehaviour
                 }
                 
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-                newBall.transform.rotation = transform.rotation;
                 // tracer 작성 필요
             }
             
@@ -76,11 +76,15 @@ public class Arrow : MonoBehaviour
             {
                 canDirect = !canDirect;
                 player.canDrag = !player.canDrag;
-                
+                remainBall--;
+
+                ballRB.transform.SetParent(null);
+                ballRB.rotation = angle;
                 ballRB.velocity = speed * transform.up;
                 StartCoroutine(MakeCollider());
+                
+                ballList.RemoveAt(0);
             }
-            
         }
     }
 
@@ -89,5 +93,44 @@ public class Arrow : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         playerCollider.enabled = true;
         gameObject.SetActive(false);
+    }
+
+    void InitializeBalls()
+    {
+        Vector3 pos = new Vector3(transform.position.x - 0.3f, transform.position.y - 0.3f);
+        for (int i = 0; i < remainBall; i++)
+        {
+            GameObject newBall = Instantiate(ball, pos, Quaternion.identity);
+            newBall.transform.SetParent(player.transform, true);
+            newBall.GetComponent<CircleCollider2D>().enabled = false;
+            ballList.Add(newBall);
+            pos.x += xOffset;
+        }
+    }
+    
+    void ShiftBalls()
+    {
+        if (ballList.Count > 1)
+        {
+            for (int i = ballList.Count - 1; i > 0; i--)
+            {
+                Vector3 newPos = ballList[i - 1].transform.position;
+                ballList[i].transform.position = newPos;
+            }
+        }
+
+        GameObject firstBall = ballList[0];
+        firstBall.transform.position = transform.position;
+        firstBall.GetComponent<CircleCollider2D>().enabled = true;
+        ballRB = firstBall.GetComponent<Rigidbody2D>();
+    }
+
+    void AddBall()
+    {
+        Vector3 newPos = ballList[^1].transform.position;
+        newPos.x += xOffset;
+        GameObject newBall = Instantiate(ball, newPos, Quaternion.identity);
+        newBall.GetComponent<CircleCollider2D>().enabled = false;
+        ballList.Add(newBall);
     }
 }
