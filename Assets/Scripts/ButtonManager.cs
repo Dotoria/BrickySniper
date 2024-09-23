@@ -25,7 +25,6 @@ public class ButtonManager : MonoBehaviour
 
     void ReloadButtonClick()
     {
-        Debug.Log("balls " + arrow.remainBall);
         if (arrow.remainBall < 1) return;
         arrow.GameObject().SetActive(true);
     }

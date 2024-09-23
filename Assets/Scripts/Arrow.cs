@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,12 +18,18 @@ public class Arrow : MonoBehaviour
 
     public int remainBall;
     private List<GameObject> ballList = new();
+    public ObjectPool ballPool;
 
     private Rigidbody2D ballRB;
     private Rigidbody2D tracerRB;
     private float speed = 10f;
     private float xOffset = 0.1f;
-    
+
+    private void Awake()
+    {
+        ballPool = new ObjectPool(ball, remainBall);
+    }
+
     void OnEnable()
     {
         player = GetComponentInParent<Player>();
@@ -78,7 +85,6 @@ public class Arrow : MonoBehaviour
                 player.canDrag = !player.canDrag;
                 remainBall--;
 
-                ballRB.transform.SetParent(null);
                 ballRB.rotation = angle;
                 ballRB.velocity = speed * transform.up;
                 StartCoroutine(MakeCollider());
@@ -100,7 +106,8 @@ public class Arrow : MonoBehaviour
         Vector3 pos = new Vector3(transform.position.x - 0.3f, transform.position.y - 0.3f);
         for (int i = 0; i < remainBall; i++)
         {
-            GameObject newBall = Instantiate(ball, pos, Quaternion.identity);
+            GameObject newBall = ballPool.GetFromPool();
+            newBall.transform.position = pos;
             newBall.transform.SetParent(player.transform, true);
             newBall.GetComponent<CircleCollider2D>().enabled = false;
             ballList.Add(newBall);
@@ -129,7 +136,8 @@ public class Arrow : MonoBehaviour
     {
         Vector3 newPos = ballList[^1].transform.position;
         newPos.x += xOffset;
-        GameObject newBall = Instantiate(ball, newPos, Quaternion.identity);
+        GameObject newBall = ballPool.GetFromPool();
+        newBall.transform.position = newPos;
         newBall.GetComponent<CircleCollider2D>().enabled = false;
         ballList.Add(newBall);
     }
