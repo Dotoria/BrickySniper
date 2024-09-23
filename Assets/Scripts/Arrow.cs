@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Arrow : MonoBehaviour
 {
@@ -56,10 +55,16 @@ public class Arrow : MonoBehaviour
     {
         if (canDirect)
         {
+            Time.timeScale = 0.2f;
             float angle = 0f;
             
             if (Input.GetMouseButton(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
+                
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = 0;
                 
@@ -81,6 +86,12 @@ public class Arrow : MonoBehaviour
             
             if (Input.GetMouseButtonUp(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
+                
+                Time.timeScale = 1f;
                 canDirect = !canDirect;
                 player.canDrag = !player.canDrag;
                 remainBall--;
