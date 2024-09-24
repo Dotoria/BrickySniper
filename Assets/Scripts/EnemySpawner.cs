@@ -53,8 +53,7 @@ public class EnemySpawner : MonoBehaviour
         
         // 정보 설정
         newEnemy.name = enemySO.prefabName;
-        if (!enemySO.prefabSprite) newEnemy.GetComponent<SpriteRenderer>().sprite = enemySO.prefabSprite;
-        else newEnemy.GetComponent<SpriteRenderer>().sprite = enemyPrefab.GetComponent<Sprite>();
+        newEnemy.GetComponent<SpriteRenderer>().sprite = enemySO.prefabSprite;
         
         // 속성 설정
         Enemy newEnemyInfo = newEnemy.GetComponent<Enemy>();
@@ -64,6 +63,8 @@ public class EnemySpawner : MonoBehaviour
         newEnemyInfo.attackLogic = enemySO.attackLogic;
         newEnemyInfo.attackTarget = enemySO.attackTarget;
         newEnemyInfo.moveLogic = enemySO.moveLogic;
+        
+        Debug.Log("at " + newEnemyInfo.attackTarget + ", al " + newEnemyInfo.attackLogic + ", ml " + newEnemyInfo.moveLogic);
         
         yield return null;
     }
