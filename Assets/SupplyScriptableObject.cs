@@ -4,5 +4,15 @@ using UnityEngine;
 public class SupplyScriptableObject : ScriptableObject
 {
     public string prefabName;
-    public Vector3 spawnPoint;
+    public Sprite prefabSprite;
+
+    public int healthPoint;
+
+    public SupplyLogic supplyLogic;
+    public Target supplyTarget;
+}
+
+public enum SupplyLogic
+{
+    Split
 }

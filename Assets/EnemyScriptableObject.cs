@@ -4,5 +4,13 @@ using UnityEngine;
 public class EnemyScriptableObject : ScriptableObject
 {
     public string prefabName;
-    public Vector3 spawnPoint;
+    public Sprite prefabSprite;
+    
+    public int healthPoint;
+    public int attackPoint;
+    public int movePoint;
+
+    public Target attackTarget;
+    public AttackLogic attackLogic;
+    public MoveLogic moveLogic;
 }

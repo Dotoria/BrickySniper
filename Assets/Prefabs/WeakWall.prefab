@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2324838288356671274}
   - component: {fileID: 8145845518885244420}
   - component: {fileID: 9170667153703711069}
+  - component: {fileID: -1377067911648096083}
   m_Layer: 0
   m_Name: WeakWall
   m_TagString: Wall
@@ -120,3 +121,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.20570642, y: 1.0934463}
   m_Direction: 0
+--- !u!114 &-1377067911648096083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6410597810360164619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -21,7 +21,7 @@ public class Arrow : MonoBehaviour
 
     private Rigidbody2D ballRB;
     private Rigidbody2D tracerRB;
-    private float speed = 10f;
+    private float speed = 3f;
     private float xOffset = 0.1f;
 
     private void Awake()
@@ -98,6 +98,7 @@ public class Arrow : MonoBehaviour
 
                 ballRB.rotation = angle;
                 ballRB.velocity = speed * transform.up;
+                ballRB.transform.SetParent(null);
                 StartCoroutine(MakeCollider());
                 
                 ballList.RemoveAt(0);

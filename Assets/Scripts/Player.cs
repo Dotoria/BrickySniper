@@ -7,8 +7,11 @@ public class Player : MonoBehaviour
     private Vector2 cameraSize;
     private RaycastHit2D hit;
 
+    public GameObject endMenuUI;
+
     public int remainBall;
     public bool canDrag;
+    public int health;
 
     void Awake()
     {
@@ -23,17 +26,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (hit.collider)
+        if (health == 0)
         {
-            if (hit.collider.CompareTag("Enemy"))
+            if (endMenuUI)
             {
-                Destroy(hit.collider.gameObject);
-                // 체력 감소
-            }
-            else if (hit.collider.CompareTag("Supply"))
-            {
-                Destroy(hit.collider.gameObject);
-                // 보급품 사용 버튼 활성화
+                Time.timeScale = 0f;
+                endMenuUI.SetActive(true);
             }
         }
     }

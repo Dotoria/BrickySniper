@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: NormalBall
   m_EditorClassIdentifier: 
   prefabName: "\uC77C\uBC18 \uD0C4\uC57D"
-  spawnPoint: {x: 0, y: 0, z: 0}
+  prefabSprite: {fileID: 0}
+  healthPoint: -1
+  attackPoint: 1
+  movePoint: 3
+  attackLogic: 0
+  moveLogic: 0

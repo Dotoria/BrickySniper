@@ -4,5 +4,12 @@ using UnityEngine;
 public class BallScriptableObject : ScriptableObject
 {
     public string prefabName;
-    public Vector3 spawnPoint;
+    public Sprite prefabSprite;
+
+    public int healthPoint;
+    public int attackPoint;
+    public int movePoint;
+
+    public AttackLogic attackLogic;
+    public MoveLogic moveLogic;
 }

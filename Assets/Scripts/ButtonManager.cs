@@ -8,7 +8,8 @@ public class ButtonManager : MonoBehaviour
     public Button SkillButton;
     public Button PauseButton;
     public Button ResumeButton;
-    public Button ExitButton;
+    public Button TryAgainButton;
+    public Button[] ExitButton;
     
     public GameObject pauseMenuUI;
 
@@ -22,7 +23,11 @@ public class ButtonManager : MonoBehaviour
         SkillButton.onClick.AddListener(SkillButtonClick);
         PauseButton.onClick.AddListener(PauseButtonClick);
         ResumeButton.onClick.AddListener(ResumeButtonClick);
-        ExitButton.onClick.AddListener(ExitButtonClick);
+        TryAgainButton.onClick.AddListener(TryAgainButtonClick);
+        foreach (var exit in ExitButton)
+        {
+            exit.onClick.AddListener(ExitButtonClick);
+        }
     }
 
     void Update()
@@ -63,6 +68,12 @@ public class ButtonManager : MonoBehaviour
             pauseMenuUI.SetActive(false);
         }
         PauseButton.gameObject.SetActive(true);
+    }
+    
+    // 게임 처음부터
+    void TryAgainButtonClick()
+    {
+        SceneLoader.LoadSceneByName("Game");
     }
 
     // 게임 나가기

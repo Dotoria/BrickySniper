@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3195c8b319244d11ab6a1631a5689b25, type: 3}
   m_Name: MobEnemy
   m_EditorClassIdentifier: 
-  prefabName: "\uC878\uBCD1"
-  spawnPoint: {x: 0, y: 0, z: 0}
+  prefabName: "\uC57D\uD55C \uC138\uADE0"
+  prefabSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  healthPoint: 3
+  attackPoint: 2
+  movePoint: 1
+  attackTarget: 0
+  attackLogic: 1
+  moveLogic: 1
