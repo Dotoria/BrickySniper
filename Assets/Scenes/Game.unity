@@ -2652,6 +2652,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
   tracer: {fileID: 8448292860651821755, guid: c477af1118dffde4ebdfec6c567d97b7, type: 3}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   canDirect: 1
   direction: {x: 0, y: 0}
   activeAngle: 80
@@ -3433,6 +3436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648b3769ef084bc2ad8bb3f7e006ce95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  supplyTypeList:
+  - {fileID: 11400000, guid: 7378729cf015a824d83e2de078deef76, type: 2}
+  supplyPrefab: {fileID: 4702298659442759134, guid: bd59a12dfd5e73b4392ccdb5e29f1c76, type: 3}
 --- !u!4 &1405054654
 Transform:
   m_ObjectHideFlags: 0
@@ -3819,7 +3825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a98caa9534d4adf82b1a8fd534fb400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endMenuUI: {fileID: 0}
+  endMenuUI: {fileID: 1050539936}
   remainBall: 0
   canDrag: 0
   health: 2

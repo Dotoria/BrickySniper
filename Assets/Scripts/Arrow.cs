@@ -10,6 +10,10 @@ public class Arrow : MonoBehaviour
     
     public GameObject ball;
     public GameObject tracer;
+    public LayerMask wallLayer;
+    private List<GameObject> tracerList = new();
+    private float distanceBetweenTracers = 0.5f;
+    private int numTracers = 20;
     
     public bool canDirect = true;
     public Vector2 direction;
@@ -49,6 +53,13 @@ public class Arrow : MonoBehaviour
         {
             ShiftBalls();
         }
+        
+        // tracer
+        tracerList = new List<GameObject>();
+        for (int i = 0; i < numTracers; i++)
+        {
+            tracerList.Add(Instantiate(tracer, transform.position, Quaternion.identity, transform));
+        }
     }
 
     void Update()
@@ -81,7 +92,22 @@ public class Arrow : MonoBehaviour
                 }
                 
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-                // tracer 작성 필요
+                
+                // tracer
+                for (int i = 0; i < numTracers; i++)
+                {
+                    // Update the position based on the direction and ensure it rotates around transform.position
+                    tracerList[i].transform.position = transform.position + new Vector3(direction.x, direction.y) * (distanceBetweenTracers * i);
+                    tracerList[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+                    // Perform raycast to detect walls
+                    RaycastHit2D hit = Physics2D.Raycast(tracerList[i].transform.position, direction, distanceBetweenTracers, wallLayer);
+                    if (hit.collider)
+                    {
+                        Vector2 normal = hit.normal;
+                        direction = Vector2.Reflect(direction, normal);
+                    }
+                }
             }
             
             if (Input.GetMouseButtonUp(0))
