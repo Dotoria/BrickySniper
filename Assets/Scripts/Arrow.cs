@@ -71,6 +71,7 @@ public class Arrow : MonoBehaviour
             
             if (Input.GetMouseButton(0))
             {
+                // UI와 겹칩 방지
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
                     return;
@@ -79,52 +80,31 @@ public class Arrow : MonoBehaviour
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = 0;
                 
+                // arrow
                 direction = (mousePosition - transform.position).normalized;
-                angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-
-                if ((activeAngle < angle && angle <= 180) || (-(360 - activeAngle) < angle && angle <= -180))
-                {
-                    angle = activeAngle;
-                }
-                else if (-180 < angle && angle < -activeAngle)
-                {
-                    angle = -activeAngle;
-                }
-                
+                angle = RestrictAngle(direction);
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
                 
                 // tracer
-                Vector2 currentDirection = direction; // 반사된 방향을 저장할 변수
-                Vector3 currentPosition = transform.position; // 트레이서의 현재 위치
+                Vector2 currentDirection = direction;
+                Vector3 currentPosition = transform.position;
                 int j = 1;
                 for (int i = 0; i < numTracers; i++)
                 {
-                    // 현재 트레이서의 위치 및 방향 업데이트
-                    tracerList[i].transform.position = currentPosition + new Vector3(currentDirection.x, currentDirection.y) * (distanceBetweenTracers * j);
+                    tracerList[i].transform.position = currentPosition + (Vector3)(currentDirection * (distanceBetweenTracers * j));
                     tracerList[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg - 90));
 
-                    // Raycast로 벽 충돌 감지
                     RaycastHit2D hit = Physics2D.CircleCast(tracerList[i].transform.position, 0.2f, currentDirection, distanceBetweenTracers, wallLayer);
                     if (hit.collider)
                     {
                         Vector2 normal = hit.normal;
-                        currentDirection = Vector2.Reflect(currentDirection, normal); // 방향을 반사
-
-                        // 남은 거리를 계산하여 다음 트레이서 위치 설정
+                        currentDirection = Vector2.Reflect(currentDirection, normal);
                         float remainingDistance = distanceBetweenTracers - hit.distance;
                         currentPosition = hit.point + currentDirection * remainingDistance;
-
-                        // 다음 트레이서에 반사된 방향을 적용
-                        if (i < numTracers - 1)
-                        {
-                            j = 1;
-                            tracerList[i + 1].transform.position = currentPosition;
-                            tracerList[i + 1].transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg - 90));
-                        }
+                        if (i < numTracers - 1) j = 1;
                     }
                     else
                     {
-                        // 충돌하지 않았을 때는 정상적으로 방향과 위치를 계속 유지
                         currentPosition += (Vector3)currentDirection * distanceBetweenTracers;
                     }
 
@@ -152,6 +132,22 @@ public class Arrow : MonoBehaviour
                 ballList.RemoveAt(0);
             }
         }
+    }
+
+    private float RestrictAngle(Vector2 vector2)
+    {
+        float angle = Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg - 90;
+
+        if ((activeAngle < angle && angle <= 180) || (-(360 - activeAngle) < angle && angle <= -180))
+        {
+            angle = activeAngle;
+        }
+        else if (-180 < angle && angle < -activeAngle)
+        {
+            angle = -activeAngle;
+        }
+
+        return angle;
     }
 
     IEnumerator MakeCollider()
