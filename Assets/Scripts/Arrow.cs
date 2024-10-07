@@ -12,7 +12,7 @@ public class Arrow : MonoBehaviour
     public GameObject tracer;
     public LayerMask wallLayer;
     private List<GameObject> tracerList = new();
-    private float distanceBetweenTracers = 0.5f;
+    private float distanceBetweenTracers = 0.2f;
     private int numTracers = 20;
     
     public bool canDirect = true;
@@ -94,19 +94,41 @@ public class Arrow : MonoBehaviour
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
                 
                 // tracer
+                Vector2 currentDirection = direction; // 반사된 방향을 저장할 변수
+                Vector3 currentPosition = transform.position; // 트레이서의 현재 위치
+                int j = 1;
                 for (int i = 0; i < numTracers; i++)
                 {
-                    // Update the position based on the direction and ensure it rotates around transform.position
-                    tracerList[i].transform.position = transform.position + new Vector3(direction.x, direction.y) * (distanceBetweenTracers * i);
-                    tracerList[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                    // 현재 트레이서의 위치 및 방향 업데이트
+                    tracerList[i].transform.position = currentPosition + new Vector3(currentDirection.x, currentDirection.y) * (distanceBetweenTracers * j);
+                    tracerList[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg - 90));
 
-                    // Perform raycast to detect walls
-                    RaycastHit2D hit = Physics2D.Raycast(tracerList[i].transform.position, direction, distanceBetweenTracers, wallLayer);
+                    // Raycast로 벽 충돌 감지
+                    RaycastHit2D hit = Physics2D.CircleCast(tracerList[i].transform.position, 0.2f, currentDirection, distanceBetweenTracers, wallLayer);
                     if (hit.collider)
                     {
                         Vector2 normal = hit.normal;
-                        direction = Vector2.Reflect(direction, normal);
+                        currentDirection = Vector2.Reflect(currentDirection, normal); // 방향을 반사
+
+                        // 남은 거리를 계산하여 다음 트레이서 위치 설정
+                        float remainingDistance = distanceBetweenTracers - hit.distance;
+                        currentPosition = hit.point + currentDirection * remainingDistance;
+
+                        // 다음 트레이서에 반사된 방향을 적용
+                        if (i < numTracers - 1)
+                        {
+                            j = 1;
+                            tracerList[i + 1].transform.position = currentPosition;
+                            tracerList[i + 1].transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg - 90));
+                        }
                     }
+                    else
+                    {
+                        // 충돌하지 않았을 때는 정상적으로 방향과 위치를 계속 유지
+                        currentPosition += (Vector3)currentDirection * distanceBetweenTracers;
+                    }
+
+                    j++;
                 }
             }
             
