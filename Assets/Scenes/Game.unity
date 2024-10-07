@@ -2650,7 +2650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348765018fd742848b7575f170879591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
   tracer: {fileID: 8448292860651821755, guid: c477af1118dffde4ebdfec6c567d97b7, type: 3}
   wallLayer:
     serializedVersion: 2
@@ -2658,7 +2657,11 @@ MonoBehaviour:
   canDirect: 1
   direction: {x: 0, y: 0}
   activeAngle: 80
+  shootMode: 0
+  ball: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
   remainBall: 10
+  supply: {fileID: 4702298659442759134, guid: bd59a12dfd5e73b4392ccdb5e29f1c76, type: 3}
+  remainSupply: 3
 --- !u!1 &1213594850
 GameObject:
   m_ObjectHideFlags: 0

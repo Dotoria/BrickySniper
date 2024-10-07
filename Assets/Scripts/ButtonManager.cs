@@ -39,13 +39,16 @@ public class ButtonManager : MonoBehaviour
     void ReloadButtonClick()
     {
         if (arrow.remainBall < 1) return;
+        arrow.shootMode = ShootMode.Ball;
         arrow.GameObject().SetActive(true);
     }
 
     // 스킬 사용하기
     void SkillButtonClick()
     {
-        
+        if (arrow.remainSupply < 1) return;
+        arrow.shootMode = ShootMode.Supply;
+        arrow.GameObject().SetActive(true);
     }
 
     // 게임 일시정지

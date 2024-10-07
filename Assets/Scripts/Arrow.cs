@@ -1,36 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum ShootMode
+{
+    Ball,
+    Supply,
+}
+
 public class Arrow : MonoBehaviour
 {
+    // player
     private Player player;
     private BoxCollider2D playerCollider;
     
-    public GameObject ball;
+    // tracer
     public GameObject tracer;
     public LayerMask wallLayer;
     private List<GameObject> tracerList = new();
+    private ObjectPool tracerPool;
     private float distanceBetweenTracers = 0.2f;
     private int numTracers = 20;
     
+    // arrow
     public bool canDirect = true;
     public Vector2 direction;
     public float activeAngle = 80f;
+    public ShootMode shootMode = ShootMode.Ball;
 
+    // GameObject - ball
+    public GameObject ball;
     public int remainBall;
     private List<GameObject> ballList = new();
     public ObjectPool ballPool;
-
     private Rigidbody2D ballRB;
-    private Rigidbody2D tracerRB;
     private float speed = 3f;
     private float xOffset = 0.1f;
+    
+    // GameObject - supply
+    public GameObject supply;
+    public int remainSupply;
+    private List<GameObject> supplyList = new();
+    public ObjectPool supplyPool;
+    private Rigidbody2D supplyRB;
 
     private void Awake()
     {
+        tracerPool = new ObjectPool(tracer, numTracers);
         ballPool = new ObjectPool(ball, remainBall);
+        supplyPool = new ObjectPool(supply, remainSupply);
     }
 
     void OnEnable()
@@ -42,23 +63,47 @@ public class Arrow : MonoBehaviour
         canDirect = true;
         player.canDrag = false;
         
-        // List 생성
+        // BallList 생성
         if (ballList.Count == 0)
         {
-            InitializeBalls();
+            InitializeObjects(ballPool, ballList, remainBall);
         }
 
-        // 첫 번째 Ball 장착
-        if (ballList.Count > 0)
+        // SupplyList 생성
+        if (supplyList.Count == 0)
         {
-            ShiftBalls();
+            InitializeObjects(supplyPool, supplyList, remainSupply);
+        }
+
+        // 첫 번째 Object 장착
+        if (shootMode == ShootMode.Ball && ballList.Count > 0)
+        {
+            ShiftObjects(ballList);
+            ballRB = ballList[0].GetComponent<Rigidbody2D>();
+        }
+        else if (shootMode == ShootMode.Supply && supplyList.Count > 0)
+        {
+            ShiftObjects(supplyList);
+            supplyRB = supplyList[0].GetComponent<Rigidbody2D>();
         }
         
         // tracer
         tracerList = new List<GameObject>();
         for (int i = 0; i < numTracers; i++)
         {
-            tracerList.Add(Instantiate(tracer, transform.position, Quaternion.identity, transform));
+            GameObject tracerObject = tracerPool.GetFromPool();
+            tracerObject.transform.position = transform.position;
+            tracerObject.transform.SetParent(transform);
+            tracerList.Add(tracerObject);
+        }
+        // Supply 장착 위치
+        if (shootMode == ShootMode.Supply)
+        {
+            GameObject supplyObject = supplyPool.GetFromPool();
+            supplyList[0] = supplyObject;
+            supplyObject.transform.position = transform.position;
+            supplyObject.transform.SetParent(null);
+            tracerList.Add(supplyObject);
         }
     }
 
@@ -77,6 +122,7 @@ public class Arrow : MonoBehaviour
                     return;
                 }
                 
+                // mouse 입력
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = 0;
                 
@@ -89,7 +135,7 @@ public class Arrow : MonoBehaviour
                 Vector2 currentDirection = direction;
                 Vector3 currentPosition = transform.position;
                 int j = 1;
-                for (int i = 0; i < numTracers; i++)
+                for (int i = 0; i < tracerList.Count; i++)
                 {
                     tracerList[i].transform.position = currentPosition + (Vector3)(currentDirection * (distanceBetweenTracers * j));
                     tracerList[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg - 90));
@@ -101,7 +147,7 @@ public class Arrow : MonoBehaviour
                         currentDirection = Vector2.Reflect(currentDirection, normal);
                         float remainingDistance = distanceBetweenTracers - hit.distance;
                         currentPosition = hit.point + currentDirection * remainingDistance;
-                        if (i < numTracers - 1) j = 1;
+                        if (i < tracerList.Count - 1) j = 1;
                     }
                     else
                     {
@@ -122,14 +168,27 @@ public class Arrow : MonoBehaviour
                 Time.timeScale = 1f;
                 canDirect = !canDirect;
                 player.canDrag = !player.canDrag;
-                remainBall--;
-
-                ballRB.rotation = angle;
-                ballRB.velocity = speed * transform.up;
-                ballRB.transform.SetParent(null);
-                StartCoroutine(MakeCollider());
                 
-                ballList.RemoveAt(0);
+                tracerPool.ReturnToPool(tracerPool);
+                tracerList.Clear();
+
+                if (shootMode == ShootMode.Ball)
+                {
+                    remainBall--;
+                    ballRB.rotation = angle;
+                    ballRB.velocity = speed * transform.up;
+                    ballRB.transform.SetParent(null);
+                    
+                    StartCoroutine(MakeCollider());
+                    ballList.RemoveAt(0);
+                }
+                else if (shootMode == ShootMode.Supply)
+                {
+                    remainSupply--;
+                    
+                    StartCoroutine(MakeCollider());
+                    supplyList.RemoveAt(0);
+                }
             }
         }
     }
@@ -154,47 +213,55 @@ public class Arrow : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         playerCollider.enabled = true;
+        tracerList.Clear();
         gameObject.SetActive(false);
     }
 
-    void InitializeBalls()
+    void InitializeObjects(ObjectPool objectPool, List<GameObject> objectList, int remainObject)
     {
         Vector3 pos = new Vector3(transform.position.x - 0.3f, transform.position.y - 0.3f);
-        for (int i = 0; i < remainBall; i++)
+        for (int i = 0; i < remainObject; i++)
         {
-            GameObject newBall = ballPool.GetFromPool();
-            newBall.transform.position = pos;
-            newBall.transform.SetParent(player.transform, true);
-            newBall.GetComponent<CircleCollider2D>().enabled = false;
-            ballList.Add(newBall);
+            GameObject newObject = objectPool.GetFromPool();
+            newObject.transform.position = pos;
+            newObject.transform.SetParent(player.transform, true);
+            newObject.GetComponent<Collider2D>().enabled = false;
+            objectList.Add(newObject);
             pos.x += xOffset;
         }
     }
     
-    void ShiftBalls()
+    void ShiftObjects(List<GameObject> objectList)
     {
-        if (ballList.Count > 1)
+        if (objectList.Count > 1)
         {
-            for (int i = ballList.Count - 1; i > 0; i--)
+            for (int i = objectList.Count - 1; i > 0; i--)
             {
-                Vector3 newPos = ballList[i - 1].transform.position;
-                ballList[i].transform.position = newPos;
+                Vector3 newPos = objectList[i - 1].transform.position;
+                objectList[i].transform.position = newPos;
             }
         }
 
-        GameObject firstBall = ballList[0];
-        firstBall.transform.position = transform.position;
-        firstBall.GetComponent<CircleCollider2D>().enabled = true;
-        ballRB = firstBall.GetComponent<Rigidbody2D>();
+        GameObject firstObject = objectList[0];
+        if (shootMode == ShootMode.Ball) firstObject.transform.position = transform.position;
+        firstObject.GetComponent<Collider2D>().enabled = true;
     }
 
-    void AddBall()
+    void AddObject(ObjectPool objectPool, List<GameObject> objectList)
     {
-        Vector3 newPos = ballList[^1].transform.position;
+        Vector3 newPos;
+        if (objectList.Count == 0)
+        {
+            newPos = new Vector3(transform.position.x - 0.3f, transform.position.y - 0.3f);
+        }
+        else
+        {
+            newPos = objectList[^1].transform.position;
+        }
         newPos.x += xOffset;
-        GameObject newBall = ballPool.GetFromPool();
-        newBall.transform.position = newPos;
-        newBall.GetComponent<CircleCollider2D>().enabled = false;
-        ballList.Add(newBall);
+        GameObject newObject = objectPool.GetFromPool();
+        newObject.transform.position = newPos;
+        newObject.GetComponent<Collider2D>().enabled = false;
+        objectList.Add(newObject);
     }
 }

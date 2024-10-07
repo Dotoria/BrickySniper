@@ -40,4 +40,12 @@ public class ObjectPool
     {
         obj.SetActive(false);
     }
+
+    public void ReturnToPool(ObjectPool pool)
+    {
+        foreach (GameObject obj in poolList)
+        {
+            obj.SetActive(false);
+        }
+    }
 }
