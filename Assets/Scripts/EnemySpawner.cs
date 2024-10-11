@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
 
     private System.Random _random = new();
-    private bool isSpawning = false;
+    private bool _isSpawning = true;
 
     private void Awake()
     {
@@ -30,12 +30,13 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemiesRepeatedly()
     {
-        // 랜덤 시간 설정
-        int spawnTime = _random.Next(30, 50);
-        
-        while (true)
+        while (_isSpawning)
         {
+            // 랜덤 시간 설정
+            int spawnTime = _random.Next(30, 50);
+
             yield return EnemySpawn();
+            Debug.Log("Spawn Enemy with " + spawnTime);
             yield return new WaitForSeconds(spawnTime / 10f);
         }
     }

@@ -13,7 +13,7 @@ public class SupplySpawner : MonoBehaviour
     public GameObject supplyPrefab;
 
     private System.Random _random = new();
-    private bool isSpawning = false;
+    private bool _isSpawning = true;
 
     private void Awake()
     {
@@ -28,12 +28,13 @@ public class SupplySpawner : MonoBehaviour
     
     IEnumerator SpawnSuppliesRepeatedly()
     {
-        // 랜덤 시간 설정
-        int spawnTime = _random.Next(50, 100);
-        
-        while (true)
+        while (_isSpawning)
         {
+            // 랜덤 시간 설정
+            int spawnTime = _random.Next(50, 100);
+            
             yield return SupplySpawn();
+            Debug.Log("Spawn Supply with " + spawnTime);
             yield return new WaitForSeconds(spawnTime / 10f);
         }
     }
