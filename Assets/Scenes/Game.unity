@@ -3441,7 +3441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   supplyTypeList:
   - {fileID: 11400000, guid: 7378729cf015a824d83e2de078deef76, type: 2}
-  supplyPrefab: {fileID: 4702298659442759134, guid: bd59a12dfd5e73b4392ccdb5e29f1c76, type: 3}
+  supplyPrefab: {fileID: 7129041988252571297, guid: 3deb3061430e5f24b969973e169c236b, type: 3}
 --- !u!4 &1405054654
 Transform:
   m_ObjectHideFlags: 0
