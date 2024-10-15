@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SupplySpawner : MonoBehaviour
 {
     private SupplyScriptableObject supplySO;
     public ObjectPool supplyPool;
 
-    public List<SupplyScriptableObject> supplyTypeList = new();
+    public List<SupplyScriptableObject> fallingSupplyList = new();
+    public List<SupplyScriptableObject> emergingSupplyList = new();
     private Vector3 _spawnPos;
 
     public GameObject supplyPrefab;
@@ -23,27 +25,36 @@ public class SupplySpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnSuppliesRepeatedly());
+        StartCoroutine(SpawnFallingSuppliesRepeatedly());
     }
     
-    IEnumerator SpawnSuppliesRepeatedly()
+    IEnumerator SpawnFallingSuppliesRepeatedly()
     {
         while (_isSpawning)
         {
             // 랜덤 시간 설정
-            int spawnTime = _random.Next(50, 100);
-            
-            yield return SupplySpawn();
+            float spawnTime = _random.Next(50, 100) / 10f;
+            yield return SupplySpawn(fallingSupplyList);
             Debug.Log("Spawn Supply with " + spawnTime);
-            yield return new WaitForSeconds(spawnTime / 10f);
+            yield return new WaitForSeconds(spawnTime);
+        }
+    }
+
+    IEnumerator SpawnEmergingSuppliesRepeatedly()
+    {
+        while (_isSpawning)
+        {
+            float spawnTime = _random.Next(50, 100) / 10f;
+            yield return SupplySpawn(emergingSupplyList);
+            yield return new WaitForSeconds(spawnTime);
         }
     }
     
-    IEnumerator SupplySpawn()
+    IEnumerator SupplySpawn(List<SupplyScriptableObject> supplyList)
     {
         // 랜덤으로 선택
-        int nth = _random.Next(supplyTypeList.Count);
-        supplySO = supplyTypeList[nth];
+        int nth = _random.Next(supplyList.Count);
+        supplySO = supplyList[nth];
         
         // 풀에서 가져오기
         GameObject newSupply = supplyPool.GetFromPool();
@@ -57,8 +68,11 @@ public class SupplySpawner : MonoBehaviour
         // 속성 설정
         Supply newSupplyInfo = newSupply.GetComponent<Supply>();
         newSupplyInfo.healthPoint = supplySO.healthPoint;
+        newSupplyInfo.movePoint = supplySO.movePoint;
+        
         newSupplyInfo.supplyLogic = supplySO.supplyLogic;
         newSupplyInfo.supplyTarget = supplySO.supplyTarget;
+        newSupplyInfo.moveLogic = supplySO.moveLogic;
         
         yield return null;
     }

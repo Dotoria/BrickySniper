@@ -61,11 +61,10 @@ public class EnemySpawner : MonoBehaviour
         newEnemyInfo.healthPoint = enemySO.healthPoint;
         newEnemyInfo.attackPoint = enemySO.attackPoint;
         newEnemyInfo.movePoint = enemySO.movePoint;
+        
         newEnemyInfo.attackLogic = enemySO.attackLogic;
         newEnemyInfo.attackTarget = enemySO.attackTarget;
         newEnemyInfo.moveLogic = enemySO.moveLogic;
-        
-        Debug.Log("at " + newEnemyInfo.attackTarget + ", al " + newEnemyInfo.attackLogic + ", ml " + newEnemyInfo.moveLogic);
         
         yield return null;
     }

@@ -14,5 +14,6 @@ public enum AttackLogic
 public enum MoveLogic
 {
     Default,
-    ToPlayer
+    ToPlayer,
+    Spawn,
 }

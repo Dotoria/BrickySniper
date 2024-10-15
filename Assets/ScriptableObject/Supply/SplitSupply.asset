@@ -15,5 +15,7 @@ MonoBehaviour:
   prefabName: "\uBD84\uC5F4\uAE30"
   prefabSprite: {fileID: 0}
   healthPoint: -1
+  movePoint: 1
   supplyLogic: 0
   supplyTarget: 2
+  moveLogic: 2

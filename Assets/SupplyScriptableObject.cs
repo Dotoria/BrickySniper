@@ -7,12 +7,15 @@ public class SupplyScriptableObject : ScriptableObject
     public Sprite prefabSprite;
 
     public int healthPoint;
+    public int movePoint;
 
     public SupplyLogic supplyLogic;
     public Target supplyTarget;
+    public MoveLogic moveLogic;
 }
 
 public enum SupplyLogic
 {
+    Default,
     Split
 }

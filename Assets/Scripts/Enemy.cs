@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         _spawner = GetComponent<EnemySpawner>();
+        hit = Physics2D.Raycast(transform.position, transform.forward);
 
         if (attackTarget == Target.Player)
         {
@@ -41,22 +42,18 @@ public class Enemy : MonoBehaviour
         
         if (attackLogic == AttackLogic.HitPlayer)
         {
-            if (hit.collider)
+            if (hit.collider.CompareTag("Player"))
             {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    player.health -= attackPoint;
-                    _spawner.enemyPool.ReturnToPool(gameObject);
-                }
-            } 
+                Debug.Log("Hit collider player");
+                player.health -= attackPoint;
+                _spawner.enemyPool.ReturnToPool(gameObject);
+            }
         }
 
-        if (hit.collider)
+        if (hit.collider.CompareTag("Ball"))
         {
-            if (hit.collider.CompareTag("Ball"))
-            {
-                healthPoint--;
-            }
+            Debug.Log("Hit collider ball");
+            healthPoint--;
         }
 
         if (healthPoint == 0)
