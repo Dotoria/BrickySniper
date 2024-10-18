@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Supply", menuName = "ScriptableObjects/Supply", order = 2)]
-public class SupplyScriptableObject : ScriptableObject
+public class SupplyScriptableObject : ScriptableObjectBase
 {
     public string prefabName;
     public Sprite prefabSprite;
@@ -12,10 +12,17 @@ public class SupplyScriptableObject : ScriptableObject
     public SupplyLogic supplyLogic;
     public Target supplyTarget;
     public MoveLogic moveLogic;
-}
-
-public enum SupplyLogic
-{
-    Default,
-    Split
+    
+    public override void ApplyTo(Component component)
+    {
+        Supply supply = component as Supply;
+        if (supply != null)
+        {
+            supply.healthPoint = healthPoint;
+            supply.movePoint = movePoint;
+            supply.supplyLogic = supplyLogic;
+            supply.supplyTarget = supplyTarget;
+            supply.moveLogic = moveLogic;
+        }
+    }
 }
