@@ -19,7 +19,7 @@ public class ObjectPool
         }
     }
 
-    public GameObject GetFromPool(string type = "null")
+    public GameObject GetFromPool()
     {
         foreach (GameObject obj in poolList)
         {
