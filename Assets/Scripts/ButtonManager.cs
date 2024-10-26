@@ -4,13 +4,12 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    public Button ReloadButton;
-    public Button SkillButton;
     public Button PauseButton;
     public Button ResumeButton;
     public Button TryAgainButton;
     public Button[] ExitButton;
     
+    public GameObject CellButton;
     public GameObject pauseMenuUI;
 
     private Arrow arrow;
@@ -18,9 +17,8 @@ public class ButtonManager : MonoBehaviour
     void Start()
     {
         arrow = GameObject.FindWithTag("Player").GetComponent<Arrow>();
+        var cell = GetComponent<CellManager>();
         
-        ReloadButton.onClick.AddListener(ReloadButtonClick);
-        SkillButton.onClick.AddListener(SkillButtonClick);
         PauseButton.onClick.AddListener(PauseButtonClick);
         ResumeButton.onClick.AddListener(ResumeButtonClick);
         TryAgainButton.onClick.AddListener(TryAgainButtonClick);
@@ -28,27 +26,17 @@ public class ButtonManager : MonoBehaviour
         {
             exit.onClick.AddListener(ExitButtonClick);
         }
+
+        foreach (var cellButton in CellButton.GetComponentsInChildren<Button>())
+        {
+            var pos = cellButton.name[^1] - '1';
+            cellButton.onClick.AddListener(() => cell.GetCell(pos));
+        }
     }
 
     void Update()
     {
         
-    }
-
-    // 탄약 장전하기
-    void ReloadButtonClick()
-    {
-        if (arrow.remainBall < 1) return;
-        arrow.shootMode = ShootMode.Ball;
-        arrow.GameObject().SetActive(true);
-    }
-
-    // 스킬 사용하기
-    void SkillButtonClick()
-    {
-        if (arrow.remainSupply < 1) return;
-        arrow.shootMode = ShootMode.Supply;
-        arrow.GameObject().SetActive(true);
     }
 
     // 게임 일시정지

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Paddle : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Vector2 spriteSize;

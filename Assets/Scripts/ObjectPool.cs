@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ObjectPool
 {
+    public static Dictionary<string, ObjectPool> Instance { get; set; }
+    
     private List<GameObject> poolList;
     private GameObject prefab;
 
