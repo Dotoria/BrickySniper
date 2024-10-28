@@ -19,6 +19,6 @@ MonoBehaviour:
   prefabAnimation: {fileID: 9100000, guid: 2d8af690d0ced6a4a9cd69e052382285, type: 2}
   healthPoint: -1
   attackPoint: 1
-  movePoint: 3
+  movePoint: 7
   attackLogic: 0
   moveLogic: 0

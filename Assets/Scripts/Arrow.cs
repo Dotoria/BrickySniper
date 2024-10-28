@@ -22,6 +22,7 @@ public class Arrow : MonoBehaviour
     public Vector2 direction;
     public float activeAngle = 80f;
     public PlayMode shootMode = PlayMode.Cell;
+    private float angle = 0f;
     
     // cell
     public GameObject cellPrefab;
@@ -41,7 +42,6 @@ public class Arrow : MonoBehaviour
         if (!paddle.canDrag)
         {
             Time.timeScale = 0.2f;
-            float angle = 0f;
             
             if (Input.GetMouseButton(0))
             {
