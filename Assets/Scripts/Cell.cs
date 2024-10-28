@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour
     private SpriteRenderer _prefabSprite;
     private SpriteRenderer _paddleSprite;
     private SpriteRenderer _arrowSprite;
+    private Animator _animator;
     
     public int healthPoint;
     public int currentHealthPoint;
@@ -38,25 +39,28 @@ public class Cell : MonoBehaviour
         }
 
         _cellRB = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
     
     public void Install()
     {
-        _paddle.canDrag = false;
+        // _paddle.canDrag = false;
         
         gameObject.name = cellSO.prefabName;
         _prefabSprite.sprite = cellSO.prefabSprite;
         _paddleSprite.sprite = cellSO.paddleSprite;
         _arrowSprite.sprite = cellSO.arrowSprite;
+        _animator.runtimeAnimatorController = cellSO.prefabAnimation;
         
         healthPoint = cellSO.healthPoint;
         attackPoint = cellSO.attackPoint;
         movePoint = cellSO.movePoint;
         
         _arrow.gameObject.SetActive(true);
-        _arrow.cell = gameObject;
+        _arrow.cellPrefab = gameObject;
         _paddle.canDrag = false;
-        
+
+        gameObject.AddComponent<PolygonCollider2D>();
         gameObject.SetActive(false);
         
         // public AttackLogic attackLogic;
@@ -66,7 +70,8 @@ public class Cell : MonoBehaviour
     public void Shoot(float angle)
     {
         gameObject.SetActive(true);
-        _cellRB.rotation = angle;
+        transform.position = _paddle.gameObject.transform.position;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         _cellRB.velocity = cellSO.movePoint * transform.up;
         _arrow.gameObject.SetActive(false);
     }

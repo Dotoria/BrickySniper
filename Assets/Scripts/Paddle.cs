@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Paddle : MonoBehaviour
@@ -15,6 +16,7 @@ public class Paddle : MonoBehaviour
     void Awake()
     {
         _collider = GetComponent<BoxCollider2D>();
+        _collider.enabled = true;
         spriteSize = _collider.size;
         cameraSize = new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
     }
@@ -39,6 +41,19 @@ public class Paddle : MonoBehaviour
         if (canDrag)
         {
             transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
+        }
+        else
+        {
+            _collider.enabled = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Cell"))
+        {
+            _collider.enabled = true;
+            _collider.isTrigger = false;
         }
     }
 }

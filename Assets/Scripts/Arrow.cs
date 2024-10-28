@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public enum PlayMode
 {
@@ -23,13 +24,13 @@ public class Arrow : MonoBehaviour
     public PlayMode shootMode = PlayMode.Cell;
     
     // cell
-    public GameObject cell;
+    public GameObject cellPrefab;
 
     void OnEnable()
     {
         paddle = paddleObject.GetComponent<Paddle>();
         paddleCollider = paddle.GetComponent<BoxCollider2D>();
-        paddleCollider.enabled = true;
+        //paddleCollider.enabled = true;
         
         paddle.canDrag = true;
     }
@@ -69,11 +70,13 @@ public class Arrow : MonoBehaviour
                 
                 Time.timeScale = 1f;
                 paddle.canDrag = !paddle.canDrag;
+                //paddleCollider.enabled = false;
+                paddleCollider.isTrigger = true;
 
-                cell.GetComponent<Cell>().Shoot(angle);
+                cellPrefab.GetComponent<Cell>().Shoot(angle);
             }
         }
-        else if (paddle.canDrag && cell.GetComponent<Cell>().cellSO == null)
+        else if (paddle.canDrag && !cellPrefab.GetComponent<Cell>().cellSO)
         {
             gameObject.SetActive(false);
         }
@@ -93,12 +96,5 @@ public class Arrow : MonoBehaviour
         }
     
         return angle;
-    }
-    
-    IEnumerator MakeCollider()
-    {
-        yield return new WaitForSeconds(0.2f);
-        paddleCollider.enabled = true;
-        gameObject.SetActive(false);
     }
 }
