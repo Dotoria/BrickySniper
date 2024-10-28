@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6126152638250985327}
   - component: {fileID: 3442476208394537757}
   - component: {fileID: -4898298327440521414}
-  - component: {fileID: -1274615617011505203}
   - component: {fileID: -7134922702432536539}
+  - component: {fileID: 6139366504579760601}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Ball
@@ -114,8 +114,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &-1274615617011505203
-CircleCollider2D:
+--- !u!114 &-7134922702432536539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4284984410455923504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7002e44b890a41648d043b650ddaf55a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSO: {fileID: 0}
+  healthPoint: 0
+  currentHealthPoint: 0
+  attackPoint: 0
+  movePoint: 0
+--- !u!60 &6139366504579760601
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -147,18 +164,60 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &-7134922702432536539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4284984410455923504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7002e44b890a41648d043b650ddaf55a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSO: {fileID: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.51, y: -1.22}
+      - {x: 0.84999996, y: -1.0699999}
+      - {x: 0.96, y: -1}
+      - {x: 1.24, y: -0.74}
+      - {x: 1.3399999, y: -0.58}
+      - {x: 1.43, y: -0.39999998}
+      - {x: 1.4699999, y: -0.26}
+      - {x: 1.4699999, y: 0.089999996}
+      - {x: 1.4399999, y: 0.19999999}
+      - {x: 1.3299999, y: 0.44}
+      - {x: 1.29, y: 0.52}
+      - {x: 1.09, y: 0.74}
+      - {x: 1.02, y: 0.78999996}
+      - {x: 0.90999997, y: 0.87}
+      - {x: 0.71999997, y: 0.96999997}
+      - {x: 0.55, y: 1.04}
+      - {x: 0.39, y: 1.09}
+      - {x: 0.17999999, y: 1.13}
+      - {x: 0.13, y: 1.14}
+      - {x: -0.37, y: 1.14}
+      - {x: -0.59, y: 1.1}
+      - {x: -0.83, y: 1.02}
+      - {x: -1.1, y: 0.87}
+      - {x: -1.2099999, y: 0.78999996}
+      - {x: -1.41, y: 0.59999996}
+      - {x: -1.4399999, y: 0.56}
+      - {x: -1.51, y: 0.45999998}
+      - {x: -1.5699999, y: 0.34}
+      - {x: -1.65, y: 0.16}
+      - {x: -1.66, y: 0.07}
+      - {x: -1.66, y: -0.17999999}
+      - {x: -1.65, y: -0.31}
+      - {x: -1.5699999, y: -0.53}
+      - {x: -1.4599999, y: -0.69}
+      - {x: -1.31, y: -0.85999995}
+      - {x: -1.15, y: -0.98999995}
+      - {x: -0.91999996, y: -1.12}
+      - {x: -0.83, y: -1.16}
+      - {x: -0.65999997, y: -1.23}
+      - {x: -0.39, y: -1.28}
+      - {x: -0.32, y: -1.29}
+      - {x: -0.14999999, y: -1.3}
+      - {x: 0.02, y: -1.3}
+      - {x: 0.13, y: -1.29}
+      - {x: 0.26, y: -1.27}
+  m_UseDelaunayMesh: 0

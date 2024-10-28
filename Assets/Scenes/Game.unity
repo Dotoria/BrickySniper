@@ -1394,6 +1394,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835cb024a1682734899fe46449b02016, type: 3}
+--- !u!1 &301699906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 301699908}
+  - component: {fileID: 301699907}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &301699907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301699906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce906fcacf684027867035d1256ace78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSOList:
+  - {fileID: 11400000, guid: 7cf85dc8857c09045868cc8be387ec1f, type: 2}
+  - {fileID: 11400000, guid: e23e95b637baaba459617ee04200a178, type: 2}
+  - {fileID: 11400000, guid: e37b10c151ad83a438541e4b144839ff, type: 2}
+--- !u!4 &301699908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301699906}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3636963, y: -7.1285057, z: -0.029810583}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &312775033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,8 +1999,9 @@ MonoBehaviour:
   ExitButton:
   - {fileID: 1444076908}
   - {fileID: 2107629565}
-  CellButton: {fileID: 0}
+  CellButton: {fileID: 8223355457646816018}
   pauseMenuUI: {fileID: 1769875113}
+  paddle: {fileID: 1761912014}
 --- !u!4 &442223530
 Transform:
   m_ObjectHideFlags: 0
@@ -2225,9 +2274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellSO: []
-  cellList: []
-  cellPrefab: {fileID: 0}
-  CellButton: {fileID: 2824878692020157019, guid: daa5f589d8ebad14eba70815b20a6256, type: 3}
+  CellButton: {fileID: 8223355457646816018}
+  cellPrefab: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
 --- !u!4 &465011193
 Transform:
   m_ObjectHideFlags: 0
@@ -4656,10 +4704,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348765018fd742848b7575f170879591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paddleObject: {fileID: 1761912014}
   direction: {x: 0, y: 0}
   activeAngle: 80
   shootMode: 0
-  cell: {fileID: 0}
+  cell: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
 --- !u!1 &1213594850
 GameObject:
   m_ObjectHideFlags: 0
@@ -6954,7 +7003,7 @@ GameObject:
   - component: {fileID: 1761912018}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7040,7 +7089,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endMenuUI: {fileID: 1050539936}
-  remainBall: 0
   canDrag: 0
   health: 2
 --- !u!61 &1761912018
@@ -8920,6 +8968,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daa5f589d8ebad14eba70815b20a6256, type: 3}
+--- !u!1 &8223355457646816018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2824878692020157019, guid: daa5f589d8ebad14eba70815b20a6256, type: 3}
+  m_PrefabInstance: {fileID: 8223355457646816017}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8935,3 +8988,4 @@ SceneRoots:
   - {fileID: 442223530}
   - {fileID: 465011193}
   - {fileID: 871502877}
+  - {fileID: 301699908}

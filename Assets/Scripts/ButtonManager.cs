@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,14 +10,11 @@ public class ButtonManager : MonoBehaviour
     
     public GameObject CellButton;
     public GameObject pauseMenuUI;
-
-    private Arrow arrow;
+    
+    public GameObject paddle;
     
     void Start()
     {
-        arrow = GameObject.FindWithTag("Player").GetComponent<Arrow>();
-        var cell = GetComponent<CellManager>();
-        
         PauseButton.onClick.AddListener(PauseButtonClick);
         ResumeButton.onClick.AddListener(ResumeButtonClick);
         TryAgainButton.onClick.AddListener(TryAgainButtonClick);
@@ -26,19 +22,20 @@ public class ButtonManager : MonoBehaviour
         {
             exit.onClick.AddListener(ExitButtonClick);
         }
-
+    
         foreach (var cellButton in CellButton.GetComponentsInChildren<Button>())
         {
+            if (!paddle.GetComponent<Paddle>().canDrag) return;
             var pos = cellButton.name[^1] - '1';
-            cellButton.onClick.AddListener(() => cell.GetCell(pos));
+            cellButton.onClick.AddListener(() => CellManager.Instance.GetCell(pos));
         }
     }
-
+    
     void Update()
     {
         
     }
-
+    
     // 게임 일시정지
     void PauseButtonClick()
     {
@@ -49,7 +46,7 @@ public class ButtonManager : MonoBehaviour
         }
         PauseButton.gameObject.SetActive(false);
     }
-
+    
     // 게임 재개
     void ResumeButtonClick()
     {
@@ -66,7 +63,7 @@ public class ButtonManager : MonoBehaviour
     {
         SceneLoader.LoadSceneByName("Game");
     }
-
+    
     // 게임 나가기
     void ExitButtonClick()
     {

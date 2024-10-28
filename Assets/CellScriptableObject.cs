@@ -7,6 +7,7 @@ public class CellScriptableObject : ScriptableObject
     public string prefabName;
     public Sprite prefabSprite;
     public Sprite paddleSprite;
+    public Sprite arrowSprite;
     public AnimatorController prefabAnimation;
 
     public int healthPoint;

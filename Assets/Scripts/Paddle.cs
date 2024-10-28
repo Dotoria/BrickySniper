@@ -2,25 +2,20 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D _collider;
     private Vector2 spriteSize;
     private Vector2 cameraSize;
     private RaycastHit2D hit;
 
     public GameObject endMenuUI;
 
-    public int remainBall;
     public bool canDrag;
     public int health;
 
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null && spriteRenderer.sprite != null)
-        {
-            spriteSize = spriteRenderer.sprite.bounds.size;
-        }
-
+        _collider = GetComponent<BoxCollider2D>();
+        spriteSize = _collider.size;
         cameraSize = new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
     }
 

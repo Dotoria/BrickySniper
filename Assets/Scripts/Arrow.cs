@@ -12,7 +12,8 @@ public enum PlayMode
 
 public class Arrow : MonoBehaviour
 {
-    // player
+    // paddle
+    public GameObject paddleObject;
     private Paddle paddle;
     private BoxCollider2D paddleCollider;
     
@@ -23,24 +24,16 @@ public class Arrow : MonoBehaviour
     
     // cell
     public GameObject cell;
-    private int _poolSize = 10;
-    private ObjectPool _cellPool;
-
-    private void Awake()
-    {
-        ObjectPool.Instance.Add("cell", new ObjectPool(cell, _poolSize));
-        _cellPool = ObjectPool.Instance["cell"];
-    }
 
     void OnEnable()
     {
-        paddle = GetComponentInParent<Paddle>();
+        paddle = paddleObject.GetComponent<Paddle>();
         paddleCollider = paddle.GetComponent<BoxCollider2D>();
-        paddleCollider.enabled = false;
+        paddleCollider.enabled = true;
         
         paddle.canDrag = true;
     }
-
+    
     void Update()
     {
         // 조준
@@ -76,20 +69,20 @@ public class Arrow : MonoBehaviour
                 
                 Time.timeScale = 1f;
                 paddle.canDrag = !paddle.canDrag;
+
+                cell.GetComponent<Cell>().Shoot(angle);
             }
         }
-
-        // 장착
-        else
+        else if (paddle.canDrag && cell.GetComponent<Cell>().cellSO == null)
         {
-            
+            gameObject.SetActive(false);
         }
     }
-
+    
     private float RestrictAngle(Vector2 vector2)
     {
         float angle = Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg - 90;
-
+    
         if ((activeAngle < angle && angle <= 180) || (-(360 - activeAngle) < angle && angle <= -180))
         {
             angle = activeAngle;
@@ -98,10 +91,10 @@ public class Arrow : MonoBehaviour
         {
             angle = -activeAngle;
         }
-
+    
         return angle;
     }
-
+    
     IEnumerator MakeCollider()
     {
         yield return new WaitForSeconds(0.2f);

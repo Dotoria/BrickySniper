@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjectPool
 {
-    public static Dictionary<string, ObjectPool> Instance { get; set; }
+    public static Dictionary<string, ObjectPool> Instance { get; private set; } = new Dictionary<string, ObjectPool>();
     
     private List<GameObject> poolList;
     private GameObject prefab;
@@ -18,6 +18,14 @@ public class ObjectPool
             GameObject obj = Object.Instantiate(prefab);
             obj.SetActive(false);
             poolList.Add(obj);
+        }
+    }
+    
+    public static void CreatePool(string key, GameObject prefab, int initialSize)
+    {
+        if (!Instance.ContainsKey(key))
+        {
+            Instance[key] = new ObjectPool(prefab, initialSize);
         }
     }
 
