@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: "\uB300\uC2DD\uC138\uD3EC"
   prefabSprite: {fileID: -2473061, guid: 5da47004eed030b48bec1cb93179e89d, type: 3}
-  paddleSprite: {fileID: 21300000, guid: 45854dff6c0402c429556dd03d176e04, type: 3}
-  arrowSprite: {fileID: 21300000, guid: 540b76a6415adeb49bbaa9e07138e55e, type: 3}
+  paddleSprite: {fileID: 21300000, guid: e5e5e03f76fe3614091896ecdc9f334e, type: 3}
+  arrowSprite: {fileID: 21300000, guid: 02355d3d7d04f7f4cab3ce68e083949e, type: 3}
   prefabAnimation: {fileID: 9100000, guid: 78ae17f3cec27a144821d958e27e60bd, type: 2}
   respawnTime: 6
   healthPoint: -1
   attackPoint: 1
-  movePoint: 1
+  movePoint: 2
   attackLogic: 0
   moveLogic: 0

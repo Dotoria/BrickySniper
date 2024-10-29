@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5807360200776846315}
   - component: {fileID: 769650194027180910}
   - component: {fileID: -2759850187693518094}
-  - component: {fileID: -5080330101737279656}
   m_Layer: 6
   m_Name: HardWall
   m_TagString: Wall
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2691641735777958463}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.5, y: 9.5, z: 0}
   m_LocalScale: {x: 0.8333333, y: 0.65217394, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,24 +130,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 4.6}
   m_EdgeRadius: 0
---- !u!95 &-5080330101737279656
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2691641735777958463}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 51a8c2071ce1c854a8f2772837d51967, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

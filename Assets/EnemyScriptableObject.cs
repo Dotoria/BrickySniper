@@ -8,6 +8,8 @@ public class EnemyScriptableObject : ScriptableObject
     public Sprite prefabSprite;
     public AnimatorController prefabAnimation;
     
+    public float firstSpawnTime;
+    
     public int healthPoint;
     public int attackPoint;
     public int movePoint;

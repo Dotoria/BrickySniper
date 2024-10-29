@@ -27,7 +27,6 @@ public class CellManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         ObjectPool.CreatePool("cell", cellPrefab, _poolSize);
-        _cellPool = ObjectPool.Instance["cell"];
     }
 
     void Update()
@@ -90,7 +89,7 @@ public class CellManager : MonoBehaviour
     {
         if (reloading[pos]) return;
         
-        var newCell = _cellPool.GetFromPool();
+        var newCell = ObjectPool.Instance["cell"].GetFromPool();
 
         Cell cell = newCell.GetComponent<Cell>();
         cell.cellSO = cellSO[pos];

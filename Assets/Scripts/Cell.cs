@@ -15,7 +15,6 @@ public class Cell : MonoBehaviour
     public int healthPoint;
     public int currentHealthPoint;
     public int attackPoint;
-    public int movePoint;
 
     private Rigidbody2D _cellRB;
     
@@ -53,7 +52,6 @@ public class Cell : MonoBehaviour
         healthPoint = cellSO.healthPoint;
         currentHealthPoint = healthPoint;
         attackPoint = cellSO.attackPoint;
-        movePoint = cellSO.movePoint;
         
         _arrow.gameObject.SetActive(true);
         _arrow.cellPrefab = gameObject;

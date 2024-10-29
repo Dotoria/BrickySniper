@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BCell
   m_EditorClassIdentifier: 
   prefabName: "B\uC138\uD3EC"
-  prefabSprite: {fileID: 21300000, guid: 649b0aa8825379d43a3e5a760078125b, type: 3}
+  prefabSprite: {fileID: -1948580470, guid: 649b0aa8825379d43a3e5a760078125b, type: 3}
   paddleSprite: {fileID: 21300000, guid: 45854dff6c0402c429556dd03d176e04, type: 3}
   arrowSprite: {fileID: 21300000, guid: 540b76a6415adeb49bbaa9e07138e55e, type: 3}
-  prefabAnimation: {fileID: 0}
+  prefabAnimation: {fileID: 9100000, guid: 8bdefe0330b48c1499a14151683c8b09, type: 2}
   respawnTime: 4
   healthPoint: -1
   attackPoint: 1
-  movePoint: 3
+  movePoint: 4
   attackLogic: 0
   moveLogic: 0
