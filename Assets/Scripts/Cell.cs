@@ -44,8 +44,6 @@ public class Cell : MonoBehaviour
     
     public void Install()
     {
-        // _paddle.canDrag = false;
-        
         gameObject.name = cellSO.prefabName;
         _prefabSprite.sprite = cellSO.prefabSprite;
         _paddleSprite.sprite = cellSO.paddleSprite;
@@ -53,6 +51,7 @@ public class Cell : MonoBehaviour
         _animator.runtimeAnimatorController = cellSO.prefabAnimation;
         
         healthPoint = cellSO.healthPoint;
+        currentHealthPoint = healthPoint;
         attackPoint = cellSO.attackPoint;
         movePoint = cellSO.movePoint;
         

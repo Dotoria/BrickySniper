@@ -26,6 +26,7 @@ public class ButtonManager : MonoBehaviour
         foreach (var cellButton in CellButton.GetComponentsInChildren<Button>())
         {
             if (!paddle.GetComponent<Paddle>().canDrag) return;
+            
             var pos = cellButton.name[^1] - '1';
             cellButton.onClick.AddListener(() => CellManager.Instance.GetCell(pos));
         }

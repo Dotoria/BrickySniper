@@ -10,6 +10,8 @@ public class CellScriptableObject : ScriptableObject
     public Sprite arrowSprite;
     public AnimatorController prefabAnimation;
 
+    public float respawnTime;
+
     public int healthPoint;
     public int attackPoint;
     public int movePoint;

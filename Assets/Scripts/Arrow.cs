@@ -31,7 +31,6 @@ public class Arrow : MonoBehaviour
     {
         paddle = paddleObject.GetComponent<Paddle>();
         paddleCollider = paddle.GetComponent<BoxCollider2D>();
-        //paddleCollider.enabled = true;
         
         paddle.canDrag = true;
     }
@@ -70,7 +69,6 @@ public class Arrow : MonoBehaviour
                 
                 Time.timeScale = 1f;
                 paddle.canDrag = !paddle.canDrag;
-                //paddleCollider.enabled = false;
                 paddleCollider.isTrigger = true;
 
                 cellPrefab.GetComponent<Cell>().Shoot(angle);

@@ -12,6 +12,9 @@ public class CellManager : MonoBehaviour
     private int _poolSize = 10;
     private ObjectPool _cellPool;
     public GameObject cellPrefab;
+
+    private readonly List<Image> _gaugeImages = new();
+    public List<bool> reloading = new();
     
     void Awake()
     {
@@ -25,6 +28,25 @@ public class CellManager : MonoBehaviour
         
         ObjectPool.CreatePool("cell", cellPrefab, _poolSize);
         _cellPool = ObjectPool.Instance["cell"];
+    }
+
+    void Update()
+    {
+        for (int i = 0; i < reloading.Count; i++)
+        {
+            if (reloading[i])
+            {
+                if (_gaugeImages != null)
+                {
+                    _gaugeImages[i].fillAmount -= Time.deltaTime / cellSO[i].respawnTime;
+
+                    if (_gaugeImages[i].fillAmount <= 0f)
+                    {
+                        reloading[i] = false;
+                    }
+                }
+            }
+        }
     }
     
     // 저장된 cellSO의 list를 가져와서 버튼에 적용하기
@@ -47,8 +69,16 @@ public class CellManager : MonoBehaviour
                 {
                     if (childImage != cellButtons[i].GetComponent<Image>())
                     {
-                        childImage.sprite = cellSO[i].prefabSprite;
-                        childImage.color = Color.white;
+                        if (childImage.fillAmount != 0f)
+                        {
+                            childImage.sprite = cellSO[i].prefabSprite;
+                            childImage.color = Color.white;
+                        }
+                        else
+                        {
+                            _gaugeImages.Add(childImage);
+                            reloading.Add(false);
+                        }
                     }
                 }
             }
@@ -58,10 +88,21 @@ public class CellManager : MonoBehaviour
     // 버튼을 누르면 paddle에 장착하기
     public void GetCell(int pos)
     {
+        if (reloading[pos]) return;
+        
         var newCell = _cellPool.GetFromPool();
 
         Cell cell = newCell.GetComponent<Cell>();
         cell.cellSO = cellSO[pos];
         cell.Install();
+        
+        ReloadCell(pos);
+    }
+    
+    // 게이지 만들기
+    public void ReloadCell(int pos)
+    {
+        _gaugeImages[pos].fillAmount = 1f;
+        reloading[pos] = true;
     }
 }
