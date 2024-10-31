@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     {
         gameObject.name = enemySO.prefabName;
         _prefabSprite.sprite = enemySO.prefabSprite;
-        _animator.runtimeAnimatorController = enemySO.prefabAnimation;
+        _animator = enemySO.prefabAnimation;
         
         healthPoint = enemySO.healthPoint;
         currentHealthPoint = healthPoint;

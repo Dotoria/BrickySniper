@@ -47,7 +47,7 @@ public class Cell : MonoBehaviour
         _prefabSprite.sprite = cellSO.prefabSprite;
         _paddleSprite.sprite = cellSO.paddleSprite;
         _arrowSprite.sprite = cellSO.arrowSprite;
-        _animator.runtimeAnimatorController = cellSO.prefabAnimation;
+        _animator = cellSO.prefabAnimation;
         
         healthPoint = cellSO.healthPoint;
         currentHealthPoint = healthPoint;
