@@ -17,7 +17,7 @@ MonoBehaviour:
   prefabAnimation: {fileID: 9100000, guid: 4ceead68833a36b418f55e8530fc0b37, type: 2}
   firstSpawnTime: 3
   healthPoint: 3
-  attackPoint: 2
+  attackPoint: 5
   movePoint: 8
   attackTarget: 0
   attackLogic: 1

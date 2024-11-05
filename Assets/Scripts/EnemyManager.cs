@@ -65,4 +65,9 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(_random.Next(30, 80) / 10f);
         isSpawning = false;
     }
+
+    public void DestroyEnemy(GameObject obj)
+    {
+        ObjectPool.Instance["enemy"].ReturnToPool(obj);
+    }
 }

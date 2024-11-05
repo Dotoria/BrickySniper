@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer _prefabSprite;
     private Animator _animator;
+    private PolygonCollider2D _collider;
     
     public int healthPoint;
     public int currentHealthPoint;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
         _prefabSprite = gameObject.GetComponent<SpriteRenderer>();
         _enemyRB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<PolygonCollider2D>();
     }
 
     void Update()
@@ -38,8 +40,12 @@ public class Enemy : MonoBehaviour
         healthPoint = enemySO.healthPoint;
         currentHealthPoint = healthPoint;
         attackPoint = enemySO.attackPoint;
-        
-        gameObject.AddComponent<PolygonCollider2D>();
+
+        // collider 업데이트
+        _collider.autoTiling = true;
+        _collider.enabled = false;
+        _collider.enabled = true;
+        _collider.autoTiling = false;
     }
 
     public void Shoot(Vector3 spawnPos, Vector3 spawnDir)
