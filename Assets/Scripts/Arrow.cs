@@ -42,7 +42,44 @@ public class Arrow : MonoBehaviour
         {
             Time.timeScale = 0.2f;
             
-            if (Input.GetMouseButton(0))
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+                {
+                    // UI와 겹칩 방지
+                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    {
+                        return;
+                    }
+                    
+                    // touch 입력
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0;
+                    
+                    // arrow
+                    direction = (touchPosition - transform.position).normalized;
+                    angle = RestrictAngle(direction);
+                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                }
+                
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    {
+                        return;
+                    }
+                    
+                    Time.timeScale = 1f;
+                    paddle.canDrag = !paddle.canDrag;
+                    paddleCollider.isTrigger = true;
+
+                    cellPrefab.GetComponent<Cell>().Shoot(angle);
+                }
+            }
+            
+            else if (Input.GetMouseButton(0))
             {
                 // UI와 겹칩 방지
                 if (EventSystem.current.IsPointerOverGameObject())
@@ -60,7 +97,7 @@ public class Arrow : MonoBehaviour
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             }
             
-            if (Input.GetMouseButtonUp(0))
+            else if (Input.GetMouseButtonUp(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                 {

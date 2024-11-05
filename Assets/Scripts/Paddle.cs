@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
+    private Camera _camera;
     private BoxCollider2D _collider;
     private Vector2 spriteSize;
     private Vector2 cameraSize;
@@ -12,13 +13,15 @@ public class Paddle : MonoBehaviour
 
     public bool canDrag;
     public int health;
+    private bool _isDragging = false;
 
     void Awake()
     {
+        _camera = Camera.main;
         _collider = GetComponent<BoxCollider2D>();
         _collider.enabled = true;
         spriteSize = _collider.size;
-        cameraSize = new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
+        cameraSize = new Vector2(_camera.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
     }
 
     void Update()
@@ -31,12 +34,53 @@ public class Paddle : MonoBehaviour
                 endMenuUI.SetActive(true);
             }
         }
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                HandleDragBegin(touch.position);
+            }
+            else if (touch.phase == TouchPhase.Moved && _isDragging)
+            {
+                HandleDragMove(touch.position);
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                HandleDragEnd();
+            }
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            HandleDragBegin(Input.mousePosition);
+        }
+        else if (Input.GetMouseButton(0) && _isDragging)
+        {
+            HandleDragMove(Input.mousePosition);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            HandleDragEnd();
+        }
     }
 
-    private void OnMouseDrag()
+    private void HandleDragBegin(Vector3 input)
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float clampedX = Mathf.Clamp(mousePosition.x, -cameraSize.x + spriteSize.x / 2, cameraSize.x - spriteSize.x / 2);
+        Vector3 inputPosition = _camera.ScreenToWorldPoint(input);
+        RaycastHit2D hit = Physics2D.Raycast(inputPosition, Vector2.zero);
+
+        if (hit.collider == _collider)
+        {
+            _isDragging = true;
+        }
+    }
+
+    private void HandleDragMove(Vector3 input)
+    {
+        Vector3 inputPosition = _camera.ScreenToWorldPoint(input);
+        float clampedX = Mathf.Clamp(inputPosition.x, -cameraSize.x + spriteSize.x / 2, cameraSize.x - spriteSize.x / 2);
 
         if (canDrag)
         {
@@ -46,6 +90,11 @@ public class Paddle : MonoBehaviour
         {
             _collider.enabled = false;
         }
+    }
+
+    private void HandleDragEnd()
+    {
+        _isDragging = false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
