@@ -2634,7 +2634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce391a9de1b9f44faaac955e7244c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 100
+  healthBar: {fileID: 563024827}
+  maxHealthPoint: 100
+  currentHealthPoint: 0
 --- !u!61 &527266991
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2850,7 +2852,19 @@ MonoBehaviour:
   m_Value: 0.572
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &659006237
 PrefabInstance:
   m_ObjectHideFlags: 0
