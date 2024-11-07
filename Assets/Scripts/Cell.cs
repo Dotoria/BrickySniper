@@ -60,10 +60,11 @@ public class Cell : MonoBehaviour
         _paddle.canDrag = false;
         
         // collider 업데이트
-        _collider.autoTiling = true;
-        _collider.enabled = false;
-        _collider.enabled = true;
-        _collider.autoTiling = false;
+        if (_collider)
+        {
+            Destroy(_collider);
+        }
+        _collider = gameObject.AddComponent<PolygonCollider2D>();
         
         gameObject.SetActive(false);
         

@@ -30,7 +30,7 @@ public class Arrow : MonoBehaviour
     void OnEnable()
     {
         paddle = paddleObject.GetComponent<Paddle>();
-        paddleCollider = paddle.GetComponent<BoxCollider2D>();
+        paddleCollider = paddle.boxCollider;
         
         paddle.canDrag = true;
     }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8145845518885244420}
   - component: {fileID: 7540043702963287145}
   - component: {fileID: -6491355969400095447}
+  - component: {fileID: -5685379249653599990}
   m_Layer: 6
   m_Name: WeakWall
   m_TagString: Wall
@@ -152,3 +153,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5685379249653599990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6410597810360164619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322d3edbb36fbfc4e9b9a0cc6fc7ccc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallMaxHealth: 6

@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Paddle : MonoBehaviour
 {
     private Camera _camera;
-    private BoxCollider2D _collider;
+    public BoxCollider2D boxCollider;
     private Vector2 spriteSize;
     private Vector2 cameraSize;
     private RaycastHit2D hit;
@@ -18,10 +19,10 @@ public class Paddle : MonoBehaviour
     void Awake()
     {
         _camera = Camera.main;
-        _collider = GetComponent<BoxCollider2D>();
-        _collider.enabled = true;
-        spriteSize = _collider.size;
-        cameraSize = new Vector2(_camera.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
+        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider.enabled = true;
+        spriteSize = boxCollider.size;
+        cameraSize = new Vector2(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize);
     }
 
     void Update()
@@ -41,27 +42,33 @@ public class Paddle : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
+                Debug.Log("Began");
                 HandleDragBegin(touch.position);
             }
             else if (touch.phase == TouchPhase.Moved && _isDragging)
             {
+                Debug.Log("Moved");
                 HandleDragMove(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
+                Debug.Log("Ended");
                 HandleDragEnd();
             }
         }
         else if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("mouseBegan");
             HandleDragBegin(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0) && _isDragging)
         {
+            Debug.Log("mouseMoved");
             HandleDragMove(Input.mousePosition);
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            Debug.Log("mouseUp");
             HandleDragEnd();
         }
     }
@@ -69,9 +76,10 @@ public class Paddle : MonoBehaviour
     private void HandleDragBegin(Vector3 input)
     {
         Vector3 inputPosition = _camera.ScreenToWorldPoint(input);
-        RaycastHit2D hit = Physics2D.Raycast(inputPosition, Vector2.zero);
+        int layerMask = LayerMask.GetMask("Paddle");
+        hit = Physics2D.Raycast(inputPosition, Vector2.down, Mathf.Infinity, layerMask);
 
-        if (hit.collider == _collider)
+        if (hit.collider == boxCollider)
         {
             _isDragging = true;
         }
@@ -86,10 +94,6 @@ public class Paddle : MonoBehaviour
         {
             transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
         }
-        else
-        {
-            _collider.enabled = false;
-        }
     }
 
     private void HandleDragEnd()
@@ -101,8 +105,8 @@ public class Paddle : MonoBehaviour
     {
         if (other.CompareTag("Cell"))
         {
-            _collider.enabled = true;
-            _collider.isTrigger = false;
+            boxCollider.enabled = true;
+            boxCollider.isTrigger = false;
         }
     }
 }

@@ -66,8 +66,10 @@ public class EnemyManager : MonoBehaviour
         isSpawning = false;
     }
 
+    // 풀로 돌려놓기
     public void DestroyEnemy(GameObject obj)
     {
+        Destroy(obj.GetComponent<PolygonCollider2D>());
         ObjectPool.Instance["enemy"].ReturnToPool(obj);
     }
 }

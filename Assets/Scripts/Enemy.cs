@@ -42,10 +42,11 @@ public class Enemy : MonoBehaviour
         attackPoint = enemySO.attackPoint;
 
         // collider 업데이트
-        _collider.autoTiling = true;
-        _collider.enabled = false;
-        _collider.enabled = true;
-        _collider.autoTiling = false;
+        if (_collider)
+        {
+            Destroy(_collider);
+        }
+        _collider = gameObject.AddComponent<PolygonCollider2D>();
     }
 
     public void Shoot(Vector3 spawnPos, Vector3 spawnDir)

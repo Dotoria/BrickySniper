@@ -7244,7 +7244,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -7633,7 +7633,7 @@ GameObject:
   - component: {fileID: 1761912015}
   - component: {fileID: 1761912017}
   - component: {fileID: 1761912018}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Paddle
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -7720,6 +7720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a98caa9534d4adf82b1a8fd534fb400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxCollider: {fileID: 0}
   endMenuUI: {fileID: 1050539936}
   canDrag: 0
   health: 2
