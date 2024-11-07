@@ -11,6 +11,7 @@ public class Cell : MonoBehaviour
     private SpriteRenderer _paddleSprite;
     private SpriteRenderer _arrowSprite;
     private Animator _animator;
+    private PolygonCollider2D _collider;
     
     public int healthPoint;
     public int currentHealthPoint;
@@ -39,6 +40,7 @@ public class Cell : MonoBehaviour
 
         _cellRB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<PolygonCollider2D>();
     }
     
     public void Install()
@@ -47,7 +49,7 @@ public class Cell : MonoBehaviour
         _prefabSprite.sprite = cellSO.prefabSprite;
         _paddleSprite.sprite = cellSO.paddleSprite;
         _arrowSprite.sprite = cellSO.arrowSprite;
-        _animator = cellSO.prefabAnimation;
+        _animator.runtimeAnimatorController = cellSO.prefabAnimation;
         
         healthPoint = cellSO.healthPoint;
         currentHealthPoint = healthPoint;
@@ -56,8 +58,13 @@ public class Cell : MonoBehaviour
         _arrow.gameObject.SetActive(true);
         _arrow.cellPrefab = gameObject;
         _paddle.canDrag = false;
-
-        gameObject.AddComponent<PolygonCollider2D>();
+        
+        // collider 업데이트
+        _collider.autoTiling = true;
+        _collider.enabled = false;
+        _collider.enabled = true;
+        _collider.autoTiling = false;
+        
         gameObject.SetActive(false);
         
         // public AttackLogic attackLogic;

@@ -7,7 +7,7 @@ public class CellScriptableObject : ScriptableObject
     public Sprite prefabSprite;
     public Sprite paddleSprite;
     public Sprite arrowSprite;
-    public Animator prefabAnimation;
+    public RuntimeAnimatorController prefabAnimation;
 
     public float respawnTime;
 

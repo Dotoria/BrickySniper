@@ -25,7 +25,6 @@ public class Barricade : MonoBehaviour
         {
             EnemyManager.Instance.DestroyEnemy(other.gameObject);
             currentHealthPoint -= other.GetComponent<Enemy>().attackPoint;
-            Debug.Log("current: " + currentHealthPoint + " ap: " + other.GetComponent<Enemy>().attackPoint);
         }
     }
 }

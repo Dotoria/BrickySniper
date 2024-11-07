@@ -5,7 +5,7 @@ public class EnemyScriptableObject : ScriptableObject
 {
     public string prefabName;
     public Sprite prefabSprite;
-    public Animator prefabAnimation;
+    public RuntimeAnimatorController prefabAnimation;
     
     public float firstSpawnTime;
     
