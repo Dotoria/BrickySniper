@@ -10,10 +10,7 @@ public class Paddle : MonoBehaviour
     private Vector2 cameraSize;
     private RaycastHit2D hit;
 
-    public GameObject endMenuUI;
-
     public bool canDrag;
-    public int health;
     private bool _isDragging = false;
 
     void Awake()
@@ -27,15 +24,6 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0)
-        {
-            if (endMenuUI)
-            {
-                Time.timeScale = 0f;
-                endMenuUI.SetActive(true);
-            }
-        }
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);

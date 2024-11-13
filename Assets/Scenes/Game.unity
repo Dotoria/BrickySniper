@@ -7782,9 +7782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 0}
-  endMenuUI: {fileID: 1050539936}
   canDrag: 0
-  health: 2
 --- !u!61 &1761912018
 BoxCollider2D:
   m_ObjectHideFlags: 0
