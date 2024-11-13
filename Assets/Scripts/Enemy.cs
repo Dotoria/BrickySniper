@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour
     
     private void Awake()
     {
-        
         _prefabSprite = gameObject.GetComponent<SpriteRenderer>();
         _enemyRB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -29,6 +28,19 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Cell"))
+        {
+            currentHealthPoint -= other.gameObject.GetComponent<Cell>().attackPoint;
+            if (currentHealthPoint <= 0)
+            {
+                EnemyManager.Instance.DestroyEnemy(gameObject);
+            }
+            Debug.Log("enemy health? " + currentHealthPoint);
+        }
     }
 
     public void Install()
@@ -54,8 +66,6 @@ public class Enemy : MonoBehaviour
         Install();
         transform.position = spawnPos;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, spawnDir);
-        Debug.Log("pos " + transform.position);
-        Debug.Log("dir " + spawnDir);
         _enemyRB.velocity = enemySO.movePoint * transform.up;
     }
 }

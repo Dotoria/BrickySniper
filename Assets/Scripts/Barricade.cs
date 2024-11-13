@@ -22,13 +22,7 @@ public class Barricade : MonoBehaviour
         currentHealthPoint = maxHealthPoint;
         _collider = GetComponent<BoxCollider2D>();
         
-        _slider.value = maxHealthPoint;
-        _text.text = $"{currentHealthPoint} / {maxHealthPoint}";
-    }
-
-    void Update()
-    {
-        
+        SliderUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,10 +30,21 @@ public class Barricade : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyManager.Instance.DestroyEnemy(other.gameObject);
-            currentHealthPoint -= other.GetComponent<Enemy>().attackPoint;
+            int newPoint = currentHealthPoint - other.GetComponent<Enemy>().attackPoint;
+            currentHealthPoint = newPoint < 0 ? 0 : newPoint;
 
-            _slider.value = currentHealthPoint * 1f / maxHealthPoint;
-            _text.text = $"{currentHealthPoint} / {maxHealthPoint}";
+            SliderUpdate();
+
+            if (currentHealthPoint == 0)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
+    }
+
+    private void SliderUpdate()
+    {
+        _slider.value = currentHealthPoint * 1f / maxHealthPoint;
+        _text.text = $"{currentHealthPoint} / {maxHealthPoint}";
     }
 }

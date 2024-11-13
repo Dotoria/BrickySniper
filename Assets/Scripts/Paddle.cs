@@ -42,33 +42,27 @@ public class Paddle : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                Debug.Log("Began");
                 HandleDragBegin(touch.position);
             }
             else if (touch.phase == TouchPhase.Moved && _isDragging)
             {
-                Debug.Log("Moved");
                 HandleDragMove(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
-                Debug.Log("Ended");
                 HandleDragEnd();
             }
         }
         else if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("mouseBegan");
             HandleDragBegin(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0) && _isDragging)
         {
-            Debug.Log("mouseMoved");
             HandleDragMove(Input.mousePosition);
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("mouseUp");
             HandleDragEnd();
         }
     }

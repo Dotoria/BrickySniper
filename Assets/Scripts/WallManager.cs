@@ -10,7 +10,8 @@ public class WallManager : MonoBehaviour
 
     private readonly System.Random _random = new();
     public List<GameObject> wallList = new();
-    public static List<GameObject> destroyWallList = new();
+    public static List<GameObject> DestroyWallList = new();
+    public static List<GameObject> NoSpawnWallList;
 
     private void Awake()
     {
@@ -23,8 +24,10 @@ public class WallManager : MonoBehaviour
         SetWallPos();
 
         int destroy = _random.Next(6, 10);
-        destroyWallList.Add(wallList[destroy]);
+        DestroyWallList.Add(wallList[destroy]);
         wallList[destroy].SetActive(false);
+
+        NoSpawnWallList = new List<GameObject> { wallList[0], wallList[1], wallList[^2], wallList[^1] };
     }
 
     void SetWallPos()

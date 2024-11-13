@@ -57,7 +57,7 @@ public class EnemyManager : MonoBehaviour
         Enemy enemy = newEnemy.GetComponent<Enemy>();
         enemy.enemySO = _soList[_random.Next(_soList.Count)];
 
-        Vector3 pos = WallManager.destroyWallList[_random.Next(WallManager.destroyWallList.Count)].transform.position;
+        Vector3 pos = WallManager.DestroyWallList[_random.Next(WallManager.DestroyWallList.Count)].transform.position;
         Vector3 dir = new Vector3(_random.Next(-6, 6) * 1f, -7.75f) - pos;
         
         enemy.Shoot(pos, dir);
