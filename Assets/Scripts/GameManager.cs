@@ -13,21 +13,21 @@ public class GameManager : MonoBehaviour
     // Score
     public GameObject ScoreUI;
     private TextMeshProUGUI _scoreText;
-    private int _score;
+    private float _score;
     
     // Health
     public GameObject healthBar;
     private Slider _healthSlider;
     private TextMeshProUGUI _healthText;
-    public int maxHealthPoint = 30;
-    private int _currentHealthPoint;
+    public float maxHealthPoint = 30;
+    private float _currentHealthPoint;
     
     // Energy
     public GameObject energyBar;
     private Slider _energySlider;
     private TextMeshProUGUI _energyText;
-    public int maxEnergyPoint = 40;
-    private int _currentEnergyPoint;
+    public float maxEnergyPoint = 40;
+    private float _currentEnergyPoint;
     
     void Awake()
     {
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         // Score
         _scoreText = ScoreUI.GetComponent<TextMeshProUGUI>();
         _score = 0;
+        GainScore(0);
         
         // Health Bar
         _healthSlider = healthBar.GetComponent<Slider>();
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         if (Time.timeScale > 0f)
         {
-            GainScore(1);
+            GainScore(0.1f * Time.timeScale);
         }
     }
 
@@ -72,17 +73,17 @@ public class GameManager : MonoBehaviour
         CellManager.Instance.SetCell(GetComponent<Test>().cellSOList);
     }
 
-    public void GainScore(int amount)
+    public void GainScore(float amount)
     {
         _score += amount;
         _scoreText.text = _score.ToString("N0");
     }
 
-    public void GainHealth(int amount)
+    public void GainHealth(float amount)
     {
-        _currentHealthPoint += amount;
-        _currentHealthPoint = _currentHealthPoint < 0 ? 0 : _currentHealthPoint;
-        _currentHealthPoint = _currentHealthPoint > maxHealthPoint ? maxHealthPoint : _currentHealthPoint;
+        float newPoint = _currentHealthPoint + amount;
+        _currentHealthPoint = newPoint > maxHealthPoint ? maxHealthPoint : newPoint;
+        _currentHealthPoint = newPoint < 0 ? 0 : newPoint;
 
         _healthSlider.value = _currentHealthPoint * 1f / maxHealthPoint;
         _healthText.text = $"{_currentHealthPoint} / {maxHealthPoint}";
@@ -93,9 +94,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GainEnergy(int energy)
+    public void GainEnergy(int amount)
     {
-        int newPoint = _currentEnergyPoint + energy;
+        float newPoint = _currentEnergyPoint + amount;
         _currentEnergyPoint = newPoint > maxEnergyPoint ? maxEnergyPoint : newPoint;
         _currentEnergyPoint = newPoint < 0 ? 0 : newPoint;
         
