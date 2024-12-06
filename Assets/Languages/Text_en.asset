@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Text_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 3235a279e2314694b8c8c8ce9e515ccb, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 117440696320
+    m_Localized: Cellquad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 362332459028480
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 734778399838208
+    m_Localized: Korean
+    m_Metadata:
+      m_Items: []
+  - m_Id: 735038014672896
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 735106331496448
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 734993559244800
+    m_Localized: Japanese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 734940102840320
+    m_Localized: Chinese
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

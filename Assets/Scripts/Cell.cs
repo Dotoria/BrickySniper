@@ -79,5 +79,7 @@ public class Cell : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         _cellRB.velocity = cellSO.movePoint * transform.up;
         _arrow.gameObject.SetActive(false);
+        
+        GameManager.Instance.GainEnergy(-5);
     }
 }

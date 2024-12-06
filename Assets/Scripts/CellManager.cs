@@ -14,7 +14,7 @@ public class CellManager : MonoBehaviour
     public GameObject cellPrefab;
 
     private readonly List<Image> _gaugeImages = new();
-    public List<bool> reloading = new();
+    private List<bool> _reloading = new();
     
     void Awake()
     {
@@ -31,9 +31,9 @@ public class CellManager : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < reloading.Count; i++)
+        for (int i = 0; i < _reloading.Count; i++)
         {
-            if (reloading[i])
+            if (_reloading[i])
             {
                 if (_gaugeImages != null)
                 {
@@ -41,7 +41,7 @@ public class CellManager : MonoBehaviour
 
                     if (_gaugeImages[i].fillAmount <= 0f)
                     {
-                        reloading[i] = false;
+                        _reloading[i] = false;
                     }
                 }
             }
@@ -76,7 +76,7 @@ public class CellManager : MonoBehaviour
                         else
                         {
                             _gaugeImages.Add(childImage);
-                            reloading.Add(false);
+                            _reloading.Add(false);
                         }
                     }
                 }
@@ -87,13 +87,14 @@ public class CellManager : MonoBehaviour
     // 버튼을 누르면 paddle에 장착하기
     public void GetCell(int pos)
     {
-        if (reloading[pos]) return;
+        if (_reloading[pos]) return;
         
         var newCell = ObjectPool.Instance["cell"].GetFromPool();
 
         Cell cell = newCell.GetComponent<Cell>();
         cell.cellSO = cellSO[pos];
         cell.Install();
+        Debug.Log("GetCell");
         
         ReloadCell(pos);
     }
@@ -102,7 +103,7 @@ public class CellManager : MonoBehaviour
     public void ReloadCell(int pos)
     {
         _gaugeImages[pos].fillAmount = 1f;
-        reloading[pos] = true;
+        _reloading[pos] = true;
     }
     
     // 풀로 돌려놓기

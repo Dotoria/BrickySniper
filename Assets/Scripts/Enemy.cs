@@ -39,7 +39,8 @@ public class Enemy : MonoBehaviour
             {
                 EnemyManager.Instance.DestroyEnemy(gameObject);
             }
-            Debug.Log("enemy health? " + currentHealthPoint);
+            
+            GameManager.Instance.GainScore(500);
         }
     }
 

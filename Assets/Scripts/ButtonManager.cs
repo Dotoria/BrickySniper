@@ -1,73 +1,42 @@
 using UnityEngine;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    public Button PauseButton;
-    public Button ResumeButton;
-    public Button TryAgainButton;
-    public Button[] ExitButton;
-    
-    public GameObject CellButton;
-    public GameObject pauseMenuUI;
+    public GameObject cellButton;
     
     public GameObject paddle;
     
     void Start()
     {
-        PauseButton.onClick.AddListener(PauseButtonClick);
-        ResumeButton.onClick.AddListener(ResumeButtonClick);
-        TryAgainButton.onClick.AddListener(TryAgainButtonClick);
-        foreach (var exit in ExitButton)
-        {
-            exit.onClick.AddListener(ExitButtonClick);
-        }
-    
-        foreach (var cellButton in CellButton.GetComponentsInChildren<Button>())
+        foreach (var button in cellButton.GetComponentsInChildren<Button>())
         {
             if (!paddle.GetComponent<Paddle>().canDrag) return;
             
-            var pos = cellButton.name[^1] - '1';
-            cellButton.onClick.AddListener(() => CellManager.Instance.GetCell(pos));
+            var pos = button.name[^1] - '1';
+            button.onClick.AddListener(() => CellManager.Instance.GetCell(pos));
         }
     }
-    
-    void Update()
+
+    public void OpenUI(GameObject ui)
     {
-        
+        ui.SetActive(true);
     }
-    
-    // 게임 일시정지
-    void PauseButtonClick()
+
+    public void CloseUI(GameObject ui)
     {
-        Time.timeScale = 0f;
-        if (pauseMenuUI != null)
-        {
-            pauseMenuUI.SetActive(true);
-        }
-        PauseButton.gameObject.SetActive(false);
+        ui.SetActive(false);
     }
-    
-    // 게임 재개
-    void ResumeButtonClick()
+
+    public void SetSpeed(float speed)
     {
-        Time.timeScale = 1f;
-        if (pauseMenuUI != null)
-        {
-            pauseMenuUI.SetActive(false);
-        }
-        PauseButton.gameObject.SetActive(true);
+        Time.timeScale = speed;
     }
-    
-    // 게임 처음부터
-    void TryAgainButtonClick()
+
+    public void SetLanguage(int index)
     {
-        SceneLoader.LoadSceneByName("Game");
-    }
-    
-    // 게임 나가기
-    void ExitButtonClick()
-    {
-        SceneLoader.LoadSceneByName("Lobby");
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
     }
 }
