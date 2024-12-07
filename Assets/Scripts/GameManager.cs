@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameOver!");
         Time.timeScale = 0f;
         endMenuUI.SetActive(true);
-        CellManager.Instance.SetCell(GetComponent<Test>().cellSOList);
+        // CellManager.Instance.SetCell(GetComponent<Test>().cellSOList);
     }
 
     public void GainScore(float amount)

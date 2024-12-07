@@ -7,5 +7,13 @@ public class GameData
 
 public class DataManager : MonoBehaviour
 {
-    
+    public void SaveData()
+    {
+        
+    }
+
+    public void LoadData()
+    {
+        
+    }
 }
