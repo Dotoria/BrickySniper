@@ -8,7 +8,6 @@ public class Cell : MonoBehaviour
     
     private SpriteRenderer _prefabSprite;
     private SpriteRenderer _paddleSprite;
-    private SpriteRenderer _arrowSprite;
     private Animator _animator;
     private PolygonCollider2D _collider;
     
@@ -29,6 +28,7 @@ public class Cell : MonoBehaviour
             {
                 _paddle = entry.GetComponent<Paddle>();
                 _paddleSprite = _paddle.gameObject.GetComponent<SpriteRenderer>();
+                break;
             }
         }
 
@@ -42,14 +42,11 @@ public class Cell : MonoBehaviour
         gameObject.name = cellSO.prefabName;
         _prefabSprite.sprite = cellSO.prefabSprite;
         _paddleSprite.sprite = cellSO.paddleSprite;
-        _arrowSprite.sprite = cellSO.arrowSprite;
         _animator.runtimeAnimatorController = cellSO.prefabAnimation;
         
         healthPoint = cellSO.healthPoint;
         currentHealthPoint = healthPoint;
         attackPoint = cellSO.attackPoint;
-        
-        _paddle.canDrag = false;
         
         // collider 업데이트
         if (_collider)
@@ -59,18 +56,24 @@ public class Cell : MonoBehaviour
         _collider = gameObject.AddComponent<PolygonCollider2D>();
         
         gameObject.SetActive(false);
+
+        _paddle.isSetting = true;
+        _paddle.cell = this;
         
+        Debug.Log(" " + _paddle.cell.transform.position);
+
         // public AttackLogic attackLogic;
         // public MoveLogic moveLogic;
     }
 
-    public void Shoot(float angle)
+    public void Shoot()
     {
         gameObject.SetActive(true);
         transform.position = _paddle.gameObject.transform.position;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.position += new Vector3(0, 1f);
         _cellRB.velocity = cellSO.movePoint * transform.up;
-        
+
+        CellManager.Instance.ReloadCell(CellManager.Instance.cellSO.FindIndex(cell => cell == cellSO));
         GameManager.Instance.GainEnergy(-5);
     }
 }

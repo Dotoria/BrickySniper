@@ -5,19 +5,9 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    public GameObject cellButton;
-    
-    public GameObject paddle;
-    
-    void Start()
+    public void CellButton(int pos)
     {
-        foreach (var button in cellButton.GetComponentsInChildren<Button>())
-        {
-            if (!paddle.GetComponent<Paddle>().canDrag) return;
-            
-            var pos = button.name[^1] - '1';
-            button.onClick.AddListener(() => CellManager.Instance.GetCell(pos));
-        }
+        CellManager.Instance.GetCell(pos);
     }
 
     public void OpenUI(GameObject ui)

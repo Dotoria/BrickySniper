@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CellManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class CellManager : MonoBehaviour
     public GameObject cellPrefab;
 
     private readonly List<Image> _gaugeImages = new();
-    private List<bool> _reloading = new();
+    [HideInInspector] public List<bool> reloading = new();
     
     void Awake()
     {
@@ -31,9 +32,9 @@ public class CellManager : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < _reloading.Count; i++)
+        for (int i = 0; i < reloading.Count; i++)
         {
-            if (_reloading[i])
+            if (reloading[i])
             {
                 if (_gaugeImages != null)
                 {
@@ -41,7 +42,7 @@ public class CellManager : MonoBehaviour
 
                     if (_gaugeImages[i].fillAmount <= 0f)
                     {
-                        _reloading[i] = false;
+                        reloading[i] = false;
                     }
                 }
             }
@@ -76,7 +77,7 @@ public class CellManager : MonoBehaviour
                         else
                         {
                             _gaugeImages.Add(childImage);
-                            _reloading.Add(false);
+                            reloading.Add(false);
                         }
                     }
                 }
@@ -87,23 +88,19 @@ public class CellManager : MonoBehaviour
     // 버튼을 누르면 paddle에 장착하기
     public void GetCell(int pos)
     {
-        if (_reloading[pos]) return;
-        
+        if (reloading[pos]) return;
         var newCell = ObjectPool.Instance["cell"].GetFromPool();
 
         Cell cell = newCell.GetComponent<Cell>();
         cell.cellSO = cellSO[pos];
         cell.Install();
-        Debug.Log("GetCell");
-        
-        ReloadCell(pos);
     }
     
     // 게이지 만들기
     public void ReloadCell(int pos)
     {
         _gaugeImages[pos].fillAmount = 1f;
-        _reloading[pos] = true;
+        reloading[pos] = true;
     }
     
     // 풀로 돌려놓기

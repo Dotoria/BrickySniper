@@ -13,14 +13,16 @@ public class Paddle : MonoBehaviour
     private Vector2 _pos;
     private Vector2 _initialPos;
 
-    public bool canDrag;
     public float paddleSpeed;
+    public bool isSetting;
+    [HideInInspector] public Cell cell;
     private bool _isDragging;
 
     void Awake()
     {
         _camera = Camera.main;
         cameraSize = new Vector2(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize);
+        isSetting = false;
         _isDragging = false;
 
         _touchCollider = touchArea.GetComponent<BoxCollider2D>();
@@ -37,13 +39,12 @@ public class Paddle : MonoBehaviour
                 HandleDragBegin(touch.position);
                 _initialPos = touch.position;
                 _pos = transform.position;
-                _isDragging = true;
             }
             else if (touch.phase == TouchPhase.Moved && _isDragging)
             {
                 HandleDragMove(_pos, touch.position, _initialPos);
             }
-            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && _isDragging)
             {
                 HandleDragEnd();
             }
@@ -53,13 +54,12 @@ public class Paddle : MonoBehaviour
             HandleDragBegin(Input.mousePosition);
             _initialPos = Input.mousePosition;
             _pos = transform.position;
-            _isDragging = true;
         }
         else if (Input.GetMouseButton(0) && _isDragging)
         {
             HandleDragMove(_pos, Input.mousePosition, _initialPos);
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && _isDragging)
         {
             HandleDragEnd();
         }
@@ -70,6 +70,7 @@ public class Paddle : MonoBehaviour
         Vector3 inputPosition = _camera.ScreenToWorldPoint(input);
         int layerMask = LayerMask.GetMask("Paddle");
         hit = Physics2D.Raycast(inputPosition, Vector2.down, Mathf.Infinity, layerMask);
+        if (hit.collider == _touchCollider) _isDragging = true;
     }
 
     private void HandleDragMove(Vector3 pos, Vector3 input, Vector3 init)
@@ -84,6 +85,13 @@ public class Paddle : MonoBehaviour
 
     private void HandleDragEnd()
     {
+        if (cell && isSetting)
+        {
+            cell.Shoot();
+            Debug.Log("Shooting!");
+        }
+        isSetting = false;
+        cell = default;
         _isDragging = false;
     }
 }
