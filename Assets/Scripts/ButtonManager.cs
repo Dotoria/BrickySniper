@@ -5,6 +5,23 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
+    public static ButtonManager Instance { get; private set; }
+    public float currentSpeed;
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        currentSpeed = 1f;
+    }
+
     public void CellButton(int pos)
     {
         CellManager.Instance.GetCell(pos);
@@ -23,6 +40,7 @@ public class ButtonManager : MonoBehaviour
     public void SetSpeed(float speed)
     {
         Time.timeScale = speed;
+        currentSpeed = speed;
     }
 
     public void SetLanguage(int index)

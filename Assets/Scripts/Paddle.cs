@@ -30,6 +30,11 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
+        if (cell && isSetting)
+        {
+            Time.timeScale = 0.2f;
+        }
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -88,7 +93,7 @@ public class Paddle : MonoBehaviour
         if (cell && isSetting)
         {
             cell.Shoot();
-            Debug.Log("Shooting!");
+            ButtonManager.Instance.SetSpeed(ButtonManager.Instance.currentSpeed);
         }
         isSetting = false;
         cell = default;

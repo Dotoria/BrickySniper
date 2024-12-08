@@ -59,8 +59,6 @@ public class Cell : MonoBehaviour
 
         _paddle.isSetting = true;
         _paddle.cell = this;
-        
-        Debug.Log(" " + _paddle.cell.transform.position);
 
         // public AttackLogic attackLogic;
         // public MoveLogic moveLogic;
@@ -69,8 +67,7 @@ public class Cell : MonoBehaviour
     public void Shoot()
     {
         gameObject.SetActive(true);
-        transform.position = _paddle.gameObject.transform.position;
-        transform.position += new Vector3(0, 1f);
+        transform.position = _paddle.gameObject.transform.position + new Vector3(0, 1f, 0);
         _cellRB.velocity = cellSO.movePoint * transform.up;
 
         CellManager.Instance.ReloadCell(CellManager.Instance.cellSO.FindIndex(cell => cell == cellSO));
