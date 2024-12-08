@@ -5,21 +5,25 @@ using UnityEngine.Serialization;
 public class Paddle : MonoBehaviour
 {
     private Camera _camera;
-    public BoxCollider2D boxCollider;
-    private Vector2 spriteSize;
+    public GameObject touchArea;
+    private BoxCollider2D _touchCollider;
+    private Vector2 spriteSize = new Vector2(3.8f, 0.8f);
     private Vector2 cameraSize;
     private RaycastHit2D hit;
+    private Vector2 _pos;
+    private Vector2 _initialPos;
 
     public bool canDrag;
-    private bool _isDragging = false;
+    public float paddleSpeed;
+    private bool _isDragging;
 
     void Awake()
     {
         _camera = Camera.main;
-        boxCollider = GetComponent<BoxCollider2D>();
-        boxCollider.enabled = true;
-        spriteSize = boxCollider.size;
         cameraSize = new Vector2(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize);
+        _isDragging = false;
+
+        _touchCollider = touchArea.GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -28,26 +32,32 @@ public class Paddle : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began && !_isDragging)
             {
                 HandleDragBegin(touch.position);
+                _initialPos = touch.position;
+                _pos = transform.position;
+                _isDragging = true;
             }
             else if (touch.phase == TouchPhase.Moved && _isDragging)
             {
-                HandleDragMove(touch.position);
+                HandleDragMove(_pos, touch.position, _initialPos);
             }
             else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
                 HandleDragEnd();
             }
         }
-        else if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButtonDown(0) && !_isDragging)
         {
             HandleDragBegin(Input.mousePosition);
+            _initialPos = Input.mousePosition;
+            _pos = transform.position;
+            _isDragging = true;
         }
         else if (Input.GetMouseButton(0) && _isDragging)
         {
-            HandleDragMove(Input.mousePosition);
+            HandleDragMove(_pos, Input.mousePosition, _initialPos);
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -60,35 +70,20 @@ public class Paddle : MonoBehaviour
         Vector3 inputPosition = _camera.ScreenToWorldPoint(input);
         int layerMask = LayerMask.GetMask("Paddle");
         hit = Physics2D.Raycast(inputPosition, Vector2.down, Mathf.Infinity, layerMask);
-
-        if (hit.collider == boxCollider)
-        {
-            _isDragging = true;
-        }
     }
 
-    private void HandleDragMove(Vector3 input)
+    private void HandleDragMove(Vector3 pos, Vector3 input, Vector3 init)
     {
         Vector3 inputPosition = _camera.ScreenToWorldPoint(input);
-        float clampedX = Mathf.Clamp(inputPosition.x, -cameraSize.x + spriteSize.x / 2, cameraSize.x - spriteSize.x / 2);
+        Vector3 initPosition = _camera.ScreenToWorldPoint(init);
+        float deltaX = (inputPosition.x - initPosition.x) * paddleSpeed;
+        float clampedX = Mathf.Clamp(pos.x + deltaX, -cameraSize.x + spriteSize.x / 2, cameraSize.x - spriteSize.x / 2);
 
-        if (canDrag)
-        {
-            transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
-        }
+        transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
     }
 
     private void HandleDragEnd()
     {
         _isDragging = false;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Cell"))
-        {
-            boxCollider.enabled = true;
-            boxCollider.isTrigger = false;
-        }
     }
 }

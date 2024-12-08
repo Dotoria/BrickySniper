@@ -5,7 +5,6 @@ public class Cell : MonoBehaviour
     public CellScriptableObject cellSO;
 
     private Paddle _paddle;
-    private Arrow _arrow;
     
     private SpriteRenderer _prefabSprite;
     private SpriteRenderer _paddleSprite;
@@ -31,11 +30,6 @@ public class Cell : MonoBehaviour
                 _paddle = entry.GetComponent<Paddle>();
                 _paddleSprite = _paddle.gameObject.GetComponent<SpriteRenderer>();
             }
-            else if (entry.GetComponent<Arrow>())
-            {
-                _arrow = entry.GetComponent<Arrow>();
-                _arrowSprite = _arrow.gameObject.GetComponent<SpriteRenderer>();
-            }
         }
 
         _cellRB = GetComponent<Rigidbody2D>();
@@ -55,8 +49,6 @@ public class Cell : MonoBehaviour
         currentHealthPoint = healthPoint;
         attackPoint = cellSO.attackPoint;
         
-        _arrow.gameObject.SetActive(true);
-        _arrow.cellPrefab = gameObject;
         _paddle.canDrag = false;
         
         // collider 업데이트
@@ -78,7 +70,6 @@ public class Cell : MonoBehaviour
         transform.position = _paddle.gameObject.transform.position;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         _cellRB.velocity = cellSO.movePoint * transform.up;
-        _arrow.gameObject.SetActive(false);
         
         GameManager.Instance.GainEnergy(-5);
     }
