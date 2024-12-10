@@ -14,9 +14,16 @@ public class GameManager : MonoBehaviour
     public Animator animator;
     private bool _playing = false;
     
+    // Coin
+    public TextMeshProUGUI coinText;
+    private int _coin;
+    
+    // Gem
+    public TextMeshProUGUI gemText;
+    private int _gem;
+    
     // Score
-    public GameObject ScoreUI;
-    private TextMeshProUGUI _scoreText;
+    public TextMeshProUGUI scoreText;
     private float _score;
     
     // Health
@@ -43,8 +50,15 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // Coin
+        _coin = DataManager.Instance.GameData.Coin;
+        GainCoin(0);
+        
+        // Gem
+        _gem = DataManager.Instance.GameData.Gem;
+        GainGem(0);
+        
         // Score
-        _scoreText = ScoreUI.GetComponent<TextMeshProUGUI>();
         _score = 0;
         GainScore(0);
         
@@ -91,16 +105,31 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         endMenuUI.SetActive(true);
+        
+        DataManager.Instance.GameData.Coin = _coin;
+        DataManager.Instance.GameData.Gem = _gem;
         if (DataManager.Instance.GameData.HighScore < (int)_score)
         {
             DataManager.Instance.GameData.HighScore = (int) _score;
         }
     }
+    
+    public void GainCoin(int amount)
+    {
+        _coin += amount;
+        coinText.text = _coin.ToString("N0");
+    }
+    
+    public void GainGem(int amount)
+    {
+        _gem += amount;
+        gemText.text = _gem.ToString("N0");
+    }
 
     public void GainScore(float amount)
     {
         _score += amount;
-        _scoreText.text = _score.ToString("N0");
+        scoreText.text = _score.ToString("N0");
     }
 
     public void GainHealth(float amount)

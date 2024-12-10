@@ -1,11 +1,13 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using UnityEditor;
 using UnityEditor.Localization.Platform.Android;
 using UnityEngine;
 
 public class GameData
 {
+    public string Version;
     public string Name;
     public int HighScore;
     public int Coin;
@@ -42,6 +44,8 @@ public class DataManager : MonoBehaviour
     {
         GameData data = GameData;
         if (GameData == null) return;
+        
+        data.Version = PlayerSettings.bundleVersion;
         using (Aes aes = Aes.Create())
         {
             aes.Key = key;
@@ -60,6 +64,11 @@ public class DataManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString(keyName)))
         {
+            if (PlayerSettings.bundleVersion != GameData.Version)
+            {
+                // 버전 미일치
+            }
+            
             using (Aes aes = Aes.Create())
             {
                 aes.Key = key;

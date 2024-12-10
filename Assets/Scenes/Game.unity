@@ -1385,7 +1385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endMenuUI: {fileID: 1050539936}
   animator: {fileID: 1972486794}
-  ScoreUI: {fileID: 91014159}
+  coinText: {fileID: 1710806764}
+  gemText: {fileID: 1846970475}
+  scoreText: {fileID: 91014161}
   healthBar: {fileID: 563024827}
   maxHealthPoint: 30
   energyBar: {fileID: 1439351128}
