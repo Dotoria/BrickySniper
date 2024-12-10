@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -65,12 +66,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        DataManager.Instance.SaveData();
+    }
+
     public void GameOver()
     {
-        Debug.Log("GameOver!");
         Time.timeScale = 0f;
         endMenuUI.SetActive(true);
-        // CellManager.Instance.SetCell(GetComponent<Test>().cellSOList);
+        DataManager.Instance.GameData.HighScore = (int) _score;
     }
 
     public void GainScore(float amount)
