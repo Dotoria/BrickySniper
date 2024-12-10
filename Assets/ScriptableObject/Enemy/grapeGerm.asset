@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: "\uD3EC\uB3C4\uC0C1\uAD6C\uADE0"
   prefabSprite: {fileID: -2134260306, guid: ed67c094821cf734d86b12569c1023a3, type: 3}
-  prefabAnimation: {fileID: 9100000, guid: 4ceead68833a36b418f55e8530fc0b37, type: 2}
+  prefabAnimation: {fileID: 22100000, guid: c4fa07ec11f504e4b897e6fa559e4b01, type: 2}
   firstSpawnTime: 3
   healthPoint: 3
   attackPoint: 5

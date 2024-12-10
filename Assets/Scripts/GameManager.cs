@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     public GameObject endMenuUI;
+    public Animator animator;
+    private bool _playing = false;
     
     // Score
     public GameObject ScoreUI;
@@ -58,9 +61,14 @@ public class GameManager : MonoBehaviour
         GainEnergy(0);
     }
 
+    void Start()
+    {
+        StartCoroutine(PlayAnimation());
+    }
+
     void Update()
     {
-        if (Time.timeScale > 0f)
+        if (_playing && Time.timeScale > 0f)
         {
             GainScore(0.1f * Time.timeScale);
         }
@@ -71,11 +79,22 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.SaveData();
     }
 
+    private IEnumerator PlayAnimation()
+    {
+        animator.SetTrigger("EmergePanel");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        _playing = true;
+        Destroy(animator.gameObject);
+    }
+
     public void GameOver()
     {
         Time.timeScale = 0f;
         endMenuUI.SetActive(true);
-        DataManager.Instance.GameData.HighScore = (int) _score;
+        if (DataManager.Instance.GameData.HighScore < (int)_score)
+        {
+            DataManager.Instance.GameData.HighScore = (int) _score;
+        }
     }
 
     public void GainScore(float amount)

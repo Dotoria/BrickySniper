@@ -41,6 +41,7 @@ public class DataManager : MonoBehaviour
     public void SaveData()
     {
         GameData data = GameData;
+        if (GameData == null) return;
         using (Aes aes = Aes.Create())
         {
             aes.Key = key;

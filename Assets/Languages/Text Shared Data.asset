@@ -43,6 +43,10 @@ MonoBehaviour:
     m_Key: Select
     m_Metadata:
       m_Items: []
+  - m_Id: 4988333117853696
+    m_Key: StartGame
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

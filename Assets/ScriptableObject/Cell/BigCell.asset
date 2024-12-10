@@ -16,7 +16,7 @@ MonoBehaviour:
   prefabSprite: {fileID: -2473061, guid: 5da47004eed030b48bec1cb93179e89d, type: 3}
   paddleSprite: {fileID: 21300000, guid: e5e5e03f76fe3614091896ecdc9f334e, type: 3}
   arrowSprite: {fileID: 21300000, guid: 02355d3d7d04f7f4cab3ce68e083949e, type: 3}
-  prefabAnimation: {fileID: 9100000, guid: 78ae17f3cec27a144821d958e27e60bd, type: 2}
+  prefabAnimation: {fileID: 22100000, guid: 86d8e4b212b778443aa5d3e060a94707, type: 2}
   respawnTime: 6
   healthPoint: -1
   attackPoint: 1
