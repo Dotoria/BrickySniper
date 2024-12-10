@@ -37,8 +37,7 @@ public class Enemy : MonoBehaviour
             currentHealthPoint -= other.gameObject.GetComponent<Cell>().attackPoint;
             if (currentHealthPoint <= 0)
             {
-                EnemyManager.Instance.DestroyEnemy(gameObject);
-                _animator.SetTrigger("Death");
+                StartCoroutine(DeadByCell());
             }
             else
             {
@@ -73,5 +72,12 @@ public class Enemy : MonoBehaviour
         transform.position = spawnPos;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, spawnDir);
         _enemyRB.velocity = enemySO.movePoint * transform.up;
+    }
+
+    IEnumerator DeadByCell()
+    {
+        _animator.SetTrigger("Death");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        EnemyManager.Instance.DestroyEnemy(gameObject);
     }
 }

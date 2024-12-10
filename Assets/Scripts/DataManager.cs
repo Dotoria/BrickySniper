@@ -32,11 +32,16 @@ public class DataManager : MonoBehaviour
         }
 
         Instance = this;
+        GameData = new GameData();
         DontDestroyOnLoad(gameObject);
         
         if (PlayerPrefs.HasKey(keyName))
         {
             LoadData();
+        }
+        else
+        {
+            SaveData();
         }
     }
 

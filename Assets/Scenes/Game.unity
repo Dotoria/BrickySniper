@@ -1551,6 +1551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySO:
   - {fileID: 11400000, guid: 15797b5ed3209574ebb1f3cf23e98800, type: 2}
+  - {fileID: 11400000, guid: 9883ee34722ff7743a629472c5ce7b88, type: 2}
   enemyPrefab: {fileID: 8856497780676383169, guid: 8bb1a627f3bfbd54bbef2f14acdaea06, type: 3}
 --- !u!4 &310498790
 Transform:

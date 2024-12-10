@@ -50,12 +50,16 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Coin
-        _coin = DataManager.Instance.GameData.Coin;
-        GainCoin(0);
+        // if (DataManager.Instance.GameData != null)
+        // {
+        //     // Coin
+        //     _coin = DataManager.Instance.GameData.Coin;
+        //
+        //     // Gem
+        //     _gem = DataManager.Instance.GameData.Gem;
+        // }
         
-        // Gem
-        _gem = DataManager.Instance.GameData.Gem;
+        GainCoin(0);
         GainGem(0);
         
         // Score
