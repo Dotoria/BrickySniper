@@ -9,5 +9,7 @@ AnimatorOverrideController:
   m_Name: bigCell
   m_Controller: {fileID: 9100000, guid: 4ceead68833a36b418f55e8530fc0b37, type: 2}
   m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 210964d97d0db0f4fa1ca01b1bbdde0d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 75ab9208c1075c14284b44c582db2402, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: e48f294a476df8d4aabc4ea6a4a5c3c6, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: e7c20765e435a5a4790fd28cb8b4a4c0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d97d2ca2d26cc994f81d4462aa7f2ac2, type: 2}

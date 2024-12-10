@@ -37,6 +37,14 @@ public class Cell : MonoBehaviour
         _collider = GetComponent<PolygonCollider2D>();
     }
     
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            _animator.SetTrigger("Attack");
+        }
+    }
+    
     public void Install()
     {
         gameObject.name = cellSO.prefabName;

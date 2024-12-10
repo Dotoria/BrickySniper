@@ -38,6 +38,11 @@ public class Enemy : MonoBehaviour
             if (currentHealthPoint <= 0)
             {
                 EnemyManager.Instance.DestroyEnemy(gameObject);
+                _animator.SetTrigger("Death");
+            }
+            else
+            {
+                _animator.SetTrigger("Damage");
             }
             
             GameManager.Instance.GainScore(500);
