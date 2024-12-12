@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -36,7 +37,13 @@ public class Cell : MonoBehaviour
         _animator = GetComponent<Animator>();
         _collider = GetComponent<PolygonCollider2D>();
     }
-    
+
+    private void FixedUpdate()
+    {
+        _cellRB.velocity = _cellRB.velocity.normalized * cellSO.movePoint;
+        _cellRB.angularVelocity = _cellRB.angularVelocity > 1 ? 1 : _cellRB.angularVelocity;
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))

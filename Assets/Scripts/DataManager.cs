@@ -12,6 +12,7 @@ public class GameData
     public int HighScore;
     public int Coin;
     public int Gem;
+    // CellSOList
 }
 
 public class DataManager : MonoBehaviour

@@ -25,9 +25,10 @@ public class Enemy : MonoBehaviour
         _collider = GetComponent<PolygonCollider2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        
+        _enemyRB.velocity = _enemyRB.velocity.normalized * enemySO.movePoint;
+        _enemyRB.angularVelocity = _enemyRB.angularVelocity > 1 ? 1 : _enemyRB.angularVelocity;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
             currentHealthPoint -= other.gameObject.GetComponent<Cell>().attackPoint;
             if (currentHealthPoint <= 0)
             {
+                // bigCell 한테 죽은 것이 아닐 때
                 StartCoroutine(DeadByCell());
             }
             else
