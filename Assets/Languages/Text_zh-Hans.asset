@@ -46,6 +46,26 @@ MonoBehaviour:
     m_Localized: "\u897F\u73ED\u7259\u8BED"
     m_Metadata:
       m_Items: []
+  - m_Id: 7611989681688576
+    m_Localized: play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4988333117853696
+    m_Localized: start Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7612722736975872
+    m_Localized: squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9410753585139712
+    m_Localized: "\u8BED\u8A00"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9412768532975616
+    m_Localized: "\r\u5F88\u9AD8\u5174\u89C1\u5230\u4F60!\n\u4F60\u53EB\u4EC0\u4E48\u540D\u5B57?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

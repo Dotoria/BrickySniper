@@ -50,6 +50,28 @@ MonoBehaviour:
     m_Localized: Start Game!
     m_Metadata:
       m_Items: []
+  - m_Id: 7611989681688576
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7612722736975872
+    m_Localized: squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9410753585139712
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9412768532975616
+    m_Localized: 'Nice to meet you!
+
+      What''s your name?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9424206261571584
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -46,6 +46,26 @@ MonoBehaviour:
     m_Localized: Chino
     m_Metadata:
       m_Items: []
+  - m_Id: 4988333117853696
+    m_Localized: start Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7611989681688576
+    m_Localized: play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7612722736975872
+    m_Localized: squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9410753585139712
+    m_Localized: Idioma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9412768532975616
+    m_Localized: "\xA1Encantado de conocerlo!\n\xBFC\xF3mo te llamas?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

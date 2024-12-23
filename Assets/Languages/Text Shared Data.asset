@@ -47,6 +47,26 @@ MonoBehaviour:
     m_Key: StartGame
     m_Metadata:
       m_Items: []
+  - m_Id: 7611989681688576
+    m_Key: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7612722736975872
+    m_Key: Squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9410753585139712
+    m_Key: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9412768532975616
+    m_Key: CheckData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9424206261571584
+    m_Key: Confirm
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

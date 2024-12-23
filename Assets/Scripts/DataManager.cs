@@ -33,7 +33,7 @@ public class DataManager : MonoBehaviour
         }
 
         Instance = this;
-        GameData = new GameData();
+        CreateData();
         DontDestroyOnLoad(gameObject);
         
         if (PlayerPrefs.HasKey(keyName))
@@ -92,5 +92,18 @@ public class DataManager : MonoBehaviour
     public void DeleteData()
     {
         PlayerPrefs.DeleteKey(keyName);
+        CreateData();
+    }
+
+    private void CreateData()
+    {
+        GameData = new GameData
+        {
+            Name = "",
+            Version = "0.0",
+            Coin = 0,
+            Gem = 0,
+            HighScore = 0,
+        };
     }
 }
