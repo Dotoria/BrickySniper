@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,39 +7,83 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class ScriptManager : MonoBehaviour
 {
+    public GameObject ui;
+    public Image image;
     public TextMeshProUGUI text;
+    
     public string tableCode;
     [SerializeField] private LocalizedStringTable table;
 
+    [Serializable]
+    public class SpritePair
+    {
+        public char name;
+        public Sprite sprite;
+    }
+
+    [SerializeField] private List<SpritePair> _pairs = new();
+    private Dictionary<char, Sprite> _spriteDict;
+    [SerializeField] private List<Sprite> _tellSprites;
+
+
     private bool _isScripting = false;
     private string _script = "";
+    private int _chap;
     private Coroutine _currentCoroutine;
 
+    [SerializeField] private List<GameObject> tutorialUIList;
+
     void Awake()
+    {
+        _chap = 1;
+        text.text = "";
+        _tellSprites = new();
+        _spriteDict = new();
+        foreach (var pair in _pairs)
+        {
+            _spriteDict.Add(pair.name, pair.sprite);
+        }
+        LoadScript();
+
+        foreach (var button in FindObjectsOfType<Button>())
+        {
+            if (button.gameObject.name is "DialogueButton" or "SkipTutorial") continue;
+            button.interactable = false;
+        }
+    }
+
+    void LoadScript()
     {
         table.GetTableAsync().Completed += handle =>
         {
             if (handle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
             {
                 StringTable stringTable = handle.Result;
-                int chap = 1;
-                int num = 1;
-                Debug.Log(tableCode + chap + '-' + num);
-                while (stringTable.TryGetValue(stringTable.SharedData.GetId(tableCode + chap + '-' + num), out var entry))
+                foreach (var entry in stringTable.SharedData.Entries)
                 {
-                    _script += entry.LocalizedValue + '\n';
-                    Debug.Log($"{tableCode + chap + '-' + num} : {entry.LocalizedValue}");
-                    num++;
+                    if (entry.Key[..3] == tableCode + _chap)
+                    {
+                        _script += stringTable.GetEntry(entry.Id).LocalizedValue + "\n";
+                        _tellSprites.Add(_spriteDict[entry.Key[^1]]);
+                    }
                 }
+                Scripting();
             }
         };
     }
     
     public void Scripting()
     {
+        string name = "test";
+        if (DataManager.Instance.GameData != null)
+        {
+            name = DataManager.Instance.GameData.Name;
+        }
+        _script = _script.Replace("=", name);
         if (_isScripting)
         {
             CompleteScript();
@@ -51,28 +96,48 @@ public class ScriptManager : MonoBehaviour
 
     IEnumerator StartScripting()
     {
-        text.text = "";
-
+        if (_tellSprites.Count == 0)
+        {
+            CompleteScript();
+            yield break;
+        }
+        
+        image.sprite = _tellSprites[0];
+        _tellSprites.RemoveAt(0);
+        bool emphasize = false;
         for (int i = 0; i < _script.Length; i++)
         {
+            yield return new WaitForSeconds(0.05f);
+            if (i == 0)
+            {
+                yield return new WaitForSeconds(0f);
+                text.text = "";
+            }
             char nextChar = _script[i];
 
             if (nextChar != '\n')
             {
-                text.text += nextChar;
+                if (nextChar == '+' && !emphasize)
+                {
+                    text.text += "<size=24>";
+                    emphasize = true;
+                }
+                else if (nextChar == '+' && emphasize)
+                {
+                    text.text += "</size>";
+                    emphasize = false;
+                }
+                else
+                {
+                    text.text += nextChar;
+                }
             }
             else
             {
+                CompleteScript();
                 break;
             }
-
-            yield return new WaitForSeconds(0.05f);
-
-            if (!_isScripting)
-                break;
         }
-
-        CompleteScript();
     }
 
     private void CompleteScript()
@@ -91,9 +156,26 @@ public class ScriptManager : MonoBehaviour
         else
         {
             text.text = _script;
-            // SceneLoader.LoadSceneByName("MainScene");
+            LoadAction();
         }
 
         _isScripting = false;
+    }
+
+    private void LoadAction()
+    {
+        ButtonManager.Instance.CloseUI(ui);
+        // 특정 버튼만 chap 별로 활성화
+        
+        switch (_chap)
+        {
+            case 1:
+                ButtonManager.Instance.OpenUI(tutorialUIList[_chap - 1]);
+                break;
+            default:
+                break;
+        }
+        
+        _chap++;
     }
 }
