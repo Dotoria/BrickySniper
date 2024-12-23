@@ -532,7 +532,11 @@ MonoBehaviour:
     sprite: {fileID: -1948580470, guid: 649b0aa8825379d43a3e5a760078125b, type: 3}
   - name: 86
     sprite: {fileID: 942953215, guid: d417b8942218a4c40874aa904dfaa7c6, type: 3}
-  _tellSprites: []
+  _conditions:
+  - uis:
+    - {fileID: 1703618428}
+    buttons:
+    - {fileID: 1105198449}
   tutorialUIList:
   - {fileID: 1703618428}
 --- !u!4 &117776270

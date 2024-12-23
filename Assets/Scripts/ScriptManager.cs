@@ -24,11 +24,19 @@ public class ScriptManager : MonoBehaviour
         public char name;
         public Sprite sprite;
     }
-
+    
     [SerializeField] private List<SpritePair> _pairs = new();
     private Dictionary<char, Sprite> _spriteDict;
-    [SerializeField] private List<Sprite> _tellSprites;
+    private List<Sprite> _tellSprites;
 
+    [Serializable]
+    public class TutorialConditions
+    {
+        public List<GameObject> uis;
+        public List<Button> buttons;
+    }
+
+    [SerializeField] private List<TutorialConditions> _conditions = new();
 
     private bool _isScripting = false;
     private string _script = "";
@@ -166,11 +174,13 @@ public class ScriptManager : MonoBehaviour
     {
         ButtonManager.Instance.CloseUI(ui);
         // 특정 버튼만 chap 별로 활성화
+        TutorialConditions condition = _conditions[_chap - 1];
         
         switch (_chap)
         {
             case 1:
-                ButtonManager.Instance.OpenUI(tutorialUIList[_chap - 1]);
+                ButtonManager.Instance.OpenUI(condition.uis[0]);
+                condition.buttons[0].interactable = true;
                 break;
             default:
                 break;
