@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: tetanusGerm
+  m_Controller: {fileID: 9100000, guid: 4ceead68833a36b418f55e8530fc0b37, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 210964d97d0db0f4fa1ca01b1bbdde0d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca6176e1ef0311345879816f816597a6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1c9b58f9845b5f542828afd5034a436d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 55a7af37c8f58134d951714bfffee478, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 71ce1d2615bf6bc46a804158c3393563, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a7b3f51310e511a468d9a87ae7dcd25f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e48f294a476df8d4aabc4ea6a4a5c3c6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca6176e1ef0311345879816f816597a6, type: 2}

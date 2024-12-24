@@ -12,7 +12,9 @@ public class GameData
     public int HighScore;
     public int Coin;
     public int Gem;
-    // CellSOList
+    public int Level;
+    public int Exp;
+    public CellScriptableObject[] Cellquad;
 }
 
 public class DataManager : MonoBehaviour
@@ -104,6 +106,9 @@ public class DataManager : MonoBehaviour
             Coin = 0,
             Gem = 0,
             HighScore = 0,
+            Level = 1,
+            Exp = 0,
+            Cellquad = new CellScriptableObject[3],
         };
     }
 }

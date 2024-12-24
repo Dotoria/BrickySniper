@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public Animator animator;
     private bool _playing = false;
     
+    // Level
+    
     // Coin
     public TextMeshProUGUI coinText;
     private int _coin;
