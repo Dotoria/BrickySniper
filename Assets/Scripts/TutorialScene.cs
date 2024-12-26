@@ -9,7 +9,7 @@ using UnityEngine.Localization.Tables;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ScriptManager : MonoBehaviour
+public class TutorialScene : MonoBehaviour
 {
     public GameObject ui;
     public Image image;
@@ -172,14 +172,14 @@ public class ScriptManager : MonoBehaviour
 
     private void LoadAction()
     {
-        ButtonManager.Instance.CloseUI(ui);
+        UIManager.Instance.CloseUI(ui);
         // 특정 버튼만 chap 별로 활성화
         TutorialConditions condition = _conditions[_chap - 1];
         
         switch (_chap)
         {
             case 1:
-                ButtonManager.Instance.OpenUI(condition.uis[0]);
+                UIManager.Instance.OpenUI(condition.uis[0]);
                 condition.buttons[0].interactable = true;
                 break;
             default:

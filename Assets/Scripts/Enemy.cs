@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
                 _animator.SetTrigger("Damage");
             }
             
-            GameManager.Instance.GainScore(500);
+            GameScene.Instance.GainScore(500);
         }
     }
 

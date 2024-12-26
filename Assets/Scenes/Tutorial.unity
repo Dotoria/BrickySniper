@@ -780,8 +780,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 300}
+  m_AnchoredPosition: {x: 0, y: -45}
+  m_SizeDelta: {x: 1200, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &245040897
 MonoBehaviour:
@@ -2075,7 +2075,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 500, y: 275}
+  m_AnchoredPosition: {x: -500, y: 275}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &615983271
@@ -3602,6 +3602,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1958380419}
+        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
+        m_MethodName: EndTutorial
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 7cf85dc8857c09045868cc8be387ec1f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: CellScriptableObject, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7185444976221735988, guid: 724924f98b620e84b841c5dcf550e272, type: 3}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadSceneByName
@@ -5591,7 +5603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: ea0e165c77e3f4d449759423117a92c4, type: 2}
   m_Color: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 0.3764706}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5751,6 +5763,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b21615b606e3064ebdc3a9123a42da8, type: 3}
+--- !u!114 &1958380419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3025422596891333806, guid: 4b21615b606e3064ebdc3a9123a42da8, type: 3}
+  m_PrefabInstance: {fileID: 1958380418}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e06102aa3d445998d09b4d7426bec75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1969592743
 GameObject:
   m_ObjectHideFlags: 0

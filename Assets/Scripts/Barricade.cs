@@ -8,7 +8,7 @@ public class Barricade : MonoBehaviour
         {
             EnemyManager.Instance.DestroyEnemy(other.gameObject);
             int newPoint = - other.GetComponent<Enemy>().attackPoint;
-            GameManager.Instance.GainHealth(newPoint);
+            GameScene.Instance.GainHealth(newPoint);
         }
     }
 }

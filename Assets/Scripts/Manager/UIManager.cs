@@ -5,9 +5,9 @@ using UnityEngine.Localization.Settings;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ButtonManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static ButtonManager Instance { get; private set; }
+    public static UIManager Instance { get; private set; }
     [HideInInspector] public float currentSpeed;
     
     void Awake()
@@ -24,43 +24,16 @@ public class ButtonManager : MonoBehaviour
         currentSpeed = 1f;
     }
 
-    public void CellButton(int pos)
-    {
-        CellManager.Instance.GetCell(pos);
-    }
-
-    public void CheckData(GameObject ui)
-    {
-        if (DataManager.Instance.GameData.Name == "")
-        {
-            OpenUI(ui);
-        }
-        else
-        {
-            DataManager.Instance.LoadData();
-            SceneLoader.LoadSceneByName("Lobby");
-        }
-    }
-
-    public void StartTutorial(TextMeshProUGUI tmp)
-    {
-        tmp.text = tmp.text.Trim(' ');
-        if (tmp.text.Length > 8 && tmp.text.Length < 1) return;
-        DataManager.Instance.GameData.Name = tmp.text;
-        DataManager.Instance.SaveData();
-        SceneLoader.LoadSceneByName("Tutorial");
-    }
-
     public void PopUp(GameObject ui)
     {
-        OpenUI(ui);
-        StartCoroutine(Wait(2f));
-        CloseUI(ui);
+        StartCoroutine(Wait(ui, 2f));
     }
 
-    IEnumerator Wait(float second)
+    IEnumerator Wait(GameObject ui, float second)
     {
+        OpenUI(ui);
         yield return new WaitForSeconds(second);
+        CloseUI(ui);
     }
 
     public void OpenUI(GameObject ui)
@@ -71,6 +44,12 @@ public class ButtonManager : MonoBehaviour
     public void CloseUI(GameObject ui)
     {
         ui.SetActive(false);
+    }
+
+    public void OpenOrCloseUI(GameObject ui)
+    {
+        if (ui.activeSelf) CloseUI(ui);
+        else OpenUI(ui);
     }
 
     public void SetSpeed(float speed)

@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSO: {fileID: 0}
   image: {fileID: 2164592514332198527}
-  name: {fileID: 3327870279218452144}
+  textName: {fileID: 3327870279218452144}
   button: {fileID: 5456128264437817318}
 --- !u!1 &2665534931505536551
 GameObject:

@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using TMPro;
 using UnityEditor;
 using UnityEditor.Localization.Platform.Android;
 using UnityEngine;
@@ -15,6 +17,20 @@ public class GameData
     public int Level;
     public int Exp;
     public CellScriptableObject[] Cellquad;
+
+    public object GetData(string item)
+    {
+        return item.ToLower() switch
+        {
+            "highscore" => HighScore,
+            "coin" => Coin,
+            "gem" => Gem,
+            "level" => Level,
+            "exp" => Exp,
+            "cellquad" => Cellquad,
+            _ => null
+        };
+    }
 }
 
 public class DataManager : MonoBehaviour
@@ -110,5 +126,43 @@ public class DataManager : MonoBehaviour
             Exp = 0,
             Cellquad = new CellScriptableObject[3],
         };
+    }
+
+    public void GainItem(string itemName, object amount, TextMeshProUGUI text)
+    {
+        object item = GameData.GetData(itemName);
+        
+        if (item is int intItem &&  amount is int intAmount)
+        {
+            intItem += intAmount;
+            text.text = intItem.ToString("N0");
+        }
+        else if (item is CellScriptableObject[] cellArray)
+        {
+            int index = Array.FindIndex(cellArray, cell => cell != null);
+            if (index >= 0)
+            {
+                cellArray[index] = null;
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (cellArray[i] == null)
+                    {
+                        cellArray[i] = (CellScriptableObject)amount;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        SaveData();
+    }
+
+    public void EndTutorial(CellScriptableObject cell)
+    {
+        GainItem("Cellquad", cell, null);
+        SaveData();
     }
 }

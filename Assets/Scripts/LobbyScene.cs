@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyScene : MonoBehaviour
 {
     public List<CellScriptableObject> allCell;
 
@@ -14,6 +14,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject parentObject;
     [SerializeField] private CellScriptableObject[] cellquad;
     [SerializeField] private Image[] imagesCellquad;
+    [SerializeField] private Sprite defaultImage;
     
     [Header("Home")]
     [SerializeField] private TextMeshProUGUI nameText;
@@ -28,7 +29,7 @@ public class LobbyManager : MonoBehaviour
             GameObject content = Instantiate(contentPrefab, parentObject.transform);
             content.GetComponent<ContentCell>().cellSO = allCell[i];
             content.GetComponent<ContentCell>().image.sprite = allCell[i].prefabSprite;
-            content.GetComponent<ContentCell>().name.text = allCell[i].name;
+            content.GetComponent<ContentCell>().textName.text = allCell[i].name;
         }
         cellquad = DataManager.Instance.GameData.Cellquad;
         SetData();
@@ -43,8 +44,14 @@ public class LobbyManager : MonoBehaviour
          int i = 0;
          foreach (var cellSO in cellquad)
          {
-             imagesHome[i].sprite = cellSO.prefabSprite;
-             imagesCellquad[i].sprite = cellSO.prefabSprite;
+             imagesHome[i].sprite = defaultImage;
+             imagesCellquad[i].sprite = defaultImage;
+             
+             if (cellSO != default)
+             {
+                 imagesHome[i].sprite = cellSO.prefabSprite;
+                 imagesCellquad[i].sprite = cellSO.prefabSprite;
+             }
              i++;
          }
     }

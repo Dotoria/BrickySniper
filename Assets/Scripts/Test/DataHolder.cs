@@ -13,7 +13,7 @@ public class DataHolder : MonoBehaviour
 
     private void Awake()
     {
-        DataManager.Instance.DeleteData();
+        // DataManager.Instance.DeleteData();
         
         saveButton.onClick.AddListener(SaveButton);
         deleteButton.onClick.AddListener(DeleteButton);

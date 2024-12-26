@@ -48,6 +48,11 @@ public class CellManager : MonoBehaviour
             }
         }
     }
+
+    public void CellButtonClick(int pos)
+    {
+        Instance.GetCell(pos);
+    }
     
     // 저장된 cellSO의 list를 가져와서 버튼에 적용하기
     public void SetCell(List<CellScriptableObject> so)

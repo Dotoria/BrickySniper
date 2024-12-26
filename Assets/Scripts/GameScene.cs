@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameScene : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameScene Instance { get; private set; }
     
     public GameObject endMenuUI;
     public Animator animator;

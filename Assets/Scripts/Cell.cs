@@ -86,6 +86,6 @@ public class Cell : MonoBehaviour
         _cellRB.velocity = cellSO.movePoint * transform.up;
 
         CellManager.Instance.ReloadCell(CellManager.Instance.cellSO.FindIndex(cell => cell == cellSO));
-        GameManager.Instance.GainEnergy(-5);
+        GameScene.Instance.GainEnergy(-5);
     }
 }

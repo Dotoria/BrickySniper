@@ -72,6 +72,6 @@ public class EnemyManager : MonoBehaviour
     {
         Destroy(obj.GetComponent<PolygonCollider2D>());
         ObjectPool.Instance["enemy"].ReturnToPool(obj);
-        GameManager.Instance.GainScore(1000);
+        GameScene.Instance.GainScore(1000);
     }
 }

@@ -6,6 +6,6 @@ public class ContentCell : MonoBehaviour
 {
     public CellScriptableObject cellSO;
     public Image image;
-    public TextMeshProUGUI name;
+    public TextMeshProUGUI textName;
     public Button button;
 }

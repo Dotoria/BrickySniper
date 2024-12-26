@@ -93,7 +93,7 @@ public class Paddle : MonoBehaviour
         if (cell && isSetting)
         {
             cell.Shoot();
-            ButtonManager.Instance.SetSpeed(ButtonManager.Instance.currentSpeed);
+            UIManager.Instance.SetSpeed(UIManager.Instance.currentSpeed);
         }
         isSetting = false;
         cell = default;
