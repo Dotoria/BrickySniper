@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3195c8b319244d11ab6a1631a5689b25, type: 3}
-  m_Name: VillainGerm
+  m_Name: tetanusGerm
   m_EditorClassIdentifier: 
-  prefabName: "\uAE09\uC131\uAE30\uAD00\uAE30\uC5FC"
-  prefabSprite: {fileID: 942953215, guid: d417b8942218a4c40874aa904dfaa7c6, type: 3}
-  prefabAnimation: {fileID: 22100000, guid: 9e4e314b4f0ca1d4e91d5f655b86f318, type: 2}
-  firstSpawnTime: 1.5
-  healthPoint: 2
-  attackPoint: 1
-  movePoint: 7
+  prefabName: "\uD30C\uC0C1\uD48D\uADE0"
+  prefabSprite: {fileID: 1418309572, guid: 27655f7f1ccc6274a867b361b71f7d3b, type: 3}
+  prefabAnimation: {fileID: 22100000, guid: 9035820b8bb0c1f4fb3dcb4827404f65, type: 2}
+  firstSpawnTime: 7
+  healthPoint: 5
+  attackPoint: 9
+  movePoint: 6
   attackTarget: 0
   attackLogic: 0
   moveLogic: 0

@@ -8,6 +8,6 @@ public class Test : MonoBehaviour
     
     private void Start()
     {
-        CellManager.Instance.SetCell(cellSOList);
+        // CellManager.Instance.SetCell(cellSOList);
     }
 }

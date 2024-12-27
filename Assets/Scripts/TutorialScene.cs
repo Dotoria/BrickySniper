@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class TutorialScene : MonoBehaviour
 {
     public GameObject ui;
     public Image image;
+    public TextMeshProUGUI nameText;
     public TextMeshProUGUI text;
     
     public string tableCode;
@@ -22,16 +24,20 @@ public class TutorialScene : MonoBehaviour
     public class SpritePair
     {
         public char name;
+        public List<string> cellName;
         public Sprite sprite;
     }
     
     [SerializeField] private List<SpritePair> _pairs = new();
     private Dictionary<char, Sprite> _spriteDict;
+    private Dictionary<char, string> _nameDict;
     private List<Sprite> _tellSprites;
+    private List<string> _tellNames;
 
     [Serializable]
     public class TutorialConditions
     {
+        public List<GameObject> scriptUis;
         public List<GameObject> uis;
         public List<Button> buttons;
     }
@@ -50,10 +56,13 @@ public class TutorialScene : MonoBehaviour
         _chap = 1;
         text.text = "";
         _tellSprites = new();
+        _tellNames = new();
         _spriteDict = new();
+        _nameDict = new();
         foreach (var pair in _pairs)
         {
             _spriteDict.Add(pair.name, pair.sprite);
+            _nameDict.Add(pair.name, pair.cellName[LocalizationSettings.AvailableLocales.Locales.IndexOf(LocalizationSettings.SelectedLocale)]);
         }
         LoadScript();
 
@@ -64,8 +73,31 @@ public class TutorialScene : MonoBehaviour
         }
     }
 
-    void LoadScript()
+    public void LoadScript()
     {
+        if (_chap > 1)
+        {
+            TutorialConditions condition = _conditions[_chap - 2];
+            foreach (var UI in condition.uis)
+            {
+                UIManager.Instance.CloseUI(UI);
+            }
+            foreach (var scriptUI in condition.scriptUis)
+            {
+                UIManager.Instance.CloseUI(scriptUI);
+            }
+            foreach (var button in condition.buttons)
+            {
+                button.interactable = false;
+            }
+            
+            condition = _conditions[_chap - 1];
+            foreach (var scriptUI in condition.scriptUis)
+            {
+                UIManager.Instance.OpenUI(scriptUI);
+            }
+        }
+        
         table.GetTableAsync().Completed += handle =>
         {
             if (handle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
@@ -77,6 +109,7 @@ public class TutorialScene : MonoBehaviour
                     {
                         _script += stringTable.GetEntry(entry.Id).LocalizedValue + "\n";
                         _tellSprites.Add(_spriteDict[entry.Key[^1]]);
+                        _tellNames.Add(_nameDict[entry.Key[^1]]);
                     }
                 }
                 Scripting();
@@ -111,7 +144,9 @@ public class TutorialScene : MonoBehaviour
         }
         
         image.sprite = _tellSprites[0];
+        nameText.text = _tellNames[0];
         _tellSprites.RemoveAt(0);
+        _tellNames.RemoveAt(0);
         bool emphasize = false;
         for (int i = 0; i < _script.Length; i++)
         {
@@ -176,16 +211,15 @@ public class TutorialScene : MonoBehaviour
         // 특정 버튼만 chap 별로 활성화
         TutorialConditions condition = _conditions[_chap - 1];
         
-        switch (_chap)
+        foreach (var UI in condition.uis)
         {
-            case 1:
-                UIManager.Instance.OpenUI(condition.uis[0]);
-                condition.buttons[0].interactable = true;
-                break;
-            default:
-                break;
+            UIManager.Instance.OpenUI(UI);
         }
-        
+        foreach (var button in condition.buttons)
+        {
+            button.interactable = true;
+        }
+
         _chap++;
     }
 }

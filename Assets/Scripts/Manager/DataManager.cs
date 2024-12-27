@@ -16,7 +16,7 @@ public class GameData
     public int Gem;
     public int Level;
     public int Exp;
-    public CellScriptableObject[] Cellquad;
+    public List<CellScriptableObject> Cellquad;
 
     public object GetData(string item)
     {
@@ -124,7 +124,7 @@ public class DataManager : MonoBehaviour
             HighScore = 0,
             Level = 1,
             Exp = 0,
-            Cellquad = new CellScriptableObject[3],
+            Cellquad = new(),
         };
     }
 
@@ -137,12 +137,12 @@ public class DataManager : MonoBehaviour
             intItem += intAmount;
             text.text = intItem.ToString("N0");
         }
-        else if (item is CellScriptableObject[] cellArray)
+        else if (item is List<CellScriptableObject> cellArray)
         {
-            int index = Array.FindIndex(cellArray, cell => cell != null);
+            int index = cellArray.FindIndex(cell => cell != null);
             if (index >= 0)
             {
-                cellArray[index] = null;
+                // cellArray[index] = null;
             }
             else
             {

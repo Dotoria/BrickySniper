@@ -1472,54 +1472,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835cb024a1682734899fe46449b02016, type: 3}
---- !u!1 &301699906
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 301699908}
-  - component: {fileID: 301699907}
-  m_Layer: 0
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &301699907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301699906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce906fcacf684027867035d1256ace78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSOList:
-  - {fileID: 11400000, guid: 7cf85dc8857c09045868cc8be387ec1f, type: 2}
-  - {fileID: 11400000, guid: e23e95b637baaba459617ee04200a178, type: 2}
-  - {fileID: 11400000, guid: e37b10c151ad83a438541e4b144839ff, type: 2}
---- !u!4 &301699908
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301699906}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3636963, y: -7.1285057, z: -0.029810583}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &310498788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1504,7 @@ MonoBehaviour:
   enemySO:
   - {fileID: 11400000, guid: 15797b5ed3209574ebb1f3cf23e98800, type: 2}
   - {fileID: 11400000, guid: 9883ee34722ff7743a629472c5ce7b88, type: 2}
+  - {fileID: 11400000, guid: 67dc18ec12f10a5479699f0f2d35514e, type: 2}
   enemyPrefab: {fileID: 8856497780676383169, guid: 8bb1a627f3bfbd54bbef2f14acdaea06, type: 3}
 --- !u!4 &310498790
 Transform:
@@ -2478,6 +2431,7 @@ MonoBehaviour:
   cellSO: []
   CellButton: {fileID: 6137498147739439434}
   cellPrefab: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
+  BCell: {fileID: 11400000, guid: e23e95b637baaba459617ee04200a178, type: 2}
   reloading: 
 --- !u!4 &465011193
 Transform:
@@ -11882,7 +11836,6 @@ SceneRoots:
   - {fileID: 465011193}
   - {fileID: 118775006}
   - {fileID: 871502877}
-  - {fileID: 301699908}
   - {fileID: 527266987}
   - {fileID: 253244674}
   - {fileID: 602946487}

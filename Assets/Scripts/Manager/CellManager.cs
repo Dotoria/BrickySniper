@@ -13,6 +13,7 @@ public class CellManager : MonoBehaviour
     private int _poolSize = 10;
     private ObjectPool _cellPool;
     public GameObject cellPrefab;
+    public CellScriptableObject BCell;
 
     private readonly List<Image> _gaugeImages = new();
     [HideInInspector] public List<bool> reloading = new();
@@ -26,6 +27,10 @@ public class CellManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        cellSO.Add(BCell);
+        cellSO.AddRange(DataManager.Instance.GameData.Cellquad);
+        SetCell();
         
         ObjectPool.CreatePool("cell", cellPrefab, _poolSize);
     }
@@ -55,10 +60,8 @@ public class CellManager : MonoBehaviour
     }
     
     // 저장된 cellSO의 list를 가져와서 버튼에 적용하기
-    public void SetCell(List<CellScriptableObject> so)
+    public void SetCell()
     {
-        cellSO = so;
-        
         Button[] cellButtons = CellButton.GetComponentsInChildren<Button>();
         for (int i = 0; i < cellButtons.Length; i++)
         {
@@ -76,6 +79,7 @@ public class CellManager : MonoBehaviour
                     {
                         if (childImage.fillAmount != 0f)
                         {
+                            if (cellSO[i] == null) break;
                             childImage.sprite = cellSO[i].prefabSprite;
                             childImage.color = Color.white;
                         }
