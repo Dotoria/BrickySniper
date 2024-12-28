@@ -5,5 +5,5 @@ public class SkinScriptableObject : ScriptableObject
 {
     public string prefabName;
     public Sprite prefabSprite;
-    public RuntimeAnimatorController prefabAnimation;
+    public AnimationClip prefabClip;
 }

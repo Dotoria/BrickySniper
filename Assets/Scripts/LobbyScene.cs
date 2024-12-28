@@ -18,6 +18,7 @@ public class LobbyScene : MonoBehaviour
     [SerializeField] private List<CellScriptableObject> cellquad;
     [SerializeField] private Image[] imagesCellquad;
     [SerializeField] private Sprite defaultImage;
+    private CellScriptableObject _currentCell;
     
     [Header("Home")]
     [SerializeField] private TextMeshProUGUI nameText;
@@ -31,7 +32,8 @@ public class LobbyScene : MonoBehaviour
     public GameObject skinPrefab;
     public GameObject skinParent;
     [SerializeField] private GameObject player;
-    public GameObject target;
+    public AnimatorOverrideController targetController;
+    public Animator playerAnimator;
     
     public enum CurrentCanvas
     {
@@ -42,13 +44,16 @@ public class LobbyScene : MonoBehaviour
     
     private void Awake()
     {
+        Time.timeScale = 1f;
+        
         for (int i = 0; i < allCell.Count; i++)
         {
             GameObject content = Instantiate(contentPrefab, parentObject.transform);
             content.GetComponent<ContentCell>().cellSO = allCell[i];
             content.GetComponent<ContentCell>().image.sprite = allCell[i].prefabSprite;
             content.GetComponent<ContentCell>().textName.text = allCell[i].name;
-            content.GetComponent<ContentCell>().button.onClick.AddListener(()=>SetSkin(i));
+            int capturedIndex = i;
+            content.GetComponent<ContentCell>().button.onClick.AddListener(()=> { _currentCell = allCell[capturedIndex]; });
         }
 
         for (int i = 0; i < allSkin.Count; i++)
@@ -57,10 +62,15 @@ public class LobbyScene : MonoBehaviour
             skin.GetComponent<ContentSkin>().skinSO = allSkin[i];
             skin.GetComponent<ContentSkin>().image.sprite = allSkin[i].prefabSprite;
             skin.GetComponent<ContentSkin>().skinName.text = allSkin[i].name;
+            int capturedIndex = i;
+            skin.GetComponent<ContentSkin>().button.onClick.AddListener(()=>SetSkin(capturedIndex));
         }
         
         cellquad = DataManager.Instance.GameData.Cellquad;
         // _canvas = CurrentCanvas.HomeCanvas;
+
+        playerAnimator.runtimeAnimatorController = targetController;
+        
         SetCanvas(1);
         SetData();
     }
@@ -72,12 +82,10 @@ public class LobbyScene : MonoBehaviour
          levelText.text = DataManager.Instance.GameData.Level.ToString();
          expSlider.value = DataManager.Instance.GameData.Exp * 1.0f / (DataManager.Instance.GameData.Level * 30);
          int i = 0;
+         Debug.Log(" " + cellquad.Count);
          foreach (var cellSO in cellquad)
          {
-             imagesHome[i].sprite = defaultImage;
-             imagesCellquad[i].sprite = defaultImage;
-             
-             if (cellSO != default)
+             if (cellSO != default || cellSO != null)
              {
                  imagesHome[i].sprite = cellSO.prefabSprite;
                  imagesCellquad[i].sprite = cellSO.prefabSprite;
@@ -115,10 +123,53 @@ public class LobbyScene : MonoBehaviour
         }
     }
 
+    public void SetSquad(int index)
+    {
+        while (cellquad.Count < 3)
+        {
+            cellquad.Add(null);
+        }
+
+        if (_currentCell == null)
+        {
+            SquadUpdate(index, null);
+            cellquad[index] = null;
+            DataManager.Instance.GameData.Cellquad = cellquad;
+            DataManager.Instance.SaveData();
+            return;
+        }
+        
+        int findIndex = cellquad.FindIndex(cell => cell == _currentCell);
+        if (findIndex != -1)
+        {
+            CellScriptableObject so = cellquad[index];
+            cellquad[index] = _currentCell;
+            cellquad[findIndex] = so;
+            SquadUpdate(findIndex, so);
+        }
+        else
+        {
+            cellquad[index] = _currentCell;
+        }
+        
+        SquadUpdate(index, _currentCell);
+
+        DataManager.Instance.GameData.Cellquad = cellquad;
+        DataManager.Instance.SaveData();
+        _currentCell = null;
+    }
+
+    private void SquadUpdate(int index, CellScriptableObject cell)
+    {
+        Sprite sprite = cell == null ? defaultImage : cell.prefabSprite;
+        imagesHome[index].sprite = sprite;
+        imagesCellquad[index].sprite = sprite;
+    }
+    
     public void SetSkin(int index)
     {
-        RuntimeAnimatorController customAnim = player.transform.GetChild(3).GetComponent<SkinScriptableObject>().prefabAnimation;
-        target.GetComponent<SpriteRenderer>().sprite = allSkin[index].prefabSprite;
-        target.GetComponent<AnimatorController>().animationClips[0] = customAnim.animationClips[0];
+        player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>().sprite =
+            allSkin[index].prefabSprite;
+        targetController["DefaultCustom"] = allSkin[index].prefabClip;
     }
 }

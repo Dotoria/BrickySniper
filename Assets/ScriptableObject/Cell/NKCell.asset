@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d9593fb451421ba29a904b8155152b, type: 3}
+  m_Name: NKCell
+  m_EditorClassIdentifier: 
+  prefabName: "NK\uC138\uD3EC"
+  prefabSprite: {fileID: 1872511655, guid: 60256a079710e0e409c974a31049df3e, type: 3}
+  paddleSprite: {fileID: 21300000, guid: 464321b6528e4994aa23751d6b1638ae, type: 3}
+  arrowSprite: {fileID: 0}
+  prefabAnimation: {fileID: 22100000, guid: 04ee15a57ac3b1b4395931ce852f4841, type: 2}
+  respawnTime: 9
+  healthPoint: -1
+  attackPoint: 1
+  movePoint: 5
+  attackLogic: 0
+  moveLogic: 0

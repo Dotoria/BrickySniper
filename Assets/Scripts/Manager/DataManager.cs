@@ -130,7 +130,7 @@ public class DataManager : MonoBehaviour
 
     public void GainItem(string itemName, object amount, TextMeshProUGUI text)
     {
-        object item = GameData.GetData(itemName);
+        object item = DataManager.Instance.GameData.GetData(itemName);
         
         if (item is int intItem &&  amount is int intAmount)
         {
@@ -146,24 +146,16 @@ public class DataManager : MonoBehaviour
             }
             else
             {
-                // for (int i = 0; i < 3; i++)
-                // {
-                //     if (cellArray[i] == null)
-                //     {
-                //         cellArray[i] = (CellScriptableObject)amount;
-                //         break;
-                //     }
-                // }
                 cellArray.Add((CellScriptableObject) amount);
             }
         }
         
-        SaveData();
+        Instance.SaveData();
     }
 
     public void EndTutorial(CellScriptableObject cell)
     {
         GainItem("Cellquad", cell, null);
-        SaveData();
+        Instance.SaveData();
     }
 }

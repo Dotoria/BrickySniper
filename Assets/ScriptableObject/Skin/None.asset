@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dcef6d1a8bf4c2e8165d7dd29cb1663, type: 3}
-  m_Name: Cat
+  m_Name: None
   m_EditorClassIdentifier: 
-  prefabName: "\uACE0\uC591\uC774"
-  prefabSprite: {fileID: -538330362, guid: b004c0ec207295040a733f9622eeed26, type: 3}
-  prefabClip: {fileID: 7400000, guid: bbd855b8d6129ad47a1f52cad1fdeeab, type: 2}
+  prefabName: "\uC5C6\uC74C"
+  prefabSprite: {fileID: 21300000, guid: 8f125ba237d314b10bc660d413976e66, type: 3}
+  prefabClip: {fileID: 7400000, guid: 80422714c209c6d46ad221289511245d, type: 2}
