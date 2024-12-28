@@ -17,7 +17,181 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 6acd1b1bec030f240a7ecd5584eefc9e, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 80811839488
+    m_Localized: "==\xA1Ah\xED est\xE1s!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1989614424064
+    m_Localized: "\xA1Hay un reporte de que los g\xE9rmenes malos invadieron el vecindario!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2154702229504
+    m_Localized: "No hay tiempo que perder. \xA1R\xE1pido!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417466986496
+    m_Localized: "\xBFQu\xE9? Es m\xE1s pobre de lo que pensaba. Entonces estamos
+      bien."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2503244697600
+    m_Localized: "\xA1Vamos, chicos! \xA1Ahora esta zona es nuestra!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2580067569664
+    m_Localized: "\xA1Ya llegaron los g\xE9rmenes! \xA1Si no lo hace pronto, va a
+      pasar algo malo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3073254805504
+    m_Localized: "Pero no te preocupes, estar\xE9 a tu lado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3209624211456
+    m_Localized: "Ahora, primero, \xA1toquenme en el cuadrado de abajo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3300317646848
+    m_Localized: "\xA1Bien hecho! \xA1Si tocan nuestras c\xE9lulas, estar\xE1n listos!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3477887700992
+    m_Localized: "Ahora, \xA1siga moviendo la barra presionando fuerte!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4823927934976
+    m_Localized: "Presiona el bar y mu\xE9vete, y cuando sueltes el dedo, nuestro
+      equipo volar\xE1 hacia arriba."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5029809541120
+    m_Localized: "\xA1Esta vez, apunta moviendo la barra! \xA1Ahora es mi turno de
+      rega\xF1ar a ese tipo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5180112424960
+    m_Localized: "(Sorprendido) \xBFQu\xE9?, se siente un poco fuerte de repente."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5320659357696
+    m_Localized: "\xA1Ay, me duele! \xA1Me duele!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5378104545280
+    m_Localized: "\xA1Si no quieres que te peguen otra vez, no vengas aqu\xED dos
+      veces!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5478059003904
+    m_Localized: "==\xA1Se\xF1or, usted hizo un gran trabajo! Si no fuera por ti,
+      nos habr\xEDamos metido en un gran problema."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5708389208064
+    m_Localized: "\xA1Ah, ahora que lo pienso, todav\xEDa no me he presentado!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5772041965568
+    m_Localized: "Mi nombre es C\xE9lula B. \xA1Se trata principalmente de crear
+      un anticuerpo que desarrolle inmunidad!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5879948824576
+    m_Localized: "\xA1Es un buen compa\xF1ero para vivir con usted en el futuro!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6064254930944
+    m_Localized: Pero creo que a medida que avanzamos, vamos a tener limitaciones.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6159155253248
+    m_Localized: "\xA1As\xED que nos sentir\xEDamos m\xE1s seguros si estuvi\xE9ramos
+      con m\xE1s c\xE9lulas!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6272967692288
+    m_Localized: "\xA1Primero s\xEDgame!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6364009254912
+    m_Localized: "\xA1Esta es la habitaci\xF3n donde se van a quedar las c\xE9lulas!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6556938850304
+    m_Localized: "\xBFPodemos colocar esas c\xE9lulas aqu\xED ahora mismo?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6622843949056
+    m_Localized: "En primer lugar, si miras la parte superior de la pantalla, ver\xE1s
+      los espacios en blanco a mi lado."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6713113759744
+    m_Localized: "\xA1Las c\xE9lulas de este compartimento est\xE1n dispuestas!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6800514666496
+    m_Localized: "\xA1Si desea colocarlo, haga clic en la c\xE9lula de abajo y luego
+      haga clic en el espacio vac\xEDo de arriba!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6938217861120
+    m_Localized: "\xA1Hecho! \xBFAs\xED de simple? Por cierto, ella no se levanta
+      aunque sea ruidosa."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7049119453184
+    m_Localized: "\xA1Lev\xE1ntate! \xA1Tenemos un nuevo compa\xF1ero!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7249204531200
+    m_Localized: "En serio... +\xA1Lev\xE1ntate!/+"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7143302549504
+    m_Localized: Zzz....
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7968238260224
+    m_Localized: "C\xE1llate. No tienes que gritar as\xED, pero te oyes bien."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8074509340672
+    m_Localized: "Te oigo bien.. Despierta y saluda Es el maestro = quien luchar\xE1
+      con nosotros en el futuro!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8193594019840
+    m_Localized: "C\xE9lula T. Yo me dedico principalmente a \"memoria\". En pocas
+      palabras, recuerda a los invasores y haz lo que sea para avisar a nuestros
+      aliados si vuelven a entrar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8376029466624
+    m_Localized: "Ya que he terminado de saludar, necesito descansar un poco m\xE1s.
+      Ll\xE1mame si me necesitas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8475656769536
+    m_Localized: "\xA1C\xE9lula T! ...se volvieron a dormir. Lo siento, se\xF1or.
+      Parece que las c\xE9lula T est\xE1n muy cansadas porque hay nuevos enemigos
+      en estos d\xEDas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8569609179136
+    m_Localized: "Lo siento, se\xF1or. Parece que las c\xE9lula T est\xE1n muy cansadas
+      porque hay nuevos enemigos en estos d\xEDas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8705294913536
+    m_Localized: "\xA1Pero si == me llama, siempre me ayudar\xE1!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8807971475456
+    m_Localized: Por favor, trabaje bien con usted en el futuro.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

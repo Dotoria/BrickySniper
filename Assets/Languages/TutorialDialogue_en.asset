@@ -17,7 +17,180 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 6acd1b1bec030f240a7ecd5584eefc9e, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 80811839488
+    m_Localized: Oh, there you are! ==
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1989614424064
+    m_Localized: We've just received a report that bad bacteria have invaded here!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2154702229504
+    m_Localized: There's no time to waste, hurry up!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2417466986496
+    m_Localized: "What\u2019s this? This is way easier than I thought! Hehehe!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2503244697600
+    m_Localized: "Let\u2019s go, guys! This area belongs to us now!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2580067569664
+    m_Localized: "Oh no, the bacteria are already here! If we don\u2019t stop them
+      now, things are going to get really bad!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3073254805504
+    m_Localized: "But don\u2019t worry, I\u2019ll help you!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3209624211456
+    m_Localized: First, tap on me in the square below!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3300317646848
+    m_Localized: "Great job! When you tap an allied cell, they\u2019ll get equipped
+      to the bar!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3477887700992
+    m_Localized: Now, press and hold the bar, then move it around to see how it works!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4823927934976
+    m_Localized: "Nice work! Hold and move the bar with the ally equipped, then let
+      go, and they\u2019ll launch upwards!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5029809541120
+    m_Localized: "This time, move the bar and aim carefully! It\u2019s time to put
+      that troublemaker in their place!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5180112424960
+    m_Localized: '[Flinching] Huh? Why do I suddenly have a bad feeling about this...?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5320659357696
+    m_Localized: Oww! Stop it! That hurts so much!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5378104545280
+    m_Localized: "Hmph! If you don\u2019t want to get hurt again, you\u2019d better
+      not show your face here ever again!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5478059003904
+    m_Localized: "Wow, ==! That was amazing! If it weren\u2019t for you, things could\u2019ve
+      gotten really bad just now..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5708389208064
+    m_Localized: "Oh, I just realized I haven\u2019t introduced myself yet!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5772041965568
+    m_Localized: "I\u2019m B Cell. My job is to produce antibodies that strengthen
+      immunity!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5879948824576
+    m_Localized: "I\u2019ll be your dependable partner from now on!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6064254930944
+    m_Localized: "But as we face tougher enemies, we\u2019ll need more allies to
+      back us up..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6159155253248
+    m_Localized: "So let\u2019s gather more cells together!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6272967692288
+    m_Localized: Follow me!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6364009254912
+    m_Localized: "This is where the cells who\u2019ll be helping us are!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6556938850304
+    m_Localized: "Let\u2019s assign some of them right now."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6622843949056
+    m_Localized: "Look at the top of the screen\u2014you\u2019ll see some empty slots
+      next to me."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6713113759744
+    m_Localized: Cells placed in these slots are ready to go!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6800514666496
+    m_Localized: To assign a new cell, tap one from the bottom, then tap an empty
+      slot above!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6938217861120
+    m_Localized: "All set! See? That was super simple! But... huh? Why won\u2019t
+      this one wake up even with all this noise?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7049119453184
+    m_Localized: "Wake up already! We\u2019ve got a new ally here!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7249204531200
+    m_Localized: Ugh, seriously... +Wake up!!/+
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7143302549504
+    m_Localized: Zzz....
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7968238260224
+    m_Localized: Ugh... do you really have to yell? I can hear you just fine without
+      all the noise...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8074509340672
+    m_Localized: "Hear me or not, just wake up and say hello! This is ==, who\u2019ll
+      be fighting alongside us from now on!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8193594019840
+    m_Localized: "Alright, alright... I\u2019m T Cell. I\u2019m in charge of \u2018memory.\u2019
+      I remember intruders and warn our allies if they try to come back."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8376029466624
+    m_Localized: "Anyway, introductions are done. I\u2019m going back to sleep now.
+      Call me if you need me."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8475656769536
+    m_Localized: "T Cell! ... Oh, he\u2019s asleep again."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8569609179136
+    m_Localized: "I\u2019m so sorry, ==. We\u2019ve been dealing with so many new
+      enemies lately that T Cell is completely worn out..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8705294913536
+    m_Localized: "But don\u2019t worry! If you call him, he\u2019ll always be there
+      to help us!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8807971475456
+    m_Localized: "Let\u2019s do our best together, ==!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
