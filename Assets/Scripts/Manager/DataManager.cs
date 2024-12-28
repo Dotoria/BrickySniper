@@ -146,14 +146,15 @@ public class DataManager : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < 3; i++)
-                {
-                    if (cellArray[i] == null)
-                    {
-                        cellArray[i] = (CellScriptableObject)amount;
-                        break;
-                    }
-                }
+                // for (int i = 0; i < 3; i++)
+                // {
+                //     if (cellArray[i] == null)
+                //     {
+                //         cellArray[i] = (CellScriptableObject)amount;
+                //         break;
+                //     }
+                // }
+                cellArray.Add((CellScriptableObject) amount);
             }
         }
         

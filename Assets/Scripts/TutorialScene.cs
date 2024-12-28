@@ -12,6 +12,19 @@ using UnityEngine.UI;
 
 public class TutorialScene : MonoBehaviour
 {
+    [Header("LobbyUI")]
+    [SerializeField] private TextMeshProUGUI nickname;
+    [SerializeField] private TextMeshProUGUI level;
+    [SerializeField] private TextMeshProUGUI highscore;
+    
+    [Header("GameUI")]
+    [SerializeField] private TextMeshProUGUI score;
+    private float _score = 0;
+    private bool _scoring;
+    [SerializeField] private Slider manaSlider;
+    [SerializeField] private TextMeshProUGUI manaText;
+    
+    [Header("Tutorial")]
     public GameObject ui;
     public Image image;
     public TextMeshProUGUI nameText;
@@ -25,11 +38,11 @@ public class TutorialScene : MonoBehaviour
     {
         public char name;
         public List<string> cellName;
-        public Sprite sprite;
+        public List<Sprite> sprite;
     }
     
     [SerializeField] private List<SpritePair> _pairs = new();
-    private Dictionary<char, Sprite> _spriteDict;
+    private Dictionary<char, List<Sprite>> _spriteDict;
     private Dictionary<char, string> _nameDict;
     private List<Sprite> _tellSprites;
     private List<string> _tellNames;
@@ -65,12 +78,47 @@ public class TutorialScene : MonoBehaviour
             _nameDict.Add(pair.name, pair.cellName[LocalizationSettings.AvailableLocales.Locales.IndexOf(LocalizationSettings.SelectedLocale)]);
         }
         LoadScript();
+        
+        nickname.text = DataManager.Instance.GameData.Name;
+        level.text = DataManager.Instance.GameData.Level.ToString("D");
+        highscore.text = DataManager.Instance.GameData.HighScore.ToString("N0");
 
         foreach (var button in FindObjectsOfType<Button>())
         {
             if (button.gameObject.name is "DialogueButton" or "SkipTutorial") continue;
             button.interactable = false;
         }
+    }
+
+    private void Update()
+    {
+        if (_scoring)
+        {
+            _score += Time.deltaTime;
+            score.text = _score.ToString("N0");
+        }
+    }
+
+    public void SetScoring()
+    {
+        StartCoroutine(Wait2Seconds());
+    }
+
+    public void SetMana(int amount)
+    {
+        float percent = (40 - amount * 1f) / 40;
+        manaSlider.value = percent;
+        manaText.text = $"{40 - amount} / 40";
+    }
+
+    IEnumerator Wait2Seconds()
+    {
+        _scoring = true;
+        yield return new WaitForSeconds(2f);
+        _scoring = false;
+        highscore.text = _score.ToString("N0");
+        DataManager.Instance.GameData.HighScore = (int)_score;
+        DataManager.Instance.SaveData();
     }
 
     public void LoadScript()
@@ -108,8 +156,8 @@ public class TutorialScene : MonoBehaviour
                     if (entry.Key[..3] == tableCode + _chap)
                     {
                         _script += stringTable.GetEntry(entry.Id).LocalizedValue + "\n";
-                        _tellSprites.Add(_spriteDict[entry.Key[^1]]);
-                        _tellNames.Add(_nameDict[entry.Key[^1]]);
+                        _tellSprites.Add(_spriteDict[entry.Key[^2]][int.Parse(entry.Key[^1].ToString())]);
+                        _tellNames.Add(_nameDict[entry.Key[^2]]);
                     }
                 }
                 Scripting();
@@ -124,7 +172,9 @@ public class TutorialScene : MonoBehaviour
         {
             name = DataManager.Instance.GameData.Name;
         }
-        _script = _script.Replace("=", name);
+        _script = _script.Replace("==", name);
+        _script = _script.Replace("/+", "</size>");
+        _script = _script.Replace("+", "<size=124>");
         if (_isScripting)
         {
             CompleteScript();
@@ -147,7 +197,7 @@ public class TutorialScene : MonoBehaviour
         nameText.text = _tellNames[0];
         _tellSprites.RemoveAt(0);
         _tellNames.RemoveAt(0);
-        bool emphasize = false;
+        
         for (int i = 0; i < _script.Length; i++)
         {
             yield return new WaitForSeconds(0.05f);
@@ -160,20 +210,7 @@ public class TutorialScene : MonoBehaviour
 
             if (nextChar != '\n')
             {
-                if (nextChar == '+' && !emphasize)
-                {
-                    text.text += "<size=24>";
-                    emphasize = true;
-                }
-                else if (nextChar == '+' && emphasize)
-                {
-                    text.text += "</size>";
-                    emphasize = false;
-                }
-                else
-                {
-                    text.text += nextChar;
-                }
+                text.text += nextChar;
             }
             else
             {
