@@ -163,9 +163,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8193594019840
-    m_Localized: "C\xE9lula T. Yo me dedico principalmente a \"memoria\". En pocas
-      palabras, recuerda a los invasores y haz lo que sea para avisar a nuestros
-      aliados si vuelven a entrar."
+    m_Localized: "C\xE9lula T. Yo me dedico principalmente a \"memoria\"."
     m_Metadata:
       m_Items: []
   - m_Id: 8376029466624
@@ -190,6 +188,11 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 8807971475456
     m_Localized: Por favor, trabaje bien con usted en el futuro.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2391487191109632
+    m_Localized: Recuerda a los invasores y haz lo que sea para avisar a nuestros
+      aliados si vuelven a entrar.
     m_Metadata:
       m_Items: []
   references:

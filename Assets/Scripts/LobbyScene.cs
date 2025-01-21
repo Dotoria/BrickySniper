@@ -79,7 +79,6 @@ public class LobbyScene : MonoBehaviour
          levelText.text = DataManager.Instance.GameData.Level.ToString();
          expSlider.value = DataManager.Instance.GameData.Exp * 1.0f / (DataManager.Instance.GameData.Level * 30);
          int i = 0;
-         Debug.Log(" " + cellquad.Count);
          foreach (var cellSO in cellquad)
          {
              if (cellSO != default || cellSO != null)
@@ -165,8 +164,17 @@ public class LobbyScene : MonoBehaviour
     
     public void SetSkin(int index)
     {
-        player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>().sprite =
-            allSkin[index].prefabSprite;
+        player.SetActive(false);
+        if (allSkin[index].prefabName != "없음")
+        {
+            player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>().sprite =
+                allSkin[index].prefabSprite;
+        }
+        else
+        {
+            player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>().sprite = null;
+        }
         targetController["DefaultCustom"] = allSkin[index].prefabClip;
+        player.SetActive(true);
     }
 }

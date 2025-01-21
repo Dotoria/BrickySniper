@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ using UnityEngine.UI;
 public class GameScene : MonoBehaviour
 {
     public static GameScene Instance { get; private set; }
+    public CellManager cellManager;
+    public EnemyManager enemyManager;
+    public GameObject cellButton;
     
     public GameObject endMenuUI;
     public Animator animator;
@@ -47,10 +51,11 @@ public class GameScene : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        cellManager = this.GetOrAddComponent<CellManager>();
+        enemyManager = this.GetOrAddComponent<EnemyManager>();
+        cellManager.CellButton = cellButton;
 
         // if (DataManager.Instance.GameData != null)
         // {

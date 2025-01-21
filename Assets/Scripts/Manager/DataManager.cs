@@ -41,6 +41,9 @@ public class DataManager : MonoBehaviour
     public GameData GameData;
     private string keyName = "PlayerData";
 
+    public List<EnemyScriptableObject> infEnemiesData;
+    public Dictionary<string, List<EnemyScriptableObject>> EnemiesData = new();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -51,6 +54,7 @@ public class DataManager : MonoBehaviour
 
         Instance = this;
         CreateData();
+        EnemiesData["INF"] = infEnemiesData;
         DontDestroyOnLoad(gameObject);
         
         if (PlayerPrefs.HasKey(keyName))

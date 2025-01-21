@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private EnemyManager em;
+    
     public EnemyScriptableObject enemySO;
 
     private SpriteRenderer _prefabSprite;
@@ -19,6 +21,8 @@ public class Enemy : MonoBehaviour
     
     private void Awake()
     {
+        em = GameScene.Instance.enemyManager;
+        
         _prefabSprite = gameObject.GetComponent<SpriteRenderer>();
         _enemyRB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -80,6 +84,6 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetTrigger("Death");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-        EnemyManager.Instance.DestroyEnemy(gameObject);
+        em.DestroyEnemy(gameObject);
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    private CellManager cm;
+    
     public CellScriptableObject cellSO;
 
     private Paddle _paddle;
@@ -20,6 +22,8 @@ public class Cell : MonoBehaviour
     
     private void Awake()
     {
+        cm = GameScene.Instance.cellManager;
+        
         _prefabSprite = gameObject.GetComponent<SpriteRenderer>();
 
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
@@ -85,7 +89,8 @@ public class Cell : MonoBehaviour
         transform.position = _paddle.gameObject.transform.position + new Vector3(0, 1f, 0);
         _cellRB.velocity = cellSO.movePoint * transform.up;
 
-        CellManager.Instance.ReloadCell(CellManager.Instance.cellSO.FindIndex(cell => cell == cellSO));
+        // ?? 왜 안돼
+        cm.ReloadCell(cm.cellSO.FindIndex(cell => cell == cellSO));
         GameScene.Instance.GainEnergy(-5);
     }
 }

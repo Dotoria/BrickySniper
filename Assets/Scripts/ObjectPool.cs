@@ -23,14 +23,12 @@ public class ObjectPool
     
     public static void CreatePool(string key, GameObject prefab, int initialSize)
     {
-        if (!Instance.ContainsKey(key))
-        {
-            Instance[key] = new ObjectPool(prefab, initialSize);
-        }
+        Instance[key] = new ObjectPool(prefab, initialSize);
     }
 
     public GameObject GetFromPool()
     {
+        poolList.RemoveAll(obj => !obj);
         foreach (GameObject obj in poolList)
         {
             if (!obj.activeInHierarchy)
@@ -51,11 +49,8 @@ public class ObjectPool
         obj.SetActive(false);
     }
 
-    public void ReturnToPool(ObjectPool pool)
+    public void ReturnToPool()
     {
-        foreach (GameObject obj in poolList)
-        {
-            obj.SetActive(false);
-        }
+        poolList.RemoveAll(obj => obj == null);
     }
 }

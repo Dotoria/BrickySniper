@@ -5,29 +5,20 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public static EnemyManager Instance { get; private set; }
-    
-    public List<EnemyScriptableObject> enemySO;
+    private List<EnemyScriptableObject> enemySO;
     private List<EnemyScriptableObject> _soList = new();
 
     private int _poolSize = 10;
-    private ObjectPool _enemyPool;
-    public GameObject enemyPrefab;
+    private GameObject enemyPrefab;
 
     private float time = 0f;
     private System.Random _random = new();
     private bool isSpawning = false;
 
-    private void Awake()
+    private void Start()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        enemyPrefab = Resources.Load<GameObject>("Enemy");
+        enemySO = DataManager.Instance.EnemiesData["INF"];
         
         ObjectPool.CreatePool("enemy", enemyPrefab, _poolSize);
     }
@@ -47,6 +38,11 @@ public class EnemyManager : MonoBehaviour
         if (_soList.Count > 0 && !isSpawning) StartCoroutine(SetEnemy());
     }
 
+    private void OnDestroy()
+    {
+        ObjectPool.Instance["enemy"].ReturnToPool();
+    }
+    
     // destroyWallList 중 어느 한 군데에서 특정 enemy를 스폰, 발사하기
     IEnumerator SetEnemy()
     {

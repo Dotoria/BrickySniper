@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -5,29 +6,22 @@ using UnityEngine.UI;
 
 public class CellManager : MonoBehaviour
 {
-    public static CellManager Instance { get; private set; }
-    
-    public List<CellScriptableObject> cellSO;
+    [HideInInspector] public List<CellScriptableObject> cellSO = new();
     public GameObject CellButton;
     
     private int _poolSize = 10;
-    private ObjectPool _cellPool;
-    public GameObject cellPrefab;
-    public CellScriptableObject BCell;
+    private GameObject cellPrefab;
+    private CellScriptableObject BCell;
 
     private readonly List<Image> _gaugeImages = new();
-    [HideInInspector] public List<bool> reloading = new();
+    [HideInInspector] public List<bool> reloading;
     
-    void Awake()
+    void Start()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
+        reloading = new();
+        
+        cellPrefab = Resources.Load<GameObject>("Cell");
+        BCell = Resources.Load<CellScriptableObject>("BCell");
         cellSO.Add(BCell);
         cellSO.AddRange(DataManager.Instance.GameData.Cellquad);
         SetCell();
@@ -54,9 +48,15 @@ public class CellManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        ObjectPool.Instance["cell"].ReturnToPool();
+    }
+
     public void CellButtonClick(int pos)
     {
-        Instance.GetCell(pos);
+        Debug.Log("l?? " + reloading.Count);
+        GetCell(pos);
     }
     
     // 저장된 cellSO의 list를 가져와서 버튼에 적용하기
@@ -65,6 +65,8 @@ public class CellManager : MonoBehaviour
         Button[] cellButtons = CellButton.GetComponentsInChildren<Button>();
         for (int i = 0; i < cellButtons.Length; i++)
         {
+            int index = i;
+            cellButtons[i].onClick.AddListener(() => CellButtonClick(index));
             if (i > cellSO.Count - 1)
             {
                 // 엑스 스프라이트, 버튼 클릭 막기
@@ -79,7 +81,7 @@ public class CellManager : MonoBehaviour
                     {
                         if (childImage.fillAmount != 0f)
                         {
-                            if (cellSO[i] == null) break;
+                            if (cellSO[i] == null) continue;
                             childImage.sprite = cellSO[i].prefabSprite;
                             childImage.color = Color.white;
                         }
@@ -87,6 +89,7 @@ public class CellManager : MonoBehaviour
                         {
                             _gaugeImages.Add(childImage);
                             reloading.Add(false);
+                            Debug.Log("r " + reloading.Count);
                         }
                     }
                 }
@@ -97,6 +100,8 @@ public class CellManager : MonoBehaviour
     // 버튼을 누르면 paddle에 장착하기
     public void GetCell(int pos)
     {
+        Debug.Log("reloading " + reloading.Count);
+        Debug.Log("pos " + pos);
         if (reloading[pos]) return;
         var newCell = ObjectPool.Instance["cell"].GetFromPool();
 

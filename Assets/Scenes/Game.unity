@@ -1382,6 +1382,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa31a4538c6863a43bbcde9d52917762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellManager: {fileID: 465011192}
+  enemyManager: {fileID: 310498789}
+  cellButton: {fileID: 6137498147739439434}
   endMenuUI: {fileID: 1050539936}
   animator: {fileID: 1972486794}
   coinText: {fileID: 1700348243}
@@ -1487,7 +1490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &310498789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,11 +1503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bbccd7bec546779c0b6bf54f105ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO:
-  - {fileID: 11400000, guid: 15797b5ed3209574ebb1f3cf23e98800, type: 2}
-  - {fileID: 11400000, guid: 9883ee34722ff7743a629472c5ce7b88, type: 2}
-  - {fileID: 11400000, guid: 67dc18ec12f10a5479699f0f2d35514e, type: 2}
-  enemyPrefab: {fileID: 8856497780676383169, guid: 8bb1a627f3bfbd54bbef2f14acdaea06, type: 3}
 --- !u!4 &310498790
 Transform:
   m_ObjectHideFlags: 0
@@ -2377,7 +2375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &465011192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,8 +2390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSO: []
   CellButton: {fileID: 6137498147739439434}
-  cellPrefab: {fileID: 4284984410455923504, guid: 65fc4913d28b14c408a64aea9199a8f2, type: 3}
-  BCell: {fileID: 11400000, guid: e23e95b637baaba459617ee04200a178, type: 2}
   reloading: 
 --- !u!4 &465011193
 Transform:
@@ -2679,6 +2675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce391a9de1b9f44faaac955e7244c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  em: {fileID: 310498789}
 --- !u!61 &527266991
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10369,19 +10366,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3021893257609318181}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 465011192}
-        m_TargetAssemblyTypeName: CellManager, Assembly-CSharp
-        m_MethodName: CellButtonClick
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &2163992269123126612
 GameObject:
   m_ObjectHideFlags: 0
@@ -10722,19 +10707,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2662186393879516795}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 465011192}
-        m_TargetAssemblyTypeName: CellManager, Assembly-CSharp
-        m_MethodName: CellButtonClick
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!222 &3241502677688638488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10971,19 +10944,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3322481559228556293}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 465011192}
-        m_TargetAssemblyTypeName: CellManager, Assembly-CSharp
-        m_MethodName: CellButtonClick
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!224 &5329962863732388211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11386,19 +11347,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7678417983404683799}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 465011192}
-        m_TargetAssemblyTypeName: CellManager, Assembly-CSharp
-        m_MethodName: CellButtonClick
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!222 &8319099809662850575
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -164,8 +164,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8193594019840
-    m_Localized: "Alright, alright... I\u2019m T Cell. I\u2019m in charge of \u2018memory.\u2019
-      I remember intruders and warn our allies if they try to come back."
+    m_Localized: "Alright, alright... I\u2019m T Cell. I\u2019m in charge of \u2018memory.\u2019"
     m_Metadata:
       m_Items: []
   - m_Id: 8376029466624
@@ -189,6 +188,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 8807971475456
     m_Localized: "Let\u2019s do our best together, ==!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2391487191109632
+    m_Localized: ' I remember intruders and warn our allies if they try to come back.'
     m_Metadata:
       m_Items: []
   references:
