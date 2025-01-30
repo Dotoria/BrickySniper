@@ -18,8 +18,9 @@ MonoBehaviour:
   arrowSprite: {fileID: 0}
   prefabAnimation: {fileID: 22100000, guid: 04ee15a57ac3b1b4395931ce852f4841, type: 2}
   respawnTime: 9
+  skillTime: 0
   healthPoint: -1
   attackPoint: 1
   movePoint: 5
-  attackLogic: 0
+  attackLogic: 3
   moveLogic: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -13,10 +14,13 @@ public class Cell : MonoBehaviour
     private SpriteRenderer _paddleSprite;
     private Animator _animator;
     private PolygonCollider2D _collider;
-    
+
+    public float skillTime;
     public int healthPoint;
     public int currentHealthPoint;
     public int attackPoint;
+    public AttackLogic attackLogic;
+    public MoveLogic moveLogic;
 
     private Rigidbody2D _cellRB;
     
@@ -40,6 +44,8 @@ public class Cell : MonoBehaviour
         _cellRB = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<PolygonCollider2D>();
+
+        Skill();
     }
 
     private void FixedUpdate()
@@ -62,10 +68,15 @@ public class Cell : MonoBehaviour
         _prefabSprite.sprite = cellSO.prefabSprite;
         _paddleSprite.sprite = cellSO.paddleSprite;
         _animator.runtimeAnimatorController = cellSO.prefabAnimation;
+
+        skillTime = cellSO.skillTime;
         
         healthPoint = cellSO.healthPoint;
         currentHealthPoint = healthPoint;
         attackPoint = cellSO.attackPoint;
+
+        attackLogic = cellSO.attackLogic;
+        moveLogic = cellSO.moveLogic;
         
         // collider 업데이트
         if (_collider)
@@ -78,9 +89,6 @@ public class Cell : MonoBehaviour
 
         _paddle.isSetting = true;
         _paddle.cell = this;
-
-        // public AttackLogic attackLogic;
-        // public MoveLogic moveLogic;
     }
 
     public void Shoot()
@@ -89,8 +97,26 @@ public class Cell : MonoBehaviour
         transform.position = _paddle.gameObject.transform.position + new Vector3(0, 1f, 0);
         _cellRB.velocity = cellSO.movePoint * transform.up;
 
-        // ?? 왜 안돼
         cm.ReloadCell(cm.cellSO.FindIndex(cell => cell == cellSO));
         GameScene.Instance.GainEnergy(-5);
+    }
+
+    public void Skill()
+    {
+        StartCoroutine(StartSkill());
+    }
+
+    IEnumerator StartSkill()
+    {
+        yield return new WaitForSeconds(skillTime);
+        switch (attackLogic)
+        {
+            case AttackLogic.Phagocytosis:
+                break;
+            case AttackLogic.Apoptosis:
+                break;
+            default:
+                break;
+        }
     }
 }

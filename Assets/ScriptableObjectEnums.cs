@@ -8,7 +8,9 @@ public enum Target
 public enum AttackLogic
 {
     Default,
-    HitPlayer
+    HitPlayer,
+    Phagocytosis, // 식세포 작용
+    Apoptosis, // 세포 자살 (유도)
 }
 
 public enum MoveLogic

@@ -39,10 +39,17 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Cell"))
         {
-            currentHealthPoint -= other.gameObject.GetComponent<Cell>().attackPoint;
-            if (currentHealthPoint <= 0)
+            Cell attackCell = other.gameObject.GetComponent<Cell>();
+            currentHealthPoint -= attackCell.attackPoint;
+            
+            // bigCell 한테 죽은 것일 때
+            if (attackCell.attackLogic == AttackLogic.Phagocytosis)
             {
-                // bigCell 한테 죽은 것이 아닐 때
+                em.DestroyEnemy(gameObject);
+            }
+            // bigCell 한테 죽은 것이 아닐 때
+            else if (currentHealthPoint <= 0)
+            {
                 StartCoroutine(DeadByCell());
             }
             else
