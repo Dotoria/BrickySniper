@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
         Install();
         transform.position = spawnPos;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, -spawnDir);
-        _enemyRB.velocity = enemySO.movePoint * Vector3.down;
+        _enemyRB.velocity = enemySO.movePoint * spawnDir.normalized;
     }
 
     IEnumerator DeadByCell()
