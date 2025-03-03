@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -77,14 +78,19 @@ public class Cell : MonoBehaviour
 
         attackLogic = cellSO.attackLogic;
         moveLogic = cellSO.moveLogic;
-        
-        // collider 업데이트
-        if (_collider)
-        {
-            Destroy(_collider);
-        }
-        _collider = gameObject.AddComponent<PolygonCollider2D>();
-        
+
+        // 콜라이더 초기화
+        _collider.pathCount = 0;
+        List<Vector2> physicsShape = new List<Vector2>();
+        cellSO.prefabSprite.GetPhysicsShape(0, physicsShape);
+
+        // 새로운 경로 설정
+        _collider.pathCount = 1;
+        _collider.SetPath(0, physicsShape);
+
+        // 강제로 콜라이더 업데이트
+        _collider.enabled = false;
+        _collider.enabled = true;
         gameObject.SetActive(false);
 
         _paddle.isSetting = true;
@@ -118,5 +124,11 @@ public class Cell : MonoBehaviour
             default:
                 break;
         }
+    }
+    
+    // 풀로 돌려놓기
+    public void Destroy()
+    {
+        ObjectPool.Instance["cell"].ReturnToPool(gameObject);
     }
 }

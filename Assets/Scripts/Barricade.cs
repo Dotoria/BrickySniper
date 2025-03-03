@@ -8,9 +8,10 @@ public class Barricade : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            em.DestroyEnemy(other.gameObject);
-            int newPoint = - other.GetComponent<Enemy>().attackPoint;
+            other.gameObject.TryGetComponent(out Enemy enemy);
+            int newPoint = - enemy.attackPoint;
             GameScene.Instance.GainHealth(newPoint);
+            enemy.Destroy();
         }
     }
 }

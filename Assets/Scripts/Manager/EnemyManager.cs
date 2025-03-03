@@ -48,9 +48,7 @@ public class EnemyManager : MonoBehaviour
     {
         isSpawning = true;
         
-        var newEnemy = ObjectPool.Instance["enemy"].GetFromPool();
-        
-        Enemy enemy = newEnemy.GetComponent<Enemy>();
+        ObjectPool.Instance["enemy"].GetFromPool().TryGetComponent(out Enemy enemy);
         enemy.enemySO = _soList[_random.Next(_soList.Count)];
 
         // Vector3 pos = WallManager.DestroyWallList[_random.Next(WallManager.DestroyWallList.Count)].transform.position;
@@ -61,13 +59,5 @@ public class EnemyManager : MonoBehaviour
         
         yield return new WaitForSeconds(_random.Next(30, 80) / 10f);
         isSpawning = false;
-    }
-
-    // 풀로 돌려놓기
-    public void DestroyEnemy(GameObject obj)
-    {
-        Destroy(obj.GetComponent<PolygonCollider2D>());
-        ObjectPool.Instance["enemy"].ReturnToPool(obj);
-        GameScene.Instance.GainScore(1000);
     }
 }

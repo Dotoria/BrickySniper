@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
             // bigCell 한테 죽은 것일 때
             if (attackCell.attackLogic == AttackLogic.Phagocytosis)
             {
-                em.DestroyEnemy(gameObject);
+                Destroy();
             }
             // bigCell 한테 죽은 것이 아닐 때
             else if (currentHealthPoint <= 0)
@@ -71,12 +71,18 @@ public class Enemy : MonoBehaviour
         currentHealthPoint = healthPoint;
         attackPoint = enemySO.attackPoint;
 
-        // collider 업데이트
-        if (_collider)
-        {
-            Destroy(_collider);
-        }
-        _collider = gameObject.AddComponent<PolygonCollider2D>();
+        // 콜라이더 초기화
+        _collider.pathCount = 0;
+        List<Vector2> physicsShape = new List<Vector2>();
+        enemySO.prefabSprite.GetPhysicsShape(0, physicsShape);
+
+        // 새로운 경로 설정
+        _collider.pathCount = 1;
+        _collider.SetPath(0, physicsShape);
+
+        // 강제로 콜라이더 업데이트
+        _collider.enabled = false;
+        _collider.enabled = true;
     }
 
     public void Shoot(Vector3 spawnPos, Vector3 spawnDir)
@@ -91,6 +97,13 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetTrigger("Death");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
-        em.DestroyEnemy(gameObject);
+        Destroy();
+        GameScene.Instance.GainScore(1000);
+    }
+
+    // 풀로 돌려놓기
+    public void Destroy()
+    {
+        ObjectPool.Instance["enemy"].ReturnToPool(gameObject);
     }
 }

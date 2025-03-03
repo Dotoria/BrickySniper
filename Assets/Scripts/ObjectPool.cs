@@ -8,7 +8,7 @@ public class ObjectPool
     private List<GameObject> poolList;
     private GameObject prefab;
 
-    public ObjectPool(GameObject prefab, int initialSize)
+    private ObjectPool(GameObject prefab, int initialSize)
     {
         this.prefab = prefab;
         poolList = new List<GameObject>(initialSize);

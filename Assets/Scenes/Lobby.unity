@@ -2760,7 +2760,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 943974493}
+      - m_Target: {fileID: 3607418261137726532, guid: 99b491962ea00f749b036a14dc34d55a, type: 3}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OpenOrCloseUI
         m_Mode: 2
@@ -10439,7 +10439,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3607418261137726532, guid: 99b491962ea00f749b036a14dc34d55a, type: 3}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OpenOrCloseUI
+        m_MethodName: OpenUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 590473089}

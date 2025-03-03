@@ -1581,7 +1581,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 44040814}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseUI
+        m_MethodName: OpenUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 593156174}
@@ -3367,7 +3367,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8820755, g: 0.96171284, b: 1, a: 1}
+  m_Color: {r: 0.9797134, g: 1, b: 0.88235295, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3822,7 +3822,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 44040814}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseUI
+        m_MethodName: OpenUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 593156174}
@@ -3969,7 +3969,6 @@ RectTransform:
   - {fileID: 1611498030}
   - {fileID: 2077050635}
   - {fileID: 1693638858}
-  - {fileID: 1586793059}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4223,7 +4222,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 44040814}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseUI
+        m_MethodName: OpenUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 593156174}
@@ -4392,7 +4391,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 44040814}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseUI
+        m_MethodName: OpenUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 593156174}
@@ -6043,17 +6042,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586793058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1501336692}
-  m_Father: {fileID: 953806492}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 720, y: 1560}
   m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1586793060
@@ -7935,7 +7934,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 44040814}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseUI
+        m_MethodName: OpenUI
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 593156174}
@@ -8344,6 +8343,7 @@ SceneRoots:
   - {fileID: 1525994714}
   - {fileID: 847148765}
   - {fileID: 953806492}
+  - {fileID: 1586793059}
   - {fileID: 1992427977}
   - {fileID: 1130292421}
   - {fileID: 648801163}

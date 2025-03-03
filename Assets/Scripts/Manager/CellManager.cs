@@ -116,11 +116,4 @@ public class CellManager : MonoBehaviour
         _gaugeImages[pos].fillAmount = 1f;
         reloading[pos] = true;
     }
-    
-    // 풀로 돌려놓기
-    public void DestroyCell(GameObject obj)
-    {
-        Destroy(obj.GetComponent<PolygonCollider2D>());
-        ObjectPool.Instance["cell"].ReturnToPool(obj);
-    }
 }
