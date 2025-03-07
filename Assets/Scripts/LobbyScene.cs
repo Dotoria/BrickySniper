@@ -32,11 +32,16 @@ public class LobbyScene : MonoBehaviour
     public AnimatorOverrideController targetController;
     public Animator playerAnimator;
     
-    public enum CurrentCanvas
+    [Header("Lottery")]
+    public GameObject MyeloidLottery;
+    public GameObject LymphoidLottery;
+    
+    private enum CurrentCanvas
     {
         CellquadCanvas,
         HomeCanvas,
         CustomCanvas,
+        LotteryCanvas,
     }
     
     private void Awake()
@@ -113,6 +118,10 @@ public class LobbyScene : MonoBehaviour
                 player.SetActive(true);
                 player.transform.position = Vector3.zero + new Vector3(0, 7, 0);
                 UIManager.Instance.OpenUI(canvasObject[2]);
+                break;
+            case CurrentCanvas.LotteryCanvas:
+                player.SetActive(false);
+                UIManager.Instance.OpenUI(canvasObject[3]);
                 break;
             default:
                 break;
