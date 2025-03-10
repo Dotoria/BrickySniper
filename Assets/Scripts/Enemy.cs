@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private GameScene _game;
     private EnemyManager em;
     
     public EnemyScriptableObject enemySO;
@@ -21,7 +22,8 @@ public class Enemy : MonoBehaviour
     
     private void Awake()
     {
-        em = GameScene.Instance.enemyManager;
+        _game = FindAnyObjectByType<GameScene>();
+        em = _game.enemyManager;
         
         _prefabSprite = gameObject.GetComponent<SpriteRenderer>();
         _enemyRB = GetComponent<Rigidbody2D>();
@@ -57,7 +59,7 @@ public class Enemy : MonoBehaviour
                 _animator.SetTrigger("Damage");
             }
             
-            GameScene.Instance.GainScore(500);
+            _game.GainScore(500);
         }
     }
 
@@ -98,7 +100,7 @@ public class Enemy : MonoBehaviour
         _animator.SetTrigger("Death");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
         Destroy();
-        GameScene.Instance.GainScore(1000);
+        _game.GainScore(1000);
     }
 
     // 풀로 돌려놓기

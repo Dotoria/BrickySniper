@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    private GameScene _game;
     private CellManager cm;
     
     public CellScriptableObject cellSO;
@@ -27,7 +28,8 @@ public class Cell : MonoBehaviour
     
     private void Awake()
     {
-        cm = GameScene.Instance.cellManager;
+        _game = FindAnyObjectByType<GameScene>();
+        cm = _game.cellManager;
         
         _prefabSprite = gameObject.GetComponent<SpriteRenderer>();
 
@@ -104,7 +106,7 @@ public class Cell : MonoBehaviour
         _cellRB.velocity = cellSO.movePoint * transform.up;
 
         cm.ReloadCell(cm.cellSO.FindIndex(cell => cell == cellSO));
-        GameScene.Instance.GainEnergy(-5);
+        _game.GainEnergy(-5);
     }
 
     public void Skill()

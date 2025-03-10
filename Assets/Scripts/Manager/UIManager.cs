@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-    [HideInInspector] public float currentSpeed;
     
     void Awake()
     {
@@ -20,8 +19,6 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        currentSpeed = 1f;
     }
 
     public void PopUp(GameObject ui)
@@ -50,12 +47,6 @@ public class UIManager : MonoBehaviour
     {
         if (ui.activeSelf) CloseUI(ui);
         else OpenUI(ui);
-    }
-
-    public void SetSpeed(float speed)
-    {
-        Time.timeScale = speed;
-        currentSpeed = speed;
     }
 
     public void SetLanguage(int index)

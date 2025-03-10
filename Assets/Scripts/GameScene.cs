@@ -7,9 +7,15 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+public enum Speed
+{
+    Current,
+    Stop,
+    Switch,
+}
+
 public class GameScene : MonoBehaviour
 {
-    public static GameScene Instance { get; private set; }
     public CellManager cellManager;
     public EnemyManager enemyManager;
     public GameObject cellButton;
@@ -18,7 +24,10 @@ public class GameScene : MonoBehaviour
     public Animator animator;
     private bool _playing = false;
     
-    // Level
+    // Speed
+    [HideInInspector] public float currentSpeed;
+    [SerializeField] private GameObject speedImage1;
+    [SerializeField] private GameObject speedImage2;
     
     // Coin
     public TextMeshProUGUI coinText;
@@ -48,11 +57,6 @@ public class GameScene : MonoBehaviour
     
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        Instance = this;
         cellManager = this.GetOrAddComponent<CellManager>();
         enemyManager = this.GetOrAddComponent<EnemyManager>();
         cellManager.CellButton = cellButton;
@@ -65,6 +69,8 @@ public class GameScene : MonoBehaviour
         //     // Gem
         //     _gem = DataManager.Instance.GameData.Gem;
         // }
+
+        SetSpeed(Speed.Switch);
         
         GainCoin(0);
         GainGem(0);
@@ -117,11 +123,34 @@ public class GameScene : MonoBehaviour
         Time.timeScale = 0f;
         endMenuUI.SetActive(true);
         
-        DataManager.Instance.GameData.Coin = _coin;
-        DataManager.Instance.GameData.Gem = _gem;
+        DataManager.Instance.GameData.Coin += _coin;
+        DataManager.Instance.GameData.Gem += _gem;
         if (DataManager.Instance.GameData.HighScore < (int)_score)
         {
             DataManager.Instance.GameData.HighScore = (int) _score;
+        }
+    }
+
+    public void SetSpeed(string speed) => SetSpeed(Enum.Parse<Speed>(speed));
+    public void SetSpeed(Speed speed)
+    {
+        switch (speed)
+        {
+            case Speed.Current:
+                Time.timeScale = currentSpeed;
+                return;
+            case Speed.Stop:
+                if (Time.timeScale == 0) SetSpeed(Speed.Current);
+                else Time.timeScale = 0;
+                return;
+            case Speed.Switch:
+                float value = speedImage1.activeSelf ? 2f : 1f;
+                UIManager.Instance.OpenOrCloseUI(speedImage1);
+                UIManager.Instance.OpenOrCloseUI(speedImage2);
+                
+                Time.timeScale = value;
+                currentSpeed = value;
+                return;
         }
     }
     
@@ -154,7 +183,7 @@ public class GameScene : MonoBehaviour
 
         if (_currentHealthPoint == 0)
         {
-            Instance.GameOver();
+            GameOver();
         }
     }
 

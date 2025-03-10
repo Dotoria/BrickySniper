@@ -4,6 +4,8 @@ using UnityEngine.Serialization;
 
 public class Paddle : MonoBehaviour
 {
+    private GameScene _game;
+    
     private Camera _camera;
     public GameObject touchArea;
     private BoxCollider2D _touchCollider;
@@ -20,6 +22,7 @@ public class Paddle : MonoBehaviour
 
     void Awake()
     {
+        _game = FindAnyObjectByType<GameScene>();
         _camera = Camera.main;
         cameraSize = new Vector2(_camera.orthographicSize * _camera.aspect, _camera.orthographicSize);
         isSetting = false;
@@ -93,7 +96,7 @@ public class Paddle : MonoBehaviour
         if (cell && isSetting)
         {
             cell.Shoot();
-            UIManager.Instance.SetSpeed(UIManager.Instance.currentSpeed);
+            _game.SetSpeed(Speed.Current);
         }
         isSetting = false;
         cell = default;
