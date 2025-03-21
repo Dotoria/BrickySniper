@@ -10,6 +10,7 @@ public class ContentBook : InputManager
     public GameObject paperPrefab;
     [HideInInspector] public GameObject paper;
     public Image dragFlagImage;
+    private Transform _preview;
     
     private RectTransform _rect;
     public float longPressDuration = 0.1f;
@@ -24,8 +25,11 @@ public class ContentBook : InputManager
         _parentCanvas = transform.parent;
         _rect = GetComponent<RectTransform>();
         
-        paper = Instantiate(paperPrefab, transform);
+        paper = Instantiate(paperPrefab, transform.parent.parent.parent.parent);
         paper.SetActive(false);
+
+        _preview = transform.parent.GetChild(0);
+        _preview.gameObject.SetActive(false);
         
         dragFlagImage.fillAmount = 0f;
         dragFlagImage.gameObject.SetActive(false);
@@ -43,8 +47,10 @@ public class ContentBook : InputManager
     {
         base.HandleDragBegin(input);
         pointerDownTimer = 0f;
+        
+        _preview.SetSiblingIndex(transform.GetSiblingIndex());
+        
         transform.parent.parent.parent.TryGetComponent(out ScrollRect scroll);
-        Debug.Log("parentImage: " + scroll.name);
         scroll.enabled = false;
     }
 
@@ -72,8 +78,10 @@ public class ContentBook : InputManager
             base.HandleDragMove(pos, input, init);
             float deltaX = (inputPosition.x - initPosition.x);
             float clampedX = Mathf.Clamp(pos.x + deltaX, -1800, 1800);
-
-            _rect.position = new Vector3(clampedX, pos.y);
+            _rect.position = new Vector3(clampedX, pos.y + inputPosition.y - initPosition.y);
+            
+            _preview.gameObject.SetActive(true);
+            _preview.SetSiblingIndex(CalculateSiblingIndex(clampedX));
         }
     }
 
@@ -82,7 +90,10 @@ public class ContentBook : InputManager
         dragFlagImage.gameObject.SetActive(false);
         dragFlagImage.fillAmount = 0f;
         
+        _preview.gameObject.SetActive(false);
+        
         transform.SetParent(_parentCanvas);
+        transform.SetSiblingIndex(CalculateSiblingIndex(transform.GetComponent<RectTransform>().position.x));
         transform.parent.parent.parent.TryGetComponent(out ScrollRect scroll);
         scroll.enabled = true;
 
@@ -93,5 +104,23 @@ public class ContentBook : InputManager
         }
 
         base.HandleDragEnd();
+    }
+    
+    private int CalculateSiblingIndex(float xRectPos)
+    {
+        int newIndex = 0;
+        for (int i = 0; i < _parentCanvas.childCount; i++)
+        {
+            _parentCanvas.GetChild(i).TryGetComponent(out RectTransform rect);
+            if (xRectPos > rect.position.x)
+            {
+                newIndex = i;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return newIndex;
     }
 }
