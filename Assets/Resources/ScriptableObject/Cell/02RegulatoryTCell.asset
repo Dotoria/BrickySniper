@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56d9593fb451421ba29a904b8155152b, type: 3}
-  m_Name: TCell
+  m_Name: 02RegulatoryTCell
   m_EditorClassIdentifier: 
-  prefabName: "T\uC138\uD3EC"
+  collectionIndex: 0
+  prefabName: "\uC5B5\uC81CT\uC138\uD3EC"
   prefabSprite: {fileID: -1191687850, guid: e77b03f910c00af4fb4b29c45f693170, type: 3}
   paddleSprite: {fileID: 21300000, guid: 49ed42419b571a347aa1903d14d0697b, type: 3}
   arrowSprite: {fileID: 21300000, guid: 313d048f752d3344e9ffeb48a3de9691, type: 3}
+  bookSprite: {fileID: 21300000, guid: 0c85e105db80ca243b67c8977cd22501, type: 3}
   prefabAnimation: {fileID: 22100000, guid: 54a5bdad2795d37458afa6a503adfa09, type: 2}
   respawnTime: 2
+  skillTime: 0
   healthPoint: -1
   attackPoint: 1
   movePoint: 7

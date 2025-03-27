@@ -52,9 +52,6 @@ public class ContentBook : InputManager
         pointerDownTimer = 0f;
         
         _preview.SetSiblingIndex(transform.GetSiblingIndex());
-        
-        transform.parent.parent.parent.TryGetComponent(out ScrollRect scroll);
-        scroll.enabled = false;
     }
 
     protected override void HandleDragMove(Vector3 pos, Vector3 input, Vector3 init)
@@ -75,6 +72,9 @@ public class ContentBook : InputManager
         }
         else
         {
+            transform.parent.parent.parent.TryGetComponent(out ScrollRect scroll);
+            scroll.enabled = false;
+            
             dragFlagImage.gameObject.SetActive(false);
             transform.SetParent(canvas.transform);
             

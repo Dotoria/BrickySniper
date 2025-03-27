@@ -21,7 +21,7 @@ public class CellManager : MonoBehaviour
         reloading = new();
         
         cellPrefab = Resources.Load<GameObject>("Cell");
-        BCell = Resources.Load<CellScriptableObject>("BCell");
+        BCell = Resources.Load<CellScriptableObject>("ScriptableObject/Cell/BCell");
         cellSO.Add(BCell);
         cellSO.AddRange(DataManager.Instance.GameData.Cellquad);
         SetCell();

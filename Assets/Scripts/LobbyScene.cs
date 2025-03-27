@@ -5,27 +5,29 @@ using UnityEngine.UI;
 
 public class LobbyScene : MonoBehaviour
 {
-    //private CurrentCanvas _canvas;
     public List<GameObject> canvasObject;
 
     [Header("Cellquad")]
-    public List<CellScriptableObject> allCell;
+    [SerializeField] private List<CellScriptableObject> allCell;
     public GameObject contentPrefab;
     public GameObject parentObject;
     [SerializeField] private List<CellScriptableObject> cellquad;
     [SerializeField] private Image[] imagesCellquad;
     [SerializeField] private Sprite defaultImage;
     private CellScriptableObject _currentCell;
-    
+
     [Header("Home")]
+    [SerializeField] private List<EnemyScriptableObject> allEnemy;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private Slider expSlider;
     [SerializeField] private Image[] imagesHome;
+    public GameObject bookPrefab;
+    public List<Transform> parentBook;
 
     [Header("Custom")]
-    public List<SkinScriptableObject> allSkin;
+    [SerializeField] private List<SkinScriptableObject> allSkin;
     public GameObject skinPrefab;
     public GameObject skinParent;
     [SerializeField] private GameObject player;
@@ -47,19 +49,45 @@ public class LobbyScene : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1f;
+        allCell = DataManager.Instance.GameData.BasicData.AllCell;
+        allEnemy = DataManager.Instance.GameData.BasicData.AllEnemy;
+        allSkin = DataManager.Instance.GameData.BasicData.AllSkin;
         
         for (int i = 0; i < allCell.Count; i++)
         {
-            GameObject content = Instantiate(contentPrefab, parentObject.transform);
-            content.GetComponent<ContentCell>().cellSO = allCell[i];
-            content.GetComponent<ContentCell>().image.sprite = allCell[i].prefabSprite;
-            content.GetComponent<ContentCell>().textName.text = allCell[i].name;
+            // Cellquad Canvas
+            Instantiate(contentPrefab, parentObject.transform).TryGetComponent(out ContentCell cell);
+            cell.cellSO = allCell[i];
+            cell.image.sprite = allCell[i].prefabSprite;
+            cell.textName.text = allCell[i].name;
             int capturedIndex = i;
-            content.GetComponent<ContentCell>().button.onClick.AddListener(()=> { _currentCell = allCell[capturedIndex]; });
+            if (cell.cellSO.NewGet && !cell.cellSO.Get)
+            {
+                // 첫 획득 효과 추가
+                cell.cellSO.Get = true;
+                DataManager.Instance.SaveData();
+            }
+
+            if (!cell.cellSO.Get) continue;
+            cell.button.onClick.AddListener(()=> { _currentCell = allCell[capturedIndex]; });
+            
+            // Home Canvas
+            GameObject book = Instantiate(bookPrefab, parentBook[0]);
+            book.TryGetComponent(out Image bookImage);
+            bookImage.sprite = allCell[i].bookSprite;
+        }
+
+        for (int i = 0; i < allEnemy.Count; i++)
+        {
+            // Home Canvas
+            GameObject book = Instantiate(bookPrefab, parentBook[1]);
+            book.TryGetComponent(out Image bookImage);
+            bookImage.sprite = allEnemy[i].bookSprite;
         }
 
         for (int i = 0; i < allSkin.Count; i++)
         {
+            // Custom Canvas
             GameObject skin = Instantiate(skinPrefab, skinParent.transform);
             skin.GetComponent<ContentSkin>().skinSO = allSkin[i];
             skin.GetComponent<ContentSkin>().image.sprite = allSkin[i].prefabSprite;
@@ -69,7 +97,6 @@ public class LobbyScene : MonoBehaviour
         }
         
         cellquad = DataManager.Instance.GameData.Cellquad;
-        // _canvas = CurrentCanvas.HomeCanvas;
 
         playerAnimator.runtimeAnimatorController = targetController;
         
@@ -172,14 +199,14 @@ public class LobbyScene : MonoBehaviour
     public void SetSkin(int index)
     {
         player.SetActive(false);
+        SpriteRenderer playerCustom = player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>();
         if (allSkin[index].prefabName != "없음")
         {
-            player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>().sprite =
-                allSkin[index].prefabSprite;
+            playerCustom.sprite = allSkin[index].prefabSprite;
         }
         else
         {
-            player.transform.Find("PlayerCustom").gameObject.GetComponent<SpriteRenderer>().sprite = null;
+            playerCustom.sprite = null;
         }
         targetController["DefaultCustom"] = allSkin[index].prefabClip;
         player.SetActive(true);

@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56d9593fb451421ba29a904b8155152b, type: 3}
-  m_Name: BigCell
+  m_Name: 11BigCell
   m_EditorClassIdentifier: 
+  collectionIndex: 0
   prefabName: "\uB300\uC2DD\uC138\uD3EC"
   prefabSprite: {fileID: -1282085528, guid: 48b0211128562c54dbf5bcb26e86c5e7, type: 3}
   paddleSprite: {fileID: 21300000, guid: e5e5e03f76fe3614091896ecdc9f334e, type: 3}
   arrowSprite: {fileID: 21300000, guid: 02355d3d7d04f7f4cab3ce68e083949e, type: 3}
+  bookSprite: {fileID: 21300000, guid: 914bc4b53b83cbf459a4796a6a0cf7c2, type: 3}
   prefabAnimation: {fileID: 22100000, guid: 86d8e4b212b778443aa5d3e060a94707, type: 2}
   respawnTime: 6
   skillTime: 0

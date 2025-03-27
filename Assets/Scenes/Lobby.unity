@@ -563,6 +563,7 @@ MonoBehaviour:
   - {fileID: 636665350}
   - {fileID: 1673792354}
   defaultImage: {fileID: 21300000, guid: 8f125ba237d314b10bc660d413976e66, type: 3}
+  allEnemy: []
   nameText: {fileID: 1451456283}
   highScoreText: {fileID: 309177626}
   levelText: {fileID: 829102932}
@@ -571,6 +572,11 @@ MonoBehaviour:
   - {fileID: 1763327908}
   - {fileID: 60706495}
   - {fileID: 1104631311}
+  bookPrefab: {fileID: 7107867824533041127, guid: 8a6e56bc39915074a9472b114f8c8ea4, type: 3}
+  parentBook:
+  - {fileID: 2111397545}
+  - {fileID: 1366455370}
+  - {fileID: 1797610903}
   allSkin:
   - {fileID: 11400000, guid: 870ee1fb5a0bbee4d95402dedc6fcd06, type: 2}
   - {fileID: 11400000, guid: 4b877bccc379727418cab92a7e975bd6, type: 2}
