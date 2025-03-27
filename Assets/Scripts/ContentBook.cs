@@ -13,7 +13,7 @@ public class ContentBook : InputManager
     private Transform _preview;
     
     private RectTransform _rect;
-    public float longPressDuration = 0.1f;
+    public float longPressDuration = 0.2f;
     public float draggingDuration = 0.5f;
     
     private float pointerDownTimer = 0f;
@@ -25,7 +25,10 @@ public class ContentBook : InputManager
         _parentCanvas = transform.parent;
         _rect = GetComponent<RectTransform>();
         
-        paper = Instantiate(paperPrefab, transform.parent.parent.parent.parent);
+        Transform paperParent = GameObject.Find("ContentUI").transform;
+        paper = Instantiate(paperPrefab, paperParent);
+        Button paperButton = paper.GetComponentInChildren<Button>();
+        paperButton.onClick.AddListener(() => UIManager.Instance.CloseUI(paper));
         paper.SetActive(false);
 
         _preview = transform.parent.GetChild(0);

@@ -97,31 +97,29 @@ public class LobbyScene : MonoBehaviour
 
     public void SetCanvas(int index)
     {
-        foreach (var canvasObj in canvasObject)
+        for (int i = 0; i < canvasObject.Count; i++)
         {
-            UIManager.Instance.CloseUI(canvasObj);
+            var canvasObj = canvasObject[i];
+            if (i != index && canvasObj.activeSelf) UIManager.Instance.CloseUI(canvasObj);
+            else if (i == index && !canvasObj.activeSelf) UIManager.Instance.OpenUI(canvasObj);
         }
-
+        
         CurrentCanvas canvas = (CurrentCanvas)index;
         switch (canvas)
         {
             case CurrentCanvas.CellquadCanvas:
                 player.SetActive(false);
-                UIManager.Instance.OpenUI(canvasObject[0]);
                 break;
             case CurrentCanvas.HomeCanvas:
                 player.SetActive(true);
                 player.transform.position = Vector3.zero;
-                UIManager.Instance.OpenUI(canvasObject[1]);
                 break;
             case CurrentCanvas.CustomCanvas:
                 player.SetActive(true);
                 player.transform.position = Vector3.zero + new Vector3(0, 7, 0);
-                UIManager.Instance.OpenUI(canvasObject[2]);
                 break;
             case CurrentCanvas.LotteryCanvas:
                 player.SetActive(false);
-                UIManager.Instance.OpenUI(canvasObject[3]);
                 break;
             default:
                 break;

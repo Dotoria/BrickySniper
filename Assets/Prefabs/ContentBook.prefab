@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4379823df353f3d4bbc61ce47d353ef6, type: 2}
-  m_sharedMaterial: {fileID: -6290725631103265203, guid: 4379823df353f3d4bbc61ce47d353ef6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8b483f67805948741aa8e4ad60d8213c, type: 2}
+  m_sharedMaterial: {fileID: -8001484406956365786, guid: 8b483f67805948741aa8e4ad60d8213c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -338,5 +338,5 @@ MonoBehaviour:
   paperPrefab: {fileID: 1568452310254539557, guid: 6391b16282c97ea419508e3e3bff2bd8, type: 3}
   paper: {fileID: 1568452310254539557, guid: 6391b16282c97ea419508e3e3bff2bd8, type: 3}
   dragFlagImage: {fileID: 4542749517884416749}
-  longPressDuration: 0.1
+  longPressDuration: 0.2
   draggingDuration: 0.5
