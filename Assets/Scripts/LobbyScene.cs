@@ -49,9 +49,9 @@ public class LobbyScene : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1f;
-        allCell = DataManager.Instance.GameData.BasicData.AllCell;
-        allEnemy = DataManager.Instance.GameData.BasicData.AllEnemy;
-        allSkin = DataManager.Instance.GameData.BasicData.AllSkin;
+        allCell = DataManager.Instance.BasicData.AllCell;
+        allEnemy = DataManager.Instance.BasicData.AllEnemy;
+        allSkin = DataManager.Instance.BasicData.AllSkin;
         
         for (int i = 0; i < allCell.Count; i++)
         {
@@ -59,12 +59,12 @@ public class LobbyScene : MonoBehaviour
             Instantiate(contentPrefab, parentObject.transform).TryGetComponent(out ContentCell cell);
             cell.cellSO = allCell[i];
             cell.image.sprite = allCell[i].prefabSprite;
-            cell.textName.text = allCell[i].name;
+            cell.textName.text = allCell[i].prefabName;
             int capturedIndex = i;
             if (cell.cellSO.NewGet && !cell.cellSO.Get)
             {
                 // 첫 획득 효과 추가
-                cell.cellSO.Get = true;
+                DataManager.Instance.GameData.GettableList.Add(cell.cellSO);
                 DataManager.Instance.SaveData();
             }
 
@@ -73,16 +73,16 @@ public class LobbyScene : MonoBehaviour
             
             // Home Canvas
             GameObject book = Instantiate(bookPrefab, parentBook[0]);
-            book.TryGetComponent(out Image bookImage);
-            bookImage.sprite = allCell[i].bookSprite;
+            book.TryGetComponent(out ContentBook content);
+            content.bookSO = allCell[i];
         }
 
         for (int i = 0; i < allEnemy.Count; i++)
         {
             // Home Canvas
             GameObject book = Instantiate(bookPrefab, parentBook[1]);
-            book.TryGetComponent(out Image bookImage);
-            bookImage.sprite = allEnemy[i].bookSprite;
+            book.TryGetComponent(out ContentBook content);
+            content.bookSO = allEnemy[i];
         }
 
         for (int i = 0; i < allSkin.Count; i++)

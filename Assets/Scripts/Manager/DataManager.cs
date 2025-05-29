@@ -6,10 +6,11 @@ using System.Text;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using Aes = System.Security.Cryptography.Aes;
 
+[Serializable]
 public class GameData
 {
-    public BasicData BasicData;
     public string Version;
     public string Name;
     public int HighScore;
@@ -18,24 +19,27 @@ public class GameData
     public int Level;
     public int Exp;
     public List<CellScriptableObject> Cellquad;
+    public List<ScriptableObject> GettableList;
 
     public object GetData(string item)
     {
         return item.ToLower() switch
         {
-            "basicdata" => BasicData,
+            "name" => Name,
             "highscore" => HighScore,
             "coin" => Coin,
             "gem" => Gem,
             "level" => Level,
             "exp" => Exp,
             "cellquad" => Cellquad,
+            "gettablelist" => GettableList,
             _ => null
         };
     }
 }
 
-public class BasicData
+[Serializable]
+public struct BasicData
 {
     public List<CellScriptableObject> AllCell;
     public List<EnemyScriptableObject> AllEnemy;
@@ -49,6 +53,7 @@ public class DataManager : MonoBehaviour
     private static readonly byte[] iv = Encoding.UTF8.GetBytes("QAG2d02WK2!aXZX-");
 
     public GameData GameData;
+    public BasicData BasicData;
     private string keyName = "PlayerData";
 
     public List<EnemyScriptableObject> infEnemiesData;
@@ -63,7 +68,6 @@ public class DataManager : MonoBehaviour
         }
 
         Instance = this;
-        CreateData();
         EnemiesData["INF"] = infEnemiesData; // 무한모드 적 데이터
         DontDestroyOnLoad(gameObject);
         
@@ -73,8 +77,17 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            SaveData();
+            CreateData();
         }
+        
+        BasicData = new BasicData
+        {
+            AllCell = Resources.LoadAll<CellScriptableObject>("ScriptableObject/Cell").ToList(),
+            AllEnemy = Resources.LoadAll<EnemyScriptableObject>("ScriptableObject/Enemy").ToList(),
+            AllSkin = Resources.LoadAll<SkinScriptableObject>("ScriptableObject/Skin").ToList(),
+        };
+        
+        SaveData();
     }
 
     public void SaveData()
@@ -83,17 +96,34 @@ public class DataManager : MonoBehaviour
         if (GameData == null) return;
         if (GameData.Name == "Lemur")
         {
-            foreach (var basic in GameData.BasicData.AllCell)
+            foreach (var basic in BasicData.AllCell)
             {
-                basic.Get = true;
+                GameData.GettableList.Add(basic);
             }
-            foreach (var basic in GameData.BasicData.AllEnemy)
+            foreach (var basic in BasicData.AllEnemy)
             {
-                basic.Get = true;
+                GameData.GettableList.Add(basic);
             }
-            foreach (var basic in GameData.BasicData.AllSkin)
+            foreach (var basic in BasicData.AllSkin)
             {
-                basic.Get = true;
+                GameData.GettableList.Add(basic);
+            }
+        }
+        
+        foreach (var gettable in GameData.GettableList)
+        {
+            INewGettable foundItem = gettable switch
+            {
+                CellScriptableObject cell => BasicData.AllCell.Find(c => c == cell),
+                EnemyScriptableObject enemy => BasicData.AllEnemy.Find(e => e == enemy),
+                SkinScriptableObject skin => BasicData.AllSkin.Find(s => s == skin),
+                _ => null
+            };
+
+            if (foundItem != null)
+            {
+                foundItem.Get = true;
+                foundItem.NewGet = false;
             }
         }
         
@@ -145,12 +175,6 @@ public class DataManager : MonoBehaviour
     {
         GameData = new GameData
         {
-            BasicData = new BasicData
-            {
-                AllCell = Resources.LoadAll<CellScriptableObject>("ScriptableObject/Cell").ToList(),
-                AllEnemy = Resources.LoadAll<EnemyScriptableObject>("ScriptableObject/Enemy").ToList(),
-                AllSkin = Resources.LoadAll<SkinScriptableObject>("ScriptableObject/Skin").ToList(),
-            },
             Name = "",
             Version = "0.0",
             Coin = 0,
@@ -159,6 +183,7 @@ public class DataManager : MonoBehaviour
             Level = 1,
             Exp = 0,
             Cellquad = new(),
+            GettableList = new (),
         };
     }
 
@@ -183,19 +208,21 @@ public class DataManager : MonoBehaviour
                 cellArray.Add((CellScriptableObject) amount);
             }
         }
-        else if (item is BasicData data && amount is ScriptableObject obj)
+        
+        if (amount is ScriptableObject obj)
         {
             INewGettable foundItem = obj switch
             {
-                CellScriptableObject cell => data.AllCell.Find(c => c == cell),
-                EnemyScriptableObject enemy => data.AllEnemy.Find(e => e == enemy),
-                SkinScriptableObject skin => data.AllSkin.Find(s => s == skin),
+                CellScriptableObject cell => BasicData.AllCell.Find(c => c == cell),
+                EnemyScriptableObject enemy => BasicData.AllEnemy.Find(e => e == enemy),
+                SkinScriptableObject skin => BasicData.AllSkin.Find(s => s == skin),
                 _ => null
             };
 
             if (foundItem != null)
             {
                 foundItem.NewGet = true;
+                // GameData.GettableList.Add(foundItem);
             }
         }
         
@@ -205,7 +232,6 @@ public class DataManager : MonoBehaviour
     public void EndTutorial(CellScriptableObject cell)
     {
         GainItem("Cellquad", cell, null);
-        GainItem("basicdata", cell, null);
         Instance.SaveData();
     }
 }

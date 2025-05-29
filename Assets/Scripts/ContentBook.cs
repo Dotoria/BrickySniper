@@ -7,11 +7,14 @@ using UnityEngine.UI;
 
 public class ContentBook : InputManager
 {
+    public ScriptableObject bookSO;
     public GameObject paperPrefab;
-    [HideInInspector] public GameObject paper;
+    private GameObject _paper;
+    
     public Image dragFlagImage;
     private Transform _preview;
     
+    private ScrollRect _scroll;
     private RectTransform _rect;
     public float longPressDuration = 0.2f;
     public float draggingDuration = 0.5f;
@@ -22,20 +25,41 @@ public class ContentBook : InputManager
     
     private void Awake()
     {
+        TryGetComponent(out Image bookImage);
         _parentCanvas = transform.parent;
         _rect = GetComponent<RectTransform>();
         
         Transform paperParent = GameObject.Find("ContentUI").transform;
-        paper = Instantiate(paperPrefab, paperParent);
-        Button paperButton = paper.GetComponentInChildren<Button>();
-        paperButton.onClick.AddListener(() => UIManager.Instance.CloseUI(paper));
-        paper.SetActive(false);
+        
+        _paper = Instantiate(paperPrefab, paperParent);
+        _paper.TryGetComponent(out Image paperImage);
+        Button paperButton = _paper.GetComponentInChildren<Button>();
+        paperButton.onClick.AddListener(() => UIManager.Instance.CloseUI(_paper));
 
         _preview = transform.parent.GetChild(0);
         _preview.gameObject.SetActive(false);
         
         dragFlagImage.fillAmount = 0f;
         dragFlagImage.gameObject.SetActive(false);
+
+        _scroll = GetComponentsInParent<ScrollRect>()[0];
+        if (bookSO is CellScriptableObject cellSO)
+        {
+            bookImage.sprite = cellSO.bookSprite;
+            paperImage.sprite = cellSO.prefabSprite;
+        }
+        else if (bookSO is EnemyScriptableObject enemySO)
+        {
+            bookImage.sprite = enemySO.bookSprite;
+            paperImage.sprite = enemySO.prefabSprite;
+        }
+        else if (bookSO is SkinScriptableObject skinSO)
+        {
+            // bookImage.sprite = skinSO.bookSprite;
+            // paperImage.sprite = skinSO.prefabSprite;
+        }
+        
+        _paper.SetActive(false);
         
         base.Initialize(Camera.main, layerName: "UI");
     }
@@ -72,8 +96,7 @@ public class ContentBook : InputManager
         }
         else
         {
-            transform.parent.parent.parent.TryGetComponent(out ScrollRect scroll);
-            scroll.enabled = false;
+            _scroll.enabled = false;
             
             dragFlagImage.gameObject.SetActive(false);
             transform.SetParent(canvas.transform);
@@ -97,13 +120,12 @@ public class ContentBook : InputManager
         
         transform.SetParent(_parentCanvas);
         transform.SetSiblingIndex(CalculateSiblingIndex(transform.GetComponent<RectTransform>().position.x));
-        transform.parent.parent.parent.TryGetComponent(out ScrollRect scroll);
-        scroll.enabled = true;
+        _scroll.enabled = true;
 
         // 짧게 터치하면 paper 활성화
         if (pointerDownTimer < longPressDuration)
         {
-            paper.SetActive(true);
+            _paper.SetActive(true);
         }
 
         base.HandleDragEnd();
