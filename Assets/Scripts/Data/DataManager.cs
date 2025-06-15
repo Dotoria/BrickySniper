@@ -45,6 +45,9 @@ namespace Data
         public List<CellScriptableObject> AllCell;
         public List<EnemyScriptableObject> AllEnemy;
         public List<SkinScriptableObject> AllSkin;
+
+        public int MyeloidCount;
+        public int LymphoidCount;
     }
 
     public class DataManager : MonoBehaviour
@@ -87,6 +90,14 @@ namespace Data
                 AllEnemy = Resources.LoadAll<EnemyScriptableObject>("ScriptableObject/Enemy").ToList(),
                 AllSkin = Resources.LoadAll<SkinScriptableObject>("ScriptableObject/Skin").ToList(),
             };
+                
+            foreach (var cell in BasicData.AllCell)
+            {
+                if (cell.name[0] == '0')
+                    BasicData.MyeloidCount++;
+                else if (cell.name[0] == '1')
+                    BasicData.LymphoidCount++;
+            }
 
             SaveData();
         }

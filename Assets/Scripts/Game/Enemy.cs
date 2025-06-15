@@ -103,7 +103,9 @@ namespace Game
             _animator.SetTrigger("Death");
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
             Destroy();
-            _game.GainScore(1000);
+            _game.GainCoin(+10);
+            if (Random.Range(0f, 100f) > 50f)
+                _game.GainGem(+1);
         }
 
         // 풀로 돌려놓기

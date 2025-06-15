@@ -12,7 +12,8 @@ namespace Scene
     {
         public List<GameObject> canvasObject;
 
-        [Header("Cellquad")] [SerializeField] private List<CellScriptableObject> allCell;
+        [Header("Cellquad")]
+        [SerializeField] private List<CellScriptableObject> allCell;
         public GameObject contentPrefab;
         public GameObject parentObject;
         [SerializeField] private List<CellScriptableObject> cellquad;
@@ -20,7 +21,8 @@ namespace Scene
         [SerializeField] private Sprite defaultImage;
         private CellScriptableObject _currentCell;
 
-        [Header("Home")] [SerializeField] private List<EnemyScriptableObject> allEnemy;
+        [Header("Home")]
+        [SerializeField] private List<EnemyScriptableObject> allEnemy;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI highScoreText;
         [SerializeField] private TextMeshProUGUI levelText;
@@ -29,14 +31,16 @@ namespace Scene
         public GameObject bookPrefab;
         public List<Transform> parentBook;
 
-        [Header("Custom")] [SerializeField] private List<SkinScriptableObject> allSkin;
+        [Header("Custom")]
+        [SerializeField] private List<SkinScriptableObject> allSkin;
         public GameObject skinPrefab;
         public GameObject skinParent;
         [SerializeField] private GameObject player;
         public AnimatorOverrideController targetController;
         public Animator playerAnimator;
 
-        [Header("Lottery")] public GameObject MyeloidLottery;
+        [Header("Lottery")]
+        public GameObject MyeloidLottery;
         public GameObject LymphoidLottery;
 
         private enum CurrentCanvas
@@ -214,6 +218,25 @@ namespace Scene
 
             targetController["DefaultCustom"] = allSkin[index].prefabClip;
             player.SetActive(true);
+        }
+        
+        public void OpenLottery(int index)
+        {
+            if (index == 0)
+            {
+                // Myeloid Lottery
+                int num = Random.Range(0, DataManager.Instance.BasicData.MyeloidCount);
+                CellScriptableObject cellSO = DataManager.Instance.BasicData.AllCell[num];
+                DataManager.Instance.GainItem("GettableList", cellSO, null);
+            }
+            else if (index == 1)
+            {
+                // Lymphoid Lottery
+                int num = DataManager.Instance.BasicData.MyeloidCount;
+                num += Random.Range(0, DataManager.Instance.BasicData.LymphoidCount);
+                CellScriptableObject cellSO = DataManager.Instance.BasicData.AllCell[num];
+                DataManager.Instance.GainItem("GettableList", cellSO, null);
+            }
         }
     }
 }
