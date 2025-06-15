@@ -1,31 +1,38 @@
+using Common;
+using Data;
 using TMPro;
 using UnityEngine;
 
-public class StartScene : MonoBehaviour
+namespace Scene
 {
-    public void CheckData(GameObject ui)
+    public class StartScene : MonoBehaviour
     {
-        if (DataManager.Instance.GameData.Name == "")
+        [SerializeField] private GameObject _checkIDUI;
+        
+        public void CheckData(GameObject ui)
         {
-            UIManager.Instance.OpenUI(ui);
+            if (DataManager.Instance.GameData.Name == "")
+            {
+                UIManager.Instance.OpenUI(ui);
+            }
+            else
+            {
+                DataManager.Instance.LoadData();
+                SceneLoader.LoadSceneByName("Lobby");
+            }
         }
-        else
-        {
-            DataManager.Instance.LoadData();
-            SceneLoader.LoadSceneByName("Lobby");
-        }
-    }
 
-    public void StartTutorial(TextMeshProUGUI tmp)
-    {
-        tmp.text = tmp.text.Trim();
-        if (tmp.text.Length > 8 || tmp.text.Length < 2)
+        public void StartTutorial(TextMeshProUGUI tmp)
         {
-            UIManager.Instance.PopUp(tmp.gameObject.transform.parent.parent.parent.Find("CheckIDUI").gameObject);
-            return;
+            tmp.text = tmp.text.Trim();
+            if (tmp.text.Length > 8 || tmp.text.Length < 2)
+            {
+                UIManager.Instance.PopUp(_checkIDUI);
+                return;
+            }
+            DataManager.Instance.GameData.Name = tmp.text;
+            DataManager.Instance.SaveData();
+            SceneLoader.LoadSceneByName("Tutorial");
         }
-        DataManager.Instance.GameData.Name = tmp.text;
-        DataManager.Instance.SaveData();
-        SceneLoader.LoadSceneByName("Tutorial");
     }
 }

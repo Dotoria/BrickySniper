@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Skin", menuName = "ScriptableObjects/Skin", order = 3)]

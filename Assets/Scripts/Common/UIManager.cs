@@ -1,56 +1,56 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+namespace Common
 {
-    public static UIManager Instance { get; private set; }
-    
-    void Awake()
+    public class UIManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static UIManager Instance { get; private set; }
+
+        void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        public void PopUp(GameObject ui)
+        {
+            StartCoroutine(Wait(ui, 2f));
+        }
 
-    public void PopUp(GameObject ui)
-    {
-        StartCoroutine(Wait(ui, 2f));
-    }
+        IEnumerator Wait(GameObject ui, float second)
+        {
+            OpenUI(ui);
+            yield return new WaitForSeconds(second);
+            CloseUI(ui);
+        }
 
-    IEnumerator Wait(GameObject ui, float second)
-    {
-        OpenUI(ui);
-        yield return new WaitForSeconds(second);
-        CloseUI(ui);
-    }
+        public void OpenUI(GameObject ui)
+        {
+            ui.SetActive(true);
+        }
 
-    public void OpenUI(GameObject ui)
-    {
-        ui.SetActive(true);
-    }
+        public void CloseUI(GameObject ui)
+        {
+            ui.SetActive(false);
+        }
 
-    public void CloseUI(GameObject ui)
-    {
-        ui.SetActive(false);
-    }
+        public void OpenOrCloseUI(GameObject ui)
+        {
+            if (ui.activeSelf) CloseUI(ui);
+            else OpenUI(ui);
+        }
 
-    public void OpenOrCloseUI(GameObject ui)
-    {
-        if (ui.activeSelf) CloseUI(ui);
-        else OpenUI(ui);
-    }
-
-    public void SetLanguage(int index)
-    {
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        public void SetLanguage(int index)
+        {
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        }
     }
 }

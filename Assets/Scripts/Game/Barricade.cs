@@ -1,24 +1,27 @@
-using System;
+using Scene;
 using UnityEngine;
 
-public class Barricade : MonoBehaviour
+namespace Game
 {
-    private GameScene _game;
-    [SerializeField] private EnemyManager em;
-
-    private void Awake()
+    public class Barricade : MonoBehaviour
     {
-        _game = FindAnyObjectByType<GameScene>();
-    }
+        private GameScene _game;
+        [SerializeField] private EnemyManager em;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
+        private void Awake()
         {
-            other.gameObject.TryGetComponent(out Enemy enemy);
-            int newPoint = - enemy.attackPoint;
-            _game.GainHealth(newPoint);
-            enemy.Destroy();
+            _game = FindAnyObjectByType<GameScene>();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                other.gameObject.TryGetComponent(out Enemy enemy);
+                int newPoint = -enemy.attackPoint;
+                _game.GainHealth(newPoint);
+                enemy.Destroy();
+            }
         }
     }
 }

@@ -1,12 +1,15 @@
-using System;
+using Scene;
 using UnityEngine;
 
-public class TutorialCollider : MonoBehaviour
+namespace Tutorial
 {
-    public TutorialScene ts;
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class TutorialCollider : MonoBehaviour
     {
-        if (other.gameObject.name == "Paddle") ts.LoadScript();
+        public TutorialScene ts;
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.name == "Paddle") ts.LoadScript();
+        }
     }
 }

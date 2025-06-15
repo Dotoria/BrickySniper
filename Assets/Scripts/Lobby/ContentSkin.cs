@@ -2,10 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ContentSkin : MonoBehaviour
+namespace Lobby
 {
-    public SkinScriptableObject skinSO;
-    public Image image;
-    public TextMeshProUGUI skinName;
-    public Button button;
+    public class ContentSkin : MonoBehaviour
+    {
+        public SkinScriptableObject skinSO;
+        public Image image;
+        public TextMeshProUGUI skinName;
+        public Button button;
+    }
 }

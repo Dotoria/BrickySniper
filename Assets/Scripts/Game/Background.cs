@@ -1,21 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class Background : MonoBehaviour
+namespace Game
 {
-    private void OnTriggerExit2D(Collider2D other)
+    public class Background : MonoBehaviour
     {
-        if (other.CompareTag("Cell"))
+        private void OnTriggerExit2D(Collider2D other)
         {
-            other.gameObject.TryGetComponent(out Cell cell);
-            cell.Destroy();
-        }
-        else if (other.CompareTag("Enemy"))
-        {
-            other.gameObject.TryGetComponent(out Enemy enemy);
-            enemy.Destroy();
+            if (other.CompareTag("Cell"))
+            {
+                other.gameObject.TryGetComponent(out Cell cell);
+                cell.Destroy();
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                other.gameObject.TryGetComponent(out Enemy enemy);
+                enemy.Destroy();
+            }
         }
     }
 }

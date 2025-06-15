@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+namespace Test
 {
-    public List<CellScriptableObject> cellSOList;
-    
-    private void Start()
+    public class Test : MonoBehaviour
     {
-        // CellManager.Instance.SetCell(cellSOList);
+        public List<CellScriptableObject> cellSOList;
+
+        private void Start()
+        {
+            // CellManager.Instance.SetCell(cellSOList);
+        }
     }
 }

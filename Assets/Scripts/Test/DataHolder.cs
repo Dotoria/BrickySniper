@@ -1,43 +1,46 @@
-using System;
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DataHolder : MonoBehaviour
+namespace Test
 {
-    public TextMeshProUGUI text;
-
-    public Button saveButton;
-    public Button deleteButton;
-    public TextMeshProUGUI nickname;
-
-    private void Awake()
+    public class DataHolder : MonoBehaviour
     {
-        // DataManager.Instance.DeleteData();
-        
-        saveButton.onClick.AddListener(SaveButton);
-        deleteButton.onClick.AddListener(DeleteButton);
-    }
+        public TextMeshProUGUI text;
 
-    void SaveButton()
-    {
-        DataManager.Instance.GameData.Name = nickname.text;
-        DataManager.Instance.SaveData();
-        SetText();
-    }
+        public Button saveButton;
+        public Button deleteButton;
+        public TextMeshProUGUI nickname;
 
-    void DeleteButton()
-    {
-        DataManager.Instance.DeleteData();
-        SetText();
-    }
+        private void Awake()
+        {
+            // DataManager.Instance.DeleteData();
 
-    void SetText()
-    {
-        text.text = $"name: {DataManager.Instance.GameData.Name}\n" +
-                    $"Version: {DataManager.Instance.GameData.Version}\n" +
-                    $"coin: {DataManager.Instance.GameData.Coin}\n" +
-                    $"gem: {DataManager.Instance.GameData.Gem}\n" +
-                    $"highscore: {DataManager.Instance.GameData.HighScore}\n";
+            saveButton.onClick.AddListener(SaveButton);
+            deleteButton.onClick.AddListener(DeleteButton);
+        }
+
+        void SaveButton()
+        {
+            DataManager.Instance.GameData.Name = nickname.text;
+            DataManager.Instance.SaveData();
+            SetText();
+        }
+
+        void DeleteButton()
+        {
+            DataManager.Instance.DeleteData();
+            SetText();
+        }
+
+        void SetText()
+        {
+            text.text = $"name: {DataManager.Instance.GameData.Name}\n" +
+                        $"Version: {DataManager.Instance.GameData.Version}\n" +
+                        $"coin: {DataManager.Instance.GameData.Coin}\n" +
+                        $"gem: {DataManager.Instance.GameData.Gem}\n" +
+                        $"highscore: {DataManager.Instance.GameData.HighScore}\n";
+        }
     }
 }

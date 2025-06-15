@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObjects/Enemy", order = 1)]

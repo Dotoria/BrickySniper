@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Cell", menuName = "ScriptableObjects/Cell", order = 0)]
